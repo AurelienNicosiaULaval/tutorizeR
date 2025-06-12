@@ -1,0 +1,8 @@
+---
+title: "Tutoriel interactif"
+format:
+  html:
+    toc: true
+execute:
+  freeze: auto
+---

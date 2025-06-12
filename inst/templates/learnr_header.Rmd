@@ -1,0 +1,11 @@
+---
+title: "Tutoriel interactif"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+gradethis_setup()
+```
