@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="man/figures/logo.png" alt="tutorizeR hex sticker" height="180">
+</p>
+
 # tutorizeR
 
 Have a Quarto (`.qmd`) or R Markdown (`.Rmd`) data analysis you want to turn into an interactive tutorial with built-in solutions? This package is what you need.
