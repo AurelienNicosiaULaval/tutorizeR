@@ -29,3 +29,5 @@ Suggests:
     testthat (>= 3.0.0)
 URL: https://github.com/AurelienNicosiaULaval/tutorizeR
 BugReports: https://github.com/AurelienNicosiaULaval/tutorizeR/issues
+Remotes:
+    rstudio/gradethis
