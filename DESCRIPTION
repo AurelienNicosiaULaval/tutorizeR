@@ -1,7 +1,7 @@
 Package: tutorizeR
 Type: Package
 Title: Convert R Markdown or Quarto Files into Learnr Tutorials
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person(
     given  = "Aurélien",
     family = "Nicosia",

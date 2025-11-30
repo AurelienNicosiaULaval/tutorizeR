@@ -15,25 +15,25 @@ This roadmap outlines the development of the `tutorizeR` package, which converts
 
 ---
 
-## 🚧 Proposed Features for Version 0.2
+## ✅ Version 0.2 (Released)
 
 ### 📘 1. Full Quarto Live Support
 
-- [ ] Output `.qmd`-based interactive tutorials using `quarto-live` + `webR`.
-- [ ] Automatically insert correct YAML with `format: live-html`.
-- [ ] Include Quarto extensions like `{{< include ./_extensions/... >}}` only once.
-- [ ] Detect and optionally install `r-wasm/live` extension; guide users when needed.
+- [x] Output `.qmd`-based interactive tutorials using `quarto-live` + `webR`.
+- [x] Automatically insert correct YAML with `format: live-html`.
+- [x] Include Quarto extensions like `{{< include ./_extensions/... >}}` only once.
+- [x] Detect and optionally install `r-wasm/live` extension; guide users when needed.
 
 ### 🧠 2. Enhanced Pedagogical Features
 
-- [ ] Allow skipping specific chunks using inline comment markers (e.g., `# tutorizeR: skip`).
-- [ ] Let users specify `grading = "code"` or `grading = "mcq"` to adjust assessment behavior.
+- [x] Allow skipping specific chunks using inline comment markers (e.g., `# tutorizeR: skip`).
+- [x] Let users specify `assessment = "code" | "mcq" | "both"` to adjust assessment behavior.
 - [ ] Support for custom feedback in MCQs via `learnr::question()` with `feedback()`.
 
 ### ⚙️ 3. Usability & Automation
 
-- [ ] Add a `convert_folder()` function to batch convert all `.Rmd`/`.qmd` files in a directory.
-- [ ] Provide a simple RStudio add-in (`launch_tutorizeR_addin()`) for interactive file conversion.
+- [x] Add a `convert_folder()` function to batch convert all `.Rmd`/`.qmd` files in a directory.
+- [x] Provide a simple RStudio add-in (`launch_tutorizeR_addin()`) for interactive file conversion.
 - [ ] Allow one-click conversion via `.Rprofile` configuration or RStudio toolbar integration.
 
 ### 📤 4. Deployment & Demo Infrastructure
@@ -45,6 +45,7 @@ This roadmap outlines the development of the `tutorizeR` package, which converts
 ---
 
 ## 🔮 Ideas for Version 0.3+
+
 
 - 📦 Posit Cloud integration (publish converted tutorials directly).
 - 💬 Multilingual tutorial conversion (English / French support).

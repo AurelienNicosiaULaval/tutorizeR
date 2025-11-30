@@ -1,0 +1,4 @@
+Name: Convert to Tutorial
+Description: Converts the active Rmd/qmd file into a learnr tutorial.
+Binding: launch_tutorizeR_addin
+Interactive: true

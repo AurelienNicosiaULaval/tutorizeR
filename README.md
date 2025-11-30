@@ -7,15 +7,20 @@
 Have a Quarto (`.qmd`) or R Markdown (`.Rmd`) data analysis you want to turn into an interactive tutorial with built-in solutions? This package is what you need.
 `tutorizeR` converts existing **R Markdown** (`.Rmd`) or **Quarto** (`.qmd`) files into interactive tutorials powered by [`learnr`](https://rstudio.github.io/learnr/). Each code chunk becomes an exercise block followed by a solution chunk ready to be graded with `gradethis`.
 
-## Features (v0.1.0)
+## Features (v0.2.0)
 
-- Accepts both `.Rmd` and `.qmd` input files.
-- Preserves `setup` chunks exactly as they appear in the source document.
-- Automatically strips YAML front matter before processing.
-- Optionally inserts a skeleton multiple-choice question after every exercise.
-- Checks that the generated tutorial renders successfully.
-
-These features correspond to the first stable release `v0.1.0`. See `NEWS.md` for the full changelog.
+- **Input Support**: Accepts both `.Rmd` and `.qmd` input files.
+- **Output Formats**: Generates standard `learnr` tutorials OR `quarto-live` (WebAssembly) tutorials.
+- **Pedagogical Control**:
+    - Skip specific chunks with `# tutorizeR: skip`.
+    - Choose assessment type: `assessment = "code"`, `"mcq"`, or `"both"`.
+- **Usability**:
+    - Batch convert folders with `convert_folder()`.
+    - RStudio Addin for one-click conversion.
+- **Robustness**:
+    - Preserves `setup` chunks.
+    - Strips YAML front matter.
+    - Verifies rendering (for learnr tutorials).
 
 ## Installation
 
@@ -32,7 +37,13 @@ remotes::install_github("AurelienNicosiaULaval/tutorizeR")
 library(tutorizeR)
 
 # Convert a Quarto or R Markdown document to a learnr tutorial
-convert_to_tutorial("analysis.qmd", add_mcq = TRUE)
+convert_to_tutorial("analysis.qmd", assessment = "both")
+
+# Convert to Quarto Live (WebAssembly)
+convert_to_tutorial("analysis.qmd", format = "quarto-live")
+
+# Batch convert a folder
+convert_folder("labs/")
 ```
 
-This will create `analysis-tutorial.Rmd` containing interactive exercises (and optional MCQs). The file is rendered once to ensure it compiles without errors.
+This will create `analysis-tutorial.Rmd` (or `analysis-live.qmd`) containing interactive exercises.
