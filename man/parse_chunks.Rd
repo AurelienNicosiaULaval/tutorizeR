@@ -4,12 +4,14 @@
 \alias{parse_chunks}
 \title{Transform source chunks into learnr exercises + solutions}
 \usage{
-parse_chunks(lines, add_mcq = FALSE)
+parse_chunks(lines, assessment = "code", format = "learnr")
 }
 \arguments{
 \item{lines}{Character vector, output of \code{readLines()}.}
 
-\item{add_mcq}{Logical, add MCQ skeletons?}
+\item{assessment}{Character, type of assessment ("code", "mcq", "both").}
+
+\item{format}{Output format ("learnr" or "quarto-live").}
 }
 \value{
 Character vector representing the transformed body.

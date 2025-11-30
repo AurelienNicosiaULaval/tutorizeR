@@ -11,9 +11,11 @@
 #'
 #' @param input_file  Path to the source \code{.Rmd} or \code{.qmd}.
 #' @param output_file Destination \code{.Rmd}; default
-#'        \code{<input>\emph{-tutorial.Rmd}}.
+#'        \code{<input>-tutorial.Rmd}.
 #' @param add_mcq     Logical, should an empty MCQ block be added
 #'        after each exercise/solution pair?
+#' @param assessment  Character, type of assessment to generate:
+#'        \code{"code"} (default), \code{"mcq"}, or \code{"both"}.
 #' @param format      Character, output format. Either \code{"learnr"} (default)
 #'        or \code{"quarto-live"}.
 #'
@@ -49,10 +51,10 @@ convert_to_tutorial <- function(
   }
   assessment <- match.arg(assessment)
 
-  # 1 · read + strip YAML
+  # 1 . read + strip YAML
   lines <- strip_yaml(readLines(input_file, warn = FALSE))
 
-  # 2 · transform chunks
+  # 2 . transform chunks
   body <- parse_chunks(lines, assessment = assessment, format = format)
 
   if (format == "learnr") {
@@ -70,7 +72,7 @@ convert_to_tutorial <- function(
 
   out <- c(header, "", body)
 
-  # 3 · write output
+  # 3 . write output
   if (is.null(output_file)) {
     ext <- if (format == "learnr") "-tutorial.Rmd" else "-live.qmd"
     output_file <- sub("\\.(R|r|Q|q)md$", ext, input_file)
@@ -78,18 +80,18 @@ convert_to_tutorial <- function(
   writeLines(out, output_file)
   cli::cli_alert_success("Tutorial written to {output_file}")
 
-  # 4 · automatically render & report
+  # 4 . automatically render & report
   # Only check learnr tutorials for now, as quarto-live requires extension
   if (format == "learnr") {
     res <- check_tutorial(output_file)
     if (inherits(res, "error")) {
       cli::cli_alert_danger(
-        "❌ Rendering failed. Inspect {output_file} for problematic code."
+        "Rendering failed. Inspect {output_file} for problematic code."
       )
     } else {}
   } else {
     cli::cli_alert_success(
-      "ℹ Skipping render check for Quarto Live (requires extension)."
+      "Skipping render check for Quarto Live (requires extension)."
     )
   }
 
@@ -130,7 +132,7 @@ parse_chunks <- function(lines, assessment = "code", format = "learnr") {
         v,
         sprintf("```{r mcq%d, echo=FALSE}", i),
         'learnr::question(',
-        '  "TODO – edit your question here",',
+        '  "TODO - edit your question here",',
         '  answer("A", correct = TRUE),',
         '  answer("B"),',
         '  answer("C")',
@@ -144,7 +146,7 @@ parse_chunks <- function(lines, assessment = "code", format = "learnr") {
         v,
         "::: {.callout-note}",
         "## Question",
-        "TODO – edit your question here",
+        "TODO - edit your question here",
         ":::",
         ""
       )
@@ -153,14 +155,14 @@ parse_chunks <- function(lines, assessment = "code", format = "learnr") {
 
   for (ln in lines) {
     if (grepl("^```", ln)) {
-      # ── fence
+      # -- fence
       if (!in_chunk) {
-        # ── opening
+        # -- opening
         in_chunk <- TRUE
         buf <- character()
         chunk_hdr <- ln
       } else {
-        # ── closing
+        # -- closing
         in_chunk <- FALSE
 
         # -----------------------------------------------------------------
@@ -191,7 +193,7 @@ parse_chunks <- function(lines, assessment = "code", format = "learnr") {
         }
 
         # -----------------------------------------------------------------
-        # 2) Regular chunk → exercise + solution
+        # 2) Regular chunk -> exercise + solution
         # -----------------------------------------------------------------
         id <- id + 1
 
@@ -341,9 +343,9 @@ check_tutorial <- function(file) {
   )
 
   if (inherits(result, "error")) {
-    cli::cli_alert_danger("❌ Rendering failed:\n{result$message}")
+    cli::cli_alert_danger("Rendering failed:\n{result$message}")
   } else {
-    cli::cli_alert_success("✅ Tutorial renders without error.")
+    cli::cli_alert_success("Tutorial renders without error.")
   }
   invisible(result)
 }

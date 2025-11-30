@@ -4,13 +4,25 @@
 \alias{convert_to_tutorial}
 \title{Convert an .Rmd *or* .qmd into a learnr tutorial (.Rmd)}
 \usage{
-convert_to_tutorial(input_file, output_file = NULL, add_mcq = FALSE)
+convert_to_tutorial(
+  input_file,
+  output_file = NULL,
+  assessment = c("code", "mcq", "both"),
+  format = c("learnr", "quarto-live"),
+  add_mcq = NULL
+)
 }
 \arguments{
 \item{input_file}{Path to the source \code{.Rmd} or \code{.qmd}.}
 
 \item{output_file}{Destination \code{.Rmd}; default
-\code{<input>\emph{-tutorial.Rmd}}.}
+\code{<input>-tutorial.Rmd}.}
+
+\item{assessment}{Character, type of assessment to generate:
+\code{"code"} (default), \code{"mcq"}, or \code{"both"}.}
+
+\item{format}{Character, output format. Either \code{"learnr"} (default)
+or \code{"quarto-live"}.}
 
 \item{add_mcq}{Logical, should an empty MCQ block be added
 after each exercise/solution pair?}

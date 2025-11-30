@@ -21,7 +21,8 @@ Depends:
     R (>= 4.0)
 Imports:
     cli,
-    rmarkdown
+    rmarkdown,
+    rstudioapi
 Suggests:
     learnr,
     gradethis,
