@@ -1,0 +1,13 @@
+---
+title: "Tags"
+---
+
+```{r keep_raw}
+# tutorizeR: skip
+plot(1:3)
+```
+
+```{r with_hints}
+# tutorizeR: mcq, hints=Think about the mean|Use mean(x)
+mean(c(1, 2, 3))
+```

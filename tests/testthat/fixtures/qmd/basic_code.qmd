@@ -1,0 +1,12 @@
+---
+title: "Basic qmd"
+format:
+  html:
+    toc: true
+---
+
+## Section
+
+```{r chunk_q}
+summary(cars)
+```

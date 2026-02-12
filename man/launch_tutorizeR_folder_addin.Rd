@@ -2,10 +2,14 @@
 % Please edit documentation in R/addin.R
 \name{launch_tutorizeR_folder_addin}
 \alias{launch_tutorizeR_folder_addin}
-\title{RStudio Addin: Convert Folder to Tutorial}
+\title{RStudio Addin: Convert a folder to tutorials}
 \usage{
 launch_tutorizeR_folder_addin()
 }
+\value{
+Invisibly returns a `tutorize_folder_report` object, or `NULL` when
+cancelled.
+}
 \description{
-Interactively selects a folder and converts all contained .Rmd/.qmd files.
+Prompts for folder and conversion options, then converts all matching files.
 }

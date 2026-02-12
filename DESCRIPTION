@@ -1,19 +1,18 @@
 Package: tutorizeR
 Type: Package
-Title: Convert R Markdown or Quarto Files into Learnr Tutorials
-Version: 0.2.0
+Title: Convert R Markdown or Quarto Content into Interactive Tutorials
+Version: 0.3.0
 Authors@R: person(
     given  = "Aurélien",
     family = "Nicosia",
     email  = "aurelien.nicosia@mat.ulaval.ca",
     role   = c("aut", "cre")
   )
-Description: Converts existing .Rmd or .qmd analysis documents into interactive
-    learnr tutorials (.Rmd).  Each original code chunk becomes an exercise
-    followed by a solution chunk (gradethis ready).  Optionally, skeleton
-    multiple-choice questions are inserted.  Setup chunks are preserved
-    verbatim, and every generated tutorial is rendered once to ensure it
-    compiles without error.
+Description: Helps teachers convert existing '.Rmd' and '.qmd' teaching
+    material into interactive tutorials for 'learnr' or 'quarto-live'.
+    Conversion preserves narrative text, setup chunks, and major chunk
+    options, supports teacher tags, and provides explicit validation and
+    conversion reports.
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.2
@@ -21,13 +20,19 @@ Depends:
     R (>= 4.0)
 Imports:
     cli,
+    lifecycle,
+    rlang,
     rmarkdown,
-    rstudioapi
+    rstudioapi,
+    yaml
 Suggests:
+    commonmark,
+    covr,
+    knitr,
     learnr,
-    gradethis,
+    lintr,
     testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
 URL: https://github.com/AurelienNicosiaULaval/tutorizeR
 BugReports: https://github.com/AurelienNicosiaULaval/tutorizeR/issues
-Remotes:
-    rstudio/gradethis

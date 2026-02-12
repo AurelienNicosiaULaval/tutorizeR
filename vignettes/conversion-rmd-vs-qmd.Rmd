@@ -1,0 +1,32 @@
+---
+title: "Conversion for Rmd and qmd"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Conversion for Rmd and qmd}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+`tutorizeR` accepts both `.Rmd` and `.qmd` sources.
+
+## Learnr output
+
+```{r eval=FALSE}
+tutorize("lesson.Rmd", format = "learnr", assessment = "both")
+```
+
+## Quarto live output
+
+```{r eval=FALSE}
+tutorize("lesson.qmd", format = "quarto-live", assessment = "code")
+```
+
+When targeting `quarto-live`, install the extension in your project root:
+
+```{r eval=FALSE}
+system("quarto add r-wasm/quarto-live")
+```

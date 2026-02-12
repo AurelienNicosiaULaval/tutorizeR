@@ -1,0 +1,26 @@
+---
+title: "Debugging and common errors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Debugging and common errors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Use validation helpers before batch conversion:
+
+```{r eval=FALSE}
+validate_input("lesson.qmd", format = "learnr", assessment = "both")
+validate_output("lesson-tutorial.Rmd", "lesson.qmd", overwrite = FALSE)
+```
+
+Typical failure causes:
+
+- invalid MCQ YAML schema,
+- inaccessible output path,
+- duplicate chunk labels from source documents,
+- missing Quarto live extension for `quarto-live` output.

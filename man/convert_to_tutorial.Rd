@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert_to_tutorial.R
 \name{convert_to_tutorial}
 \alias{convert_to_tutorial}
-\title{Convert an .Rmd *or* .qmd into a learnr tutorial (.Rmd)}
+\title{Backward-compatible wrapper for tutorial conversion}
 \usage{
 convert_to_tutorial(
   input_file,
@@ -13,35 +13,25 @@ convert_to_tutorial(
 )
 }
 \arguments{
-\item{input_file}{Path to the source \code{.Rmd} or \code{.qmd}.}
+\item{input_file}{Path to source `.Rmd` or `.qmd` file.}
 
-\item{output_file}{Destination \code{.Rmd}; default
-\code{<input>-tutorial.Rmd}.}
+\item{output_file}{Optional output path. If `NULL`, a default path is used.}
 
-\item{assessment}{Character, type of assessment to generate:
-\code{"code"} (default), \code{"mcq"}, or \code{"both"}.}
+\item{assessment}{Assessment mode: `"code"`, `"mcq"`, or `"both"`.}
 
-\item{format}{Character, output format. Either \code{"learnr"} (default)
-or \code{"quarto-live"}.}
+\item{format}{Output format: `"learnr"` or `"quarto-live"`.}
 
-\item{add_mcq}{Logical, should an empty MCQ block be added
-after each exercise/solution pair?}
+\item{add_mcq}{Deprecated. Use `assessment` instead.}
 }
 \value{
-Invisibly, the path to the generated tutorial file.
+Invisibly, the generated output file path.
 }
 \description{
-Workflow :
-\enumerate{
-  \item Strips any existing YAML front-matter;
-  \item Converts each original code chunk into a learnr \emph{exercise}
-        and a \emph{solution} chunk;
-  \item Optionally appends a skeleton MCQ after each pair;
-  \item Renders the produced file once to ensure it compiles.
-}
+`convert_to_tutorial()` is kept for compatibility with earlier versions.
+New code should use [tutorize()].
 }
 \examples{
 \dontrun{
-convert_to_tutorial("analysis.qmd")
+convert_to_tutorial("analysis.Rmd")
 }
 }

@@ -2,23 +2,11 @@
 % Please edit documentation in R/convert_to_tutorial.R
 \name{parse_chunks}
 \alias{parse_chunks}
-\title{Transform source chunks into learnr exercises + solutions}
+\title{Transform source lines into converted tutorial body}
 \usage{
 parse_chunks(lines, assessment = "code", format = "learnr")
 }
-\arguments{
-\item{lines}{Character vector, output of \code{readLines()}.}
-
-\item{assessment}{Character, type of assessment ("code", "mcq", "both").}
-
-\item{format}{Output format ("learnr" or "quarto-live").}
-}
-\value{
-Character vector representing the transformed body.
-}
 \description{
-\strong{Rule}: any chunk whose label contains the word
-\code{setup} (case-insensitive) is copied verbatim and \emph{not}
-converted.
+Transform source lines into converted tutorial body
 }
 \keyword{internal}

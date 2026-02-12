@@ -1,0 +1,11 @@
+---
+title: "Non R"
+---
+
+```python
+print("hello")
+```
+
+```{r chunk_r}
+mean(c(1, 2, 3))
+```

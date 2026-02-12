@@ -1,0 +1,12 @@
+---
+title: "Duplicate labels"
+---
+
+```{r ex1}
+# tutorizeR: skip
+1 + 1
+```
+
+```{r ex1}
+2 + 2
+```

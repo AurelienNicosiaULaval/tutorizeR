@@ -2,10 +2,15 @@
 % Please edit documentation in R/addin.R
 \name{launch_tutorizeR_addin}
 \alias{launch_tutorizeR_addin}
-\title{RStudio Addin: Convert Active Document to Tutorial}
+\title{RStudio Addin: Convert active document to tutorial}
 \usage{
 launch_tutorizeR_addin()
 }
+\value{
+Invisibly returns the `tutorize_report` object, or `NULL` when
+cancelled.
+}
 \description{
-Interactively converts the currently open document in RStudio.
+Opens a lightweight prompt flow (format, assessment, output directory,
+overwrite) and converts the currently active file.
 }

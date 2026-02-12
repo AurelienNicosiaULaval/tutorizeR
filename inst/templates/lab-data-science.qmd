@@ -1,0 +1,30 @@
+---
+title: "Lab data science"
+format:
+  html:
+    toc: true
+---
+
+## Data loading
+
+```{r load}
+mtcars |> head()
+```
+
+## Modeling
+
+```{r model}
+fit <- lm(mpg ~ wt + hp, data = mtcars)
+summary(fit)
+```
+
+## Optional quiz
+
+```{tutorizeR-mcq}
+question: "Quel indicateur penalise la complexite du modele ?"
+answers:
+  - text: "AIC"
+    correct: true
+  - text: "R2 ajuste"
+    correct: false
+```

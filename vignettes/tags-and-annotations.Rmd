@@ -1,0 +1,31 @@
+---
+title: "Tags and annotation syntax"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tags and annotation syntax}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This vignette documents supported teacher tags.
+
+## Supported tags
+
+- `skip`: keep chunk unchanged.
+- `exercise-only`: generate only exercise block.
+- `solution-only`: generate only solution block.
+- `mcq`: force MCQ generation for the chunk.
+- `narrative-only`: keep chunk as narrative context.
+- `locked`: mark exercise as locked information text.
+- `hints`: add hints before generated exercise.
+
+## Example
+
+```{r eval=FALSE}
+# tutorizeR: mcq, hints=Inspect the data|Use summary()
+summary(mtcars)
+```

@@ -2,17 +2,21 @@
 % Please edit documentation in R/convert_to_tutorial.R
 \name{check_tutorial}
 \alias{check_tutorial}
-\title{Render a generated tutorial to ensure it compiles}
+\title{Render a generated tutorial and return render status}
 \usage{
 check_tutorial(file)
 }
 \arguments{
-\item{file}{Path to the tutorial `.Rmd` you want to test.}
+\item{file}{Path to tutorial `.Rmd` to render.}
 }
 \value{
-Invisibly, the path to the rendered HTML **or** the error object.
+Invisibly, the render output path or the error object.
 }
 \description{
-The file is rendered in a temporary directory; warnings and errors are
-captured.  If rendering fails, a short message is printed.
+Render a generated tutorial and return render status
+}
+\examples{
+\dontrun{
+check_tutorial("analysis-tutorial.Rmd")
+}
 }
