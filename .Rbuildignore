@@ -1,3 +1,11 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^\.github$
+^ROADMAP\.md$
+^docs$
+^cran-comments\.md$
+^_pkgdown\.yml$
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$
+^\.lintr$
