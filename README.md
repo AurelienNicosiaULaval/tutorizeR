@@ -86,6 +86,17 @@ Expected on this repository:
 - `devtools::test()` passes (currently 98 tests + new fixtures).
 - `R CMD check --as-cran --no-manual` yields no errors, no warnings; one NOTE for a first submission is acceptable.
 
+## JOSS submission note
+
+For JOSS, you submit the manuscript source (`paper/paper.md`) and bibliography (`paper/paper.bib`).
+You do **not** need to attach a PDF in the repository for submission.
+If you want a local PDF preview, render it with:
+
+```bash
+cd paper
+Rscript -e "rmarkdown::render('paper.md', output_format = 'pdf_document', output_file = 'paper.pdf')"
+```
+
 ## Main API
 
 - `tutorize()` / `convert_to_tutorial()`

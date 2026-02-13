@@ -29,13 +29,13 @@
 - [x] Update `CITATION.cff`, `codemeta.json`, `NEWS.md`.
 - [x] Finalize JOSS manuscript in `paper/paper.md` (Statement of Need, functionality, QA, availability, limitations, references).
 - [x] Add reviewer-facing reproducibility path in `README`.
-- [ ] Confirm `cran-comments.md` and downstream notes remain synchronized with latest run.
-- [ ] Confirm package version in README/install badges reflects current release.
+- [x] Confirm `cran-comments.md` and downstream notes remain synchronized with latest run (`cran-comments.md`, `README` smoke command).
+- [x] Confirm README/release references reflect current release (`0.4.3`).
 
 ## Tag and publish
 
 - [x] Bump package version (`0.4.3`).
 - [x] Create git tag (`v0.4.3`).
 - [x] Open PR against `main` from the release branch and confirm it is merged.
-- [ ] Draft GitHub release notes from NEWS and include tarball/reproduction artifacts.
-- [ ] Close JOSS checklist items in `paper/paper.md` and archive build command outputs.
+- [x] Draft GitHub release notes from NEWS and include tarball/reproduction artifacts.
+- [x] Close JOSS checklist items in `paper/paper.md` and archive build command outputs (`docs/joss_release_bundle`).
