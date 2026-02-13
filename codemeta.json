@@ -1,0 +1,21 @@
+{
+  "@context": ["https://doi.org/doi:10.5063/SCHEMA/codemeta-2.0", "https://w3id.org/codemeta/2.1"] ,
+  "@type": "SoftwareSourceCode",
+  "identifier": "tutorizeR",
+  "name": "tutorizeR",
+  "description": "Convertit des fichiers R Markdown ou Quarto en ressources interactives Learnr/quarto-live avec des contrôles pédagogiques, du lint, des QCM réutilisables et des exports LMS.",
+  "codeRepository": "https://github.com/AurelienNicosiaULaval/tutorizeR",
+  "license": "https://spdx.org/licenses/MIT",
+  "version": "0.4.2",
+  "programmingLanguage": "R",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Aurélien",
+      "familyName": "Nicosia",
+      "email": "aurelien.nicosia@mat.ulaval.ca"
+    }
+  ],
+  "keywords": ["learnr", "quarto", "rmarkdown", "education", "pedagogy", "assessment", "gradethis"],
+  "relatedLink": ["https://github.com/AurelienNicosiaULaval/tutorizeR"]
+}

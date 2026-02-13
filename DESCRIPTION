@@ -1,13 +1,15 @@
 Package: tutorizeR
 Type: Package
 Title: Convert R Markdown or Quarto Content into Interactive Tutorials
-Version: 0.3.0
+Version: 0.4.2
 Authors@R: person(
     given  = "Aurélien",
     family = "Nicosia",
     email  = "aurelien.nicosia@mat.ulaval.ca",
     role   = c("aut", "cre")
   )
+Author: Aurélien Nicosia [aut, cre]
+Maintainer: Aurélien Nicosia <aurelien.nicosia@mat.ulaval.ca>
 Description: Helps teachers convert existing '.Rmd' and '.qmd' teaching
     material into interactive tutorials for 'learnr' or 'quarto-live'.
     Conversion preserves narrative text, setup chunks, and major chunk
@@ -20,6 +22,7 @@ Depends:
     R (>= 4.0)
 Imports:
     cli,
+    jsonlite,
     lifecycle,
     rlang,
     rmarkdown,
@@ -31,6 +34,8 @@ Suggests:
     knitr,
     learnr,
     lintr,
+    miniUI,
+    shiny,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
