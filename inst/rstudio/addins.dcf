@@ -7,3 +7,8 @@ Name: Convert folder (tutorizeR)
 Description: Convert all Rmd/qmd files in a folder with summary logs.
 Binding: launch_tutorizeR_folder_addin
 Interactive: true
+
+Name: Preview conversion (tutorizeR)
+Description: Preview source/output/diff/lint before writing files.
+Binding: launch_tutorizeR_preview_addin
+Interactive: true

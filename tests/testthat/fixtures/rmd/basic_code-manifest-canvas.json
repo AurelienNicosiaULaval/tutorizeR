@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "profile": "canvas",
+  "title": "Basic Rmd",
+  "language": "en",
+  "sections": [],
+  "items": [
+    {
+      "id": "chunk_a",
+      "type": "exercise",
+      "solution_available": true
+    }
+  ],
+  "estimated_minutes": 3,
+  "vendor": {
+    "canvas": {
+      "module_name": "Basic Rmd",
+      "item_count": 1
+    }
+  }
+}

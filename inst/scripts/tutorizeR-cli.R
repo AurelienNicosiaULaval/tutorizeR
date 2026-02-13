@@ -14,6 +14,9 @@ print_usage <- function() {
 "  --output-dir=DIR        Destination directory\n",
 "  --format=learnr|quarto-live\n",
 "  --assessment=code|mcq|both\n",
+"  --question-bank=PATH    Question bank file or directory\n",
+"  --mcq-source=inline|bank|mixed\n",
+"  --lint-strict=true|false\n",
 "  --pattern=REGEX         File pattern for folder mode\n",
 "  --recursive=true|false  Recursive scan for folder mode\n",
 "  --overwrite=true|false\n",
@@ -67,6 +70,9 @@ assessment <- opts$assessment %||% "both"
 output_dir <- opts[["output-dir"]]
 pattern <- opts$pattern %||% "\\.(Rmd|qmd)$"
 language <- opts$language %||% "en"
+question_bank <- opts[["question-bank"]]
+mcq_source <- opts[["mcq-source"]] %||% "inline"
+lint_strict <- to_bool(opts[["lint-strict"]], default = FALSE)
 seed <- if (!is.null(opts$seed)) as.integer(opts$seed) else NULL
 overwrite <- to_bool(opts$overwrite, default = FALSE)
 recursive <- to_bool(opts$recursive, default = FALSE)
@@ -81,7 +87,10 @@ if (!is.null(opts$input)) {
     overwrite = overwrite,
     language = language,
     seed = seed,
-    verbose = verbose
+    verbose = verbose,
+    question_bank = question_bank,
+    mcq_source = mcq_source,
+    lint_strict = lint_strict
   )
   print(rep)
   quit(status = 0)
@@ -98,7 +107,10 @@ if (!is.null(opts$dir)) {
     overwrite = overwrite,
     language = language,
     seed = seed,
-    verbose = verbose
+    verbose = verbose,
+    question_bank = question_bank,
+    mcq_source = mcq_source,
+    lint_strict = lint_strict
   )
   print(rep)
   quit(status = 0)

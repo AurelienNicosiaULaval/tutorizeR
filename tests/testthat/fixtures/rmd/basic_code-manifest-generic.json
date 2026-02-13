@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "profile": "generic",
+  "title": "Basic Rmd",
+  "language": "en",
+  "sections": [],
+  "items": [
+    {
+      "id": "chunk_a",
+      "type": "exercise",
+      "solution_available": true
+    }
+  ],
+  "estimated_minutes": 3
+}
