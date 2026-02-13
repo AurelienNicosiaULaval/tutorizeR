@@ -4,10 +4,12 @@
 \alias{check_tutorial}
 \title{Render a generated tutorial and return render status}
 \usage{
-check_tutorial(file)
+check_tutorial(file, language = c("en", "fr"))
 }
 \arguments{
 \item{file}{Path to tutorial `.Rmd` to render.}
+
+\item{language}{Message language (`"en"` or `"fr"`).}
 }
 \value{
 Invisibly, the render output path or the error object.

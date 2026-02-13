@@ -14,7 +14,10 @@ convert_folder(
   overwrite = FALSE,
   language = c("en", "fr"),
   seed = NULL,
-  verbose = TRUE
+  verbose = TRUE,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed"),
+  lint_strict = FALSE
 )
 }
 \arguments{
@@ -37,6 +40,12 @@ convert_folder(
 \item{seed}{Optional integer seed injected in setup chunk.}
 
 \item{verbose}{Logical; print progress and summary?}
+
+\item{question_bank}{Optional path(s) or `tutorize_question_bank` object.}
+
+\item{mcq_source}{MCQ generation source (`"inline"`, `"bank"`, `"mixed"`).}
+
+\item{lint_strict}{Logical; fail conversion when lint reports errors.}
 }
 \value{
 A `tutorize_folder_report` object (invisibly).

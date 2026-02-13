@@ -13,6 +13,9 @@
 #' @param language Message/template language (`"en"` or `"fr"`).
 #' @param seed Optional integer seed injected in setup chunk.
 #' @param verbose Logical; print progress and summary?
+#' @param question_bank Optional path(s) or `tutorize_question_bank` object.
+#' @param mcq_source MCQ generation source (`"inline"`, `"bank"`, `"mixed"`).
+#' @param lint_strict Logical; fail conversion when lint reports errors.
 #'
 #' @return A `tutorize_folder_report` object (invisibly).
 #' @export
@@ -31,15 +34,19 @@ convert_folder <- function(
   overwrite = FALSE,
   language = c("en", "fr"),
   seed = NULL,
-  verbose = TRUE
+  verbose = TRUE,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed"),
+  lint_strict = FALSE
 ) {
   format <- match.arg(format)
   assessment <- match.arg(assessment)
-  language <- match.arg(language)
+  language <- resolve_language(match.arg(language))
+  mcq_source <- match.arg(mcq_source)
 
   if (!dir.exists(dir)) {
     rlang::abort(
-      sprintf("Directory not found: %s", dir),
+      tr("errors.dir_not_found", path = dir, language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
@@ -54,7 +61,7 @@ convert_folder <- function(
 
   if (length(files) == 0L) {
     if (isTRUE(verbose)) {
-      cli::cli_alert_info("No matching files found in {dir}")
+      cli::cli_alert_info(tr("messages.no_files_found", dir = dir, language = language))
     }
 
     empty <- data.frame(
@@ -69,7 +76,16 @@ convert_folder <- function(
   }
 
   if (isTRUE(verbose)) {
-    cli::cli_h1("Converting {length(files)} file(s)")
+    cli::cli_h1(tr("messages.converting_files", n = length(files), language = language))
+  }
+
+  qb <- NULL
+  if (!is.null(question_bank)) {
+    if (inherits(question_bank, "tutorize_question_bank")) {
+      qb <- question_bank
+    } else {
+      qb <- load_question_bank(question_bank, strict = TRUE, language = language)
+    }
   }
 
   rows <- lapply(files, function(path) {
@@ -82,7 +98,10 @@ convert_folder <- function(
         overwrite = overwrite,
         language = language,
         seed = seed,
-        verbose = verbose
+        verbose = verbose,
+        question_bank = qb,
+        mcq_source = mcq_source,
+        lint_strict = lint_strict
       ),
       error = identity
     )
@@ -111,7 +130,7 @@ convert_folder <- function(
   if (isTRUE(verbose)) {
     ok_n <- sum(results$status == "ok")
     err_n <- sum(results$status == "error")
-    cli::cli_alert_success("Conversion complete: {ok_n} succeeded, {err_n} failed.")
+    cli::cli_alert_success(tr("messages.conversion_complete", ok = ok_n, err = err_n, language = language))
   }
 
   invisible(new_tutorize_folder_report(results))
