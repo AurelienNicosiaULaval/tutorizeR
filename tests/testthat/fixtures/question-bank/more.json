@@ -1,0 +1,15 @@
+{
+  "questions": [
+    {
+      "id": "median-basic",
+      "question": "What does median(c(1,2,10)) return?",
+      "answers": [
+        {"text": "2", "correct": true},
+        {"text": "10", "correct": false}
+      ],
+      "tags": ["statistics", "median"],
+      "difficulty": "easy",
+      "language": "en"
+    }
+  ]
+}
