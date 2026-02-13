@@ -58,9 +58,30 @@ The package exposes a canonical `tutorize()` API and keeps backward-compatible w
 
 For workflow robustness, `tutorizeR` provides both interactive UI paths (RStudio addins) and non-interactive CLI execution.
 
+## State of the art and alternatives
+
+Prior approaches generally require one of three manual paths:
+
+- direct authoring of `learnr` tutorials from scratch in the RStudio environment;
+- copy-and-paste conversion from teaching notebooks or Quarto documents into a dedicated tutorial repository;
+- ad-hoc scripts for grading heuristics and QCM/MCQ insertion.
+
+`tutorizeR` unifies these steps by preserving a source-first workflow:
+source content remains in `.Rmd`/`.qmd` format, while conversion to interactive
+activities is performed automatically with deterministic labels, optional linting,
+and explicit reporting artefacts. This reduces duplicated maintenance work and
+keeps a single source of truth for instructors.
+
 ## Quality assurance
 
 The package includes tests and linting, with automated checks covering core parser/transform/validation/report paths. New/changed features are documented via roxygen and vignettes, and conversion edge cases are regression tested (including non-R chunks, inline code fences, duplicated labels, and Quarto-only fixtures).
+
+## Limitations
+
+- LMS publication is currently manifest-first export (Canvas/Moodle/generic); no direct LMS API publishing is included yet.
+- Learnr rendering is optional and requires optional dependencies (`learnr`, `gradethis`) at render-time.
+- Question-bank integration is file-based (local YAML/JSON) in the current release.
+- The output currently targets single-file conversion pipelines and folder conversion with documented defaults.
 
 ## Availability and contribution
 
