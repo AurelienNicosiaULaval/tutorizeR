@@ -1,0 +1,24 @@
+questions:
+  - id: mean-basic
+    question: "What does mean(c(1,2,3)) return?"
+    answers:
+      - text: "2"
+        correct: true
+      - text: "3"
+        correct: false
+    tags: [statistics, mean]
+    difficulty: easy
+    language: en
+    explanation: "Mean of 1,2,3 is 2"
+    hints:
+      - "Compute the arithmetic average"
+  - id: sum-basic
+    question: "What does sum(c(1,2,3)) return?"
+    answers:
+      - text: "6"
+        correct: true
+      - text: "5"
+        correct: false
+    tags: [statistics, sum]
+    difficulty: easy
+    language: en

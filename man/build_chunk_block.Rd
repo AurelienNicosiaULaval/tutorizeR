@@ -4,7 +4,15 @@
 \alias{build_chunk_block}
 \title{Build normalized chunk block object}
 \usage{
-build_chunk_block(spec, body_lines, fence, raw_lines, inline = FALSE)
+build_chunk_block(
+  spec,
+  body_lines,
+  fence,
+  raw_lines,
+  inline = FALSE,
+  start_line = NA_integer_,
+  end_line = NA_integer_
+)
 }
 \description{
 Build normalized chunk block object

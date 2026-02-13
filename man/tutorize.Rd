@@ -13,7 +13,10 @@ tutorize(
   language = c("en", "fr"),
   seed = NULL,
   verbose = TRUE,
-  output_file = NULL
+  output_file = NULL,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed"),
+  lint_strict = FALSE
 )
 }
 \arguments{
@@ -34,6 +37,12 @@ tutorize(
 \item{verbose}{Logical; show progress and diagnostic messages?}
 
 \item{output_file}{Optional explicit output file path. Useful for wrappers.}
+
+\item{question_bank}{Optional path(s) or `tutorize_question_bank` object.}
+
+\item{mcq_source}{MCQ generation source: `"inline"`, `"bank"`, `"mixed"`.}
+
+\item{lint_strict}{Logical; fail conversion when lint reports errors.}
 }
 \value{
 A `tutorize_report` object (invisibly).

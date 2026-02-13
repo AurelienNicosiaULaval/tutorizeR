@@ -4,7 +4,7 @@
 \alias{check_tutorial_render}
 \title{Render check implementation for generated learnr tutorials}
 \usage{
-check_tutorial_render(file)
+check_tutorial_render(file, language = "en")
 }
 \description{
 Render check implementation for generated learnr tutorials

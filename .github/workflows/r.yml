@@ -53,7 +53,10 @@ jobs:
           extra-packages: any::lintr
 
       - name: Lint package
-        run: lintr::lint_package(error_on_lint = TRUE)
+        run: |
+          lints <- lintr::lint_package()
+          print(lints)
+          if (length(lints) > 0) stop("Lint issues found.")
         shell: Rscript {0}
 
   coverage:
@@ -75,5 +78,21 @@ jobs:
         run: |
           cov <- covr::package_coverage()
           print(cov)
-          cat(sprintf("Coverage: %.2f%%\n", covr::percent_coverage(cov)))
+          by <- as.data.frame(covr::coverage_to_list(cov))
+          by$file <- rownames(by)
+
+          core_files <- c("R/parser.R", "R/transform.R", "R/validation.R", "R/report.R")
+          missing <- setdiff(core_files, by$file)
+          if (length(missing) > 0L) {
+            stop(sprintf("Missing core files in coverage table: %s", paste(missing, collapse = ", ")))
+          }
+
+          core_pct <- mean(by$filecoverage[match(core_files, by$file)])
+          total_pct <- covr::percent_coverage(cov)
+          cat(sprintf("Coverage total: %.2f%%\n", total_pct))
+          cat(sprintf("Coverage core:  %.2f%%\n", core_pct))
+
+          if (core_pct < 80) {
+            stop(sprintf("Core coverage threshold not met: %.2f%% < 80%%", core_pct))
+          }
         shell: Rscript {0}

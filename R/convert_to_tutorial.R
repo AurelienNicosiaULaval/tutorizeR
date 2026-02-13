@@ -13,6 +13,9 @@
 #' @param seed Optional integer seed injected into setup chunk.
 #' @param verbose Logical; show progress and diagnostic messages?
 #' @param output_file Optional explicit output file path. Useful for wrappers.
+#' @param question_bank Optional path(s) or `tutorize_question_bank` object.
+#' @param mcq_source MCQ generation source: `"inline"`, `"bank"`, `"mixed"`.
+#' @param lint_strict Logical; fail conversion when lint reports errors.
 #'
 #' @return A `tutorize_report` object (invisibly).
 #' @export
@@ -30,13 +33,17 @@ tutorize <- function(
   language = c("en", "fr"),
   seed = NULL,
   verbose = TRUE,
-  output_file = NULL
+  output_file = NULL,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed"),
+  lint_strict = FALSE
 ) {
   format <- match.arg(format)
   assessment <- match.arg(assessment)
-  language <- match.arg(language)
+  language <- resolve_language(match.arg(language))
+  mcq_source <- match.arg(mcq_source)
 
-  validate_input(input = input, format = format, assessment = assessment)
+  validate_input(input = input, format = format, assessment = assessment, language = language)
 
   resolved_output <- resolve_output_file(
     input = input,
@@ -48,23 +55,46 @@ tutorize <- function(
   validate_output(
     output_file = resolved_output,
     input_file = input,
-    overwrite = overwrite
+    overwrite = overwrite,
+    language = language
   )
 
   if (!is.null(seed)) {
     if (!is.numeric(seed) || length(seed) != 1L || is.na(seed)) {
       rlang::abort(
-        "`seed` must be NULL or a single non-missing numeric value.",
+        tr("errors.seed_invalid", language = language),
         class = c("tutorizeR_error_validation", "tutorizeR_error")
       )
     }
   }
 
+  qb <- NULL
+  if (!is.null(question_bank)) {
+    if (inherits(question_bank, "tutorize_question_bank")) {
+      qb <- question_bank
+    } else {
+      qb <- load_question_bank(
+        path = question_bank,
+        recursive = TRUE,
+        format = "auto",
+        strict = TRUE,
+        language = language
+      )
+    }
+  }
+
+  lint_report <- lint_source(
+    input = input,
+    question_bank = qb,
+    language = language,
+    strict = isTRUE(lint_strict)
+  )
+
   parsed <- tryCatch(
     parse_input_document(input),
     error = function(e) {
       rlang::abort(
-        message = paste0("Could not parse input document: ", conditionMessage(e)),
+        message = tr("errors.parse_failed", message = conditionMessage(e), language = language),
         class = c("tutorizeR_error_parse", "tutorizeR_error")
       )
     }
@@ -75,7 +105,9 @@ tutorize <- function(
     format = format,
     assessment = assessment,
     language = language,
-    seed = seed
+    seed = seed,
+    question_bank = qb,
+    mcq_source = mcq_source
   )
 
   yaml_lines <- build_output_yaml(
@@ -85,6 +117,7 @@ tutorize <- function(
   )
 
   preamble <- yaml_lines
+  warnings <- character()
 
   if (format == "quarto-live") {
     include_line <- "{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}"
@@ -93,10 +126,12 @@ tutorize <- function(
     }
 
     extension_file <- file.path(dirname(input), "_extensions", "r-wasm", "live", "_knitr.qmd")
-    if (!file.exists(extension_file) && isTRUE(verbose)) {
-      cli::cli_alert_warning(
-        "Quarto Live extension not found near the input file ({extension_file}). Run `quarto add r-wasm/quarto-live` in the project root."
-      )
+    if (!file.exists(extension_file)) {
+      msg <- tr("messages.quarto_extension_missing", path = extension_file, language = language)
+      warnings <- c(warnings, msg)
+      if (isTRUE(verbose)) {
+        cli::cli_alert_warning(msg)
+      }
     }
   }
 
@@ -106,28 +141,28 @@ tutorize <- function(
     writeLines(final_lines, resolved_output, useBytes = TRUE),
     error = function(e) {
       rlang::abort(
-        message = paste0("Failed to write output file: ", conditionMessage(e)),
+        message = tr("errors.write_failed", message = conditionMessage(e), language = language),
         class = c("tutorizeR_error_validation", "tutorizeR_error")
       )
     }
   )
 
   if (isTRUE(verbose)) {
-    cli::cli_alert_success("Tutorial written to {resolved_output}")
+    cli::cli_alert_success(tr("messages.tutorial_written", path = resolved_output, language = language))
   }
 
   render_result <- list(ok = NA, message = "", result = NULL)
   if (format == "learnr") {
-    render_result <- check_tutorial_render(resolved_output)
+    render_result <- check_tutorial_render(resolved_output, language = language)
     if (isTRUE(verbose)) {
       if (isTRUE(render_result$ok)) {
-        cli::cli_alert_success("Tutorial renders without error.")
+        cli::cli_alert_success(tr("messages.render_ok", language = language))
       } else {
-        cli::cli_alert_danger("Rendering failed: {render_result$message}")
+        cli::cli_alert_danger(tr("messages.render_failed", message = render_result$message, language = language))
       }
     }
   } else if (isTRUE(verbose)) {
-    cli::cli_alert_info("Skipping render check for Quarto Live output.")
+    cli::cli_alert_info(tr("messages.skip_render_quarto", language = language))
   }
 
   report <- new_tutorize_report(
@@ -136,7 +171,9 @@ tutorize <- function(
     format = format,
     assessment = assessment,
     stats = converted$stats,
-    render_result = render_result
+    render_result = render_result,
+    warnings = warnings,
+    lint_report = lint_report
   )
 
   invisible(report)
@@ -152,6 +189,9 @@ tutorize <- function(
 #' @param assessment Assessment mode: `"code"`, `"mcq"`, or `"both"`.
 #' @param format Output format: `"learnr"` or `"quarto-live"`.
 #' @param add_mcq Deprecated. Use `assessment` instead.
+#' @param question_bank Optional path(s) or `tutorize_question_bank` object.
+#' @param mcq_source MCQ generation source: `"inline"`, `"bank"`, `"mixed"`.
+#' @param lint_strict Logical; fail conversion when lint reports errors.
 #'
 #' @return Invisibly, the generated output file path.
 #' @export
@@ -164,7 +204,10 @@ convert_to_tutorial <- function(
   output_file = NULL,
   assessment = c("code", "mcq", "both"),
   format = c("learnr", "quarto-live"),
-  add_mcq = NULL
+  add_mcq = NULL,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed"),
+  lint_strict = FALSE
 ) {
   format <- match.arg(format)
 
@@ -191,7 +234,10 @@ convert_to_tutorial <- function(
     format = format,
     assessment = assessment,
     overwrite = TRUE,
-    verbose = TRUE
+    verbose = TRUE,
+    question_bank = question_bank,
+    mcq_source = match.arg(mcq_source),
+    lint_strict = lint_strict
   )
 
   invisible(report$output_file)
@@ -200,6 +246,7 @@ convert_to_tutorial <- function(
 #' Render a generated tutorial and return render status
 #'
 #' @param file Path to tutorial `.Rmd` to render.
+#' @param language Message language (`"en"` or `"fr"`).
 #'
 #' @return Invisibly, the render output path or the error object.
 #' @export
@@ -207,13 +254,14 @@ convert_to_tutorial <- function(
 #' \dontrun{
 #' check_tutorial("analysis-tutorial.Rmd")
 #' }
-check_tutorial <- function(file) {
-  res <- check_tutorial_render(file)
+check_tutorial <- function(file, language = c("en", "fr")) {
+  language <- resolve_language(match.arg(language))
+  res <- check_tutorial_render(file, language = language)
 
   if (isTRUE(res$ok)) {
-    cli::cli_alert_success("Tutorial renders without error.")
+    cli::cli_alert_success(tr("messages.render_ok", language = language))
   } else {
-    cli::cli_alert_danger("Rendering failed: {res$message}")
+    cli::cli_alert_danger(tr("messages.render_failed", message = res$message, language = language))
   }
 
   invisible(res$result)
@@ -221,10 +269,10 @@ check_tutorial <- function(file) {
 
 #' Render check implementation for generated learnr tutorials
 #' @keywords internal
-check_tutorial_render <- function(file) {
+check_tutorial_render <- function(file, language = "en") {
   if (!file.exists(file)) {
     rlang::abort(
-      sprintf("File not found: %s", file),
+      tr("errors.file_not_found", path = file, language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
@@ -271,7 +319,9 @@ parse_chunks <- function(lines, assessment = "code", format = "learnr") {
     format = format,
     assessment = assessment,
     language = "en",
-    seed = NULL
+    seed = NULL,
+    question_bank = NULL,
+    mcq_source = "inline"
   )
 
   converted$lines

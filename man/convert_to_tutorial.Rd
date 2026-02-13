@@ -9,7 +9,10 @@ convert_to_tutorial(
   output_file = NULL,
   assessment = c("code", "mcq", "both"),
   format = c("learnr", "quarto-live"),
-  add_mcq = NULL
+  add_mcq = NULL,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed"),
+  lint_strict = FALSE
 )
 }
 \arguments{
@@ -22,6 +25,12 @@ convert_to_tutorial(
 \item{format}{Output format: `"learnr"` or `"quarto-live"`.}
 
 \item{add_mcq}{Deprecated. Use `assessment` instead.}
+
+\item{question_bank}{Optional path(s) or `tutorize_question_bank` object.}
+
+\item{mcq_source}{MCQ generation source: `"inline"`, `"bank"`, `"mixed"`.}
+
+\item{lint_strict}{Logical; fail conversion when lint reports errors.}
 }
 \value{
 Invisibly, the generated output file path.

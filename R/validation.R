@@ -7,30 +7,37 @@
 #' @param input Path to source `.Rmd` or `.qmd` document.
 #' @param format Target output format (`"learnr"` or `"quarto-live"`).
 #' @param assessment Assessment mode (`"code"`, `"mcq"`, or `"both"`).
+#' @param language Language for validation messages (`"en"` or `"fr"`).
 #'
 #' @return Invisibly returns `TRUE` if validation succeeds.
 #' @export
-validate_input <- function(input, format = c("learnr", "quarto-live"), assessment = c("code", "mcq", "both")) {
+validate_input <- function(
+  input,
+  format = c("learnr", "quarto-live"),
+  assessment = c("code", "mcq", "both"),
+  language = c("en", "fr")
+) {
   format <- match.arg(format)
   assessment <- match.arg(assessment)
+  language <- resolve_language(match.arg(language))
 
   if (!is_scalar_character(input) || !nzchar(trimws(input))) {
     rlang::abort(
-      "`input` must be a non-empty file path.",
+      tr("errors.input_non_empty", language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
 
   if (!file.exists(input)) {
     rlang::abort(
-      sprintf("Input file not found: %s", input),
+      tr("errors.input_not_found", path = input, language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
 
   if (dir.exists(input)) {
     rlang::abort(
-      sprintf("`input` must point to a file, not a directory: %s", input),
+      tr("errors.input_is_dir", path = input, language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
@@ -38,7 +45,7 @@ validate_input <- function(input, format = c("learnr", "quarto-live"), assessmen
   ext <- tolower(tools::file_ext(input))
   if (!(ext %in% c("rmd", "qmd"))) {
     rlang::abort(
-      sprintf("Unsupported input extension '.%s'. Expected .Rmd or .qmd.", ext),
+      tr("errors.input_extension", ext = ext, language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
@@ -51,13 +58,16 @@ validate_input <- function(input, format = c("learnr", "quarto-live"), assessmen
 #' @param output_file Destination output file path.
 #' @param input_file Source file path.
 #' @param overwrite Logical; allow replacing an existing output.
+#' @param language Language for validation messages (`"en"` or `"fr"`).
 #'
 #' @return Invisibly returns `TRUE` if validation succeeds.
 #' @export
-validate_output <- function(output_file, input_file, overwrite = FALSE) {
+validate_output <- function(output_file, input_file, overwrite = FALSE, language = c("en", "fr")) {
+  language <- resolve_language(match.arg(language))
+
   if (!is_scalar_character(output_file) || !nzchar(trimws(output_file))) {
     rlang::abort(
-      "`output_file` must be a non-empty file path.",
+      tr("errors.output_non_empty", language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
@@ -70,7 +80,7 @@ validate_output <- function(output_file, input_file, overwrite = FALSE) {
 
   if (identical(normalized_input, normalized_output)) {
     rlang::abort(
-      "`output_file` cannot be the same as `input_file`.",
+      tr("errors.output_same_as_input", language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }
@@ -82,7 +92,7 @@ validate_output <- function(output_file, input_file, overwrite = FALSE) {
 
   if (file.exists(output_file) && !isTRUE(overwrite)) {
     rlang::abort(
-      sprintf("Output already exists. Set `overwrite = TRUE` to replace: %s", output_file),
+      tr("errors.output_exists", path = output_file, language = language),
       class = c("tutorizeR_error_validation", "tutorizeR_error")
     )
   }

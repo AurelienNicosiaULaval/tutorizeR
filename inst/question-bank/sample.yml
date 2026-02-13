@@ -1,0 +1,14 @@
+questions:
+  - id: sample-mean
+    question: "What is mean(c(2,4,6))?"
+    answers:
+      - text: "4"
+        correct: true
+      - text: "6"
+        correct: false
+    tags: [statistics, sample]
+    difficulty: easy
+    language: en
+    explanation: "Arithmetic average"
+    hints:
+      - "Add and divide by length"

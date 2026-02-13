@@ -1,0 +1,37 @@
+---
+title: "Lint and debug workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Lint and debug workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Run lint checks before conversion and export machine-readable reports.
+
+## Source linting
+
+```{r eval=FALSE}
+lint <- lint_source("lesson.qmd", strict = FALSE)
+print(lint)
+```
+
+## Strict conversion
+
+```{r eval=FALSE}
+rep <- tutorize(
+  input = "lesson.qmd",
+  assessment = "both",
+  lint_strict = TRUE
+)
+```
+
+## JSON report for CI
+
+```{r eval=FALSE}
+write_tutorize_report(rep, "report.json", format = "json")
+```

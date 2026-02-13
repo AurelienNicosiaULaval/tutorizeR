@@ -1,0 +1,18 @@
+---
+title: "Regression B"
+---
+
+## Quiz section
+
+```{tutorizeR-mcq}
+question: "2 + 3 = ?"
+answers:
+  - text: "5"
+    correct: true
+  - text: "6"
+    correct: false
+```
+
+```{r code2}
+sd(c(2,3,4))
+```

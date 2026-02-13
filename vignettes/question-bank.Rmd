@@ -1,0 +1,42 @@
+---
+title: "Reusable question bank"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reusable question bank}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Use local YAML/JSON files to maintain reusable MCQ content.
+
+## Load and validate
+
+```{r eval=FALSE}
+qb <- load_question_bank("inst/question-bank")
+print(validate_question_bank(qb, strict = FALSE))
+```
+
+## Reference bank questions in source files
+
+```text
+```{tutorizeR-mcq-ref}
+ids: [sample-mean]
+strategy: ordered
+shuffle_answers: false
+```
+```
+
+## Convert with bank-enabled MCQ mode
+
+```{r eval=FALSE}
+rep <- tutorize(
+  input = "lesson.qmd",
+  assessment = "both",
+  question_bank = qb,
+  mcq_source = "mixed"
+)
+```

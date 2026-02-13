@@ -1,3 +1,34 @@
+# tutorizeR 0.4.2
+
+## Major features
+
+* Added reusable local question-bank support (YAML/JSON):
+  * `load_question_bank()`
+  * `validate_question_bank()`
+  * MCQ reference chunks via `{tutorizeR-mcq-ref}`.
+* Added pedagogical linting:
+  * `lint_source()` with severity levels and rule codes (`TRZ*`).
+  * strict gate via `lint_strict = TRUE` in `tutorize()`.
+* Added complete FR/EN i18n helper:
+  * `tr()` and dictionary files in `inst/i18n/`.
+* Extended conversion reports:
+  * richer `tutorize_report` fields (`sections`, `chunks_total`,
+    `mcq_explicit`, `mcq_from_bank`, `estimated_minutes`, `lint_summary`).
+  * report export with `write_tutorize_report()` (JSON/YAML).
+* Added preview addin:
+  * `launch_tutorizeR_preview_addin()` with Source/Output/Diff/Lint/Logs tabs.
+* Added dissemination exports:
+  * `export_lms_manifest()` profiles: `generic`, `canvas`, `moodle`.
+  * `export_tutorial_package()` opt-in scaffold generation.
+* Added industrial hardening assets:
+  * regression fixtures + structural snapshot-style tests.
+  * stress batch test.
+  * CI coverage gate for core modules (`parser`/`transform`/`validation`/`report`) set to 80%.
+
+## Compatibility
+
+* `convert_to_tutorial()` and `convert_folder()` remain backward compatible.
+
 # tutorizeR 0.3.0
 
 * Added canonical `tutorize()` API with conversion reports (`tutorize_report`).

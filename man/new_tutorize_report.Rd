@@ -11,6 +11,8 @@ new_tutorize_report(
   assessment,
   stats,
   render_result,
+  warnings = character(),
+  lint_report = NULL,
   messages = character()
 )
 }

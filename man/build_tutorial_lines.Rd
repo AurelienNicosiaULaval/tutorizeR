@@ -4,7 +4,15 @@
 \alias{build_tutorial_lines}
 \title{Build converted tutorial lines from parsed document blocks}
 \usage{
-build_tutorial_lines(parsed, format, assessment, language = "en", seed = NULL)
+build_tutorial_lines(
+  parsed,
+  format,
+  assessment,
+  language = "en",
+  seed = NULL,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed")
+)
 }
 \description{
 Build converted tutorial lines from parsed document blocks

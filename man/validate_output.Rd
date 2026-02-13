@@ -4,7 +4,12 @@
 \alias{validate_output}
 \title{Validate output path and overwrite strategy}
 \usage{
-validate_output(output_file, input_file, overwrite = FALSE)
+validate_output(
+  output_file,
+  input_file,
+  overwrite = FALSE,
+  language = c("en", "fr")
+)
 }
 \arguments{
 \item{output_file}{Destination output file path.}
@@ -12,6 +17,8 @@ validate_output(output_file, input_file, overwrite = FALSE)
 \item{input_file}{Source file path.}
 
 \item{overwrite}{Logical; allow replacing an existing output.}
+
+\item{language}{Language for validation messages (`"en"` or `"fr"`).}
 }
 \value{
 Invisibly returns `TRUE` if validation succeeds.

@@ -108,7 +108,9 @@ parse_markdown_blocks <- function(lines) {
         body_lines = if (nzchar(body)) body else character(),
         fence = inline_capture[2],
         raw_lines = line,
-        inline = TRUE
+        inline = TRUE,
+        start_line = i,
+        end_line = i
       )
       i <- i + 1L
       next
@@ -156,7 +158,9 @@ parse_markdown_blocks <- function(lines) {
         body_lines = body_lines,
         fence = fence,
         raw_lines = raw_lines,
-        inline = FALSE
+        inline = FALSE,
+        start_line = start_idx,
+        end_line = i - 1L
       )
 
       next
@@ -185,7 +189,15 @@ parse_markdown_blocks <- function(lines) {
 
 #' Build normalized chunk block object
 #' @keywords internal
-build_chunk_block <- function(spec, body_lines, fence, raw_lines, inline = FALSE) {
+build_chunk_block <- function(
+  spec,
+  body_lines,
+  fence,
+  raw_lines,
+  inline = FALSE,
+  start_line = NA_integer_,
+  end_line = NA_integer_
+) {
   chunk_spec <- parse_chunk_spec(spec)
 
   list(
@@ -198,7 +210,9 @@ build_chunk_block <- function(spec, body_lines, fence, raw_lines, inline = FALSE
     raw_lines = raw_lines,
     fence = fence,
     inline = inline,
-    tags = parse_tutorizer_tags(body_lines)
+    tags = parse_tutorizer_tags(body_lines),
+    start_line = start_line,
+    end_line = end_line
   )
 }
 

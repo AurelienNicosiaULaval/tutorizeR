@@ -9,3 +9,8 @@
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^\.lintr$
+^CITATION$
+^CITATION\.cff$
+^codemeta\.json$
+^paper$
+^SECURITY.md$

@@ -1,0 +1,13 @@
+---
+title: "MCQ ref"
+---
+
+```{tutorizeR-mcq-ref}
+ids: [mean-basic, sum-basic]
+strategy: ordered
+shuffle_answers: false
+```
+
+```{r exercise1}
+mean(c(1,2,3))
+```

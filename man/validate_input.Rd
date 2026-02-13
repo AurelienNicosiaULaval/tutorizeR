@@ -7,7 +7,8 @@
 validate_input(
   input,
   format = c("learnr", "quarto-live"),
-  assessment = c("code", "mcq", "both")
+  assessment = c("code", "mcq", "both"),
+  language = c("en", "fr")
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ validate_input(
 \item{format}{Target output format (`"learnr"` or `"quarto-live"`).}
 
 \item{assessment}{Assessment mode (`"code"`, `"mcq"`, or `"both"`).}
+
+\item{language}{Language for validation messages (`"en"` or `"fr"`).}
 }
 \value{
 Invisibly returns `TRUE` if validation succeeds.
