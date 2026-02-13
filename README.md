@@ -3,11 +3,13 @@
 </p>
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17771142.svg)](https://doi.org/10.5281/zenodo.17771142)
+[![R-CMD-check](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml/badge.svg)](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml)
 
 # tutorizeR
 
-`tutorizeR` helps teachers convert existing teaching content (`.Rmd` and `.qmd`)
-into interactive tutorials for `learnr` and `quarto-live`.
+`tutorizeR` helps teachers convert `.Rmd` and `.qmd` material into interactive
+`learnr` or `quarto-live` resources with linting, reusable MCQ banks, and
+export/report tooling.
 
 ## Installation
 
@@ -16,57 +18,77 @@ into interactive tutorials for `learnr` and `quarto-live`.
 remotes::install_github("AurelienNicosiaULaval/tutorizeR")
 ```
 
-## End-to-end example
+To use `r-universe`:
+
+```r
+install.packages(
+  "tutorizeR",
+  repos = c(
+    "https://aureliennicosiaulaval.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
+```
+
+## End-to-end workflow
 
 ```r
 library(tutorizeR)
 
-# 1) Convert a single file
+# 1) Load reusable question bank
+qb <- load_question_bank("inst/question-bank")
+
+# 2) Lint source before conversion
+lint <- lint_source("lesson.qmd", question_bank = qb, strict = FALSE)
+print(lint)
+
+# 3) Convert with mixed MCQ strategy (inline + bank)
 rep <- tutorize(
   input = "lesson.qmd",
   format = "learnr",
   assessment = "both",
+  question_bank = qb,
+  mcq_source = "mixed",
+  lint_strict = TRUE,
   overwrite = TRUE
 )
 
 print(rep)
 
-# 2) Convert a folder in batch
-folder_rep <- convert_folder(
-  dir = "course_material",
-  recursive = TRUE,
-  format = "learnr",
-  assessment = "both",
-  overwrite = TRUE
-)
+# 4) Export conversion report JSON for CI tracing
+write_tutorize_report(rep, "lesson-report.json", format = "json")
 
-print(folder_rep)
+# 5) Export LMS manifest
+manifest <- export_lms_manifest("lesson.qmd", profile = "canvas")
+print(manifest)
 ```
 
 ## Main API
 
-- `tutorize()`: canonical conversion API.
-- `convert_to_tutorial()`: compatibility wrapper.
-- `convert_folder()`: batch conversion with summary report.
-- `validate_input()` / `validate_output()`: explicit preflight checks.
-- `check_tutorial()`: render check for generated learnr tutorials.
+- `tutorize()` / `convert_to_tutorial()`
+- `convert_folder()`
+- `load_question_bank()` / `validate_question_bank()`
+- `lint_source()`
+- `write_tutorize_report()`
+- `export_lms_manifest()`
+- `export_tutorial_package()`
+- `check_tutorial()`
 
-## Feature map
+## Teacher tags
 
-| Feature | How to use |
-|---|---|
-| Convert one `.Rmd` / `.qmd` | `tutorize(input = "file.qmd")` |
-| Choose output format | `format = "learnr"` or `"quarto-live"` |
-| Choose assessment mode | `assessment = "code"`, `"mcq"`, `"both"` |
-| Batch conversion | `convert_folder("dir", recursive = TRUE)` |
-| Skip chunk conversion | `# tutorizeR: skip` inside chunk |
-| Exercise-only chunk | `# tutorizeR: exercise-only` |
-| Solution-only chunk | `# tutorizeR: solution-only` |
-| Force MCQ on chunk | `# tutorizeR: mcq` |
-| Add hints | `# tutorizeR: hints=Hint 1|Hint 2` |
-| Explicit MCQ schema | fenced block ` ```{tutorizeR-mcq} ` with YAML |
+Inside R chunks:
 
-## Explicit MCQ schema
+- `# tutorizeR: skip`
+- `# tutorizeR: exercise-only`
+- `# tutorizeR: solution-only`
+- `# tutorizeR: mcq`
+- `# tutorizeR: narrative-only`
+- `# tutorizeR: locked`
+- `# tutorizeR: hints=Hint 1|Hint 2`
+
+## MCQ block schemas
+
+Explicit question block:
 
 ```text
 ```{tutorizeR-mcq}
@@ -79,18 +101,23 @@ answers:
 ```
 ```
 
-## RStudio Addin
+Question-bank reference block:
 
-Two addins are included:
+```text
+```{tutorizeR-mcq-ref}
+ids: [mean-basic, sum-basic]
+strategy: ordered
+shuffle_answers: false
+```
+```
 
-- Convert active document
+## Addins
+
+- Convert active file
 - Convert folder
-
-Both expose format/assessment prompts and conversion logs.
+- Preview conversion (Source / Output / Diff / Lint / Logs)
 
 ## CLI mode
-
-Use the bundled script for CI or non-RStudio workflows:
 
 ```bash
 Rscript inst/scripts/tutorizeR-cli.R --input=lesson.qmd --format=learnr --assessment=both --overwrite=true
@@ -100,13 +127,14 @@ Rscript inst/scripts/tutorizeR-cli.R --dir=course_material --recursive=true --fo
 ## Known limitations
 
 - `learnr` render checks require `learnr` and `gradethis` installed.
-- Advanced chunk option expressions are preserved best-effort.
-- `quarto-live` output requires `quarto add r-wasm/quarto-live` in project root.
+- LMS export is manifest-only in v0.4 (no direct remote publishing API).
+- Question bank is local file based (YAML/JSON) in v0.4.
 
 ## Documentation
 
-- Vignette: `vignettes/getting-started.Rmd`
-- Tag syntax: `vignettes/tags-and-annotations.Rmd`
-- Rmd vs qmd conversion: `vignettes/conversion-rmd-vs-qmd.Rmd`
-- MCQ and assessments: `vignettes/mcq-and-assessment.Rmd`
-- Debugging: `vignettes/debugging-and-errors.Rmd`
+- `vignettes/getting-started.Rmd`
+- `vignettes/question-bank.Rmd`
+- `vignettes/tags-and-annotations.Rmd`
+- `vignettes/conversion-rmd-vs-qmd.Rmd`
+- `vignettes/mcq-and-assessment.Rmd`
+- `vignettes/lint-and-debug.Rmd`

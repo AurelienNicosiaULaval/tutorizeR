@@ -29,7 +29,8 @@ articles:
   - title: Authoring and syntax
     navbar: Authoring
     contents:
+      - question-bank
       - tags-and-annotations
       - conversion-rmd-vs-qmd
       - mcq-and-assessment
-      - debugging-and-errors
+      - lint-and-debug
