@@ -78,7 +78,7 @@ R CMD build .
 R CMD check --as-cran --no-manual tutorizeR_0.4.3.tar.gz
 
 # 4) Manual smoke path (requires learnr in the environment)
-Rscript -e "library(tutorizeR); tutorize('tests/testthat/fixtures/rmd/basic_code.Rmd', format = 'learnr', overwrite = TRUE, verbose = FALSE)"
+Rscript -e "library(tutorizeR); tutorize('tests/testthat/fixtures/rmd/basic_code.Rmd', format = 'learnr', overwrite = TRUE, output_dir = tempdir(), verbose = FALSE)"
 ```
 
 Expected on this repository:
