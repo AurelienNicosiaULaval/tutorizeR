@@ -1,3 +1,17 @@
+# tutorizeR 0.4.3
+
+## Release stabilization
+
+* Prepared final JOSS/CRAN-style release workflow:
+  * pinned package metadata version to `0.4.3`;
+  * refreshed release checklist and finalization documentation;
+  * validated reproducible validation commands (`R CMD build` + `R CMD check --as-cran --no-manual`).
+* Documentation and review support:
+  * clarified JOSS reproducibility instructions in README;
+  * added “state of the art / alternatives” context and explicit limitations in manuscript.
+* Final release metadata:
+  * `Description`, `CITATION.cff`, and `codemeta.json` aligned with `0.4.3`.
+
 # tutorizeR 0.4.2
 
 ## Major features

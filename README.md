@@ -63,6 +63,29 @@ manifest <- export_lms_manifest("lesson.qmd", profile = "canvas")
 print(manifest)
 ```
 
+## Reproducibility checklist (reviewer/journal-ready)
+
+```bash
+# 1) Install dependencies
+Rscript -e 'remotes::install_github("AurelienNicosiaULaval/tutorizeR")'
+
+# 2) Lint and tests
+Rscript -e "lintr::lint_package()"
+Rscript -e "devtools::test()"
+
+# 3) Build and CRAN-style check from a tarball
+R CMD build .
+R CMD check --as-cran --no-manual tutorizeR_0.4.3.tar.gz
+
+# 4) Manual smoke path (requires learnr in the environment)
+Rscript -e "library(tutorizeR); tutorize('tests/testthat/fixtures/rmd/basic_code.Rmd', format = 'learnr', overwrite = TRUE, verbose = FALSE)"
+```
+
+Expected on this repository:
+
+- `devtools::test()` passes (currently 98 tests + new fixtures).
+- `R CMD check --as-cran --no-manual` yields no errors, no warnings; one NOTE for a first submission is acceptable.
+
 ## Main API
 
 - `tutorize()` / `convert_to_tutorial()`
