@@ -1,0 +1,10 @@
+---
+title: "Basic Rmd"
+author: "Teacher"
+---
+
+Some intro text.
+
+```{r chunk_a, echo=TRUE}
+1 + 1
+```

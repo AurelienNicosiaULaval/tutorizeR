@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "profile": "moodle",
+  "title": "Basic Rmd",
+  "language": "en",
+  "sections": [],
+  "items": [
+    {
+      "id": "chunk_a",
+      "type": "exercise",
+      "solution_available": true
+    }
+  ],
+  "estimated_minutes": 3,
+  "vendor": {
+    "moodle": {
+      "section_count": 0,
+      "activity_count": 1
+    }
+  }
+}

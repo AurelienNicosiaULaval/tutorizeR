@@ -1,0 +1,43 @@
+---
+title: Regression B
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+# Setup chunk added by tutorizeR
+library(learnr)
+library(gradethis)
+gradethis_setup()
+```
+
+
+## Quiz section
+
+```{r trz-mcq-explicit-001, echo=FALSE}
+learnr::question(
+  "2 + 3 = ?",
+  learnr::answer("5", correct = TRUE),
+  learnr::answer("6", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+
+```{r trz-ex-code2, exercise.lines=3, exercise=TRUE}
+# Write your code below
+```
+
+```{r trz-sol-code2, include=FALSE}
+sd(c(2,3,4))
+```
+
+```{r trz-mcq-code2, echo=FALSE}
+learnr::question(
+  "What does the code in chunk 'code2' do?",
+  learnr::answer("Answer A (edit me)", correct = TRUE),
+  learnr::answer("Answer B (edit me)", correct = FALSE),
+  learnr::answer("Answer C (edit me)", correct = FALSE),
+  allow_retry = TRUE
+)
+```

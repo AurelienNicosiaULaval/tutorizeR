@@ -1,0 +1,16 @@
+---
+title: "Mini quiz"
+---
+
+## Question 1
+
+```{tutorizeR-mcq}
+question: "Quel package sert a creer des tutoriels interactifs en R ?"
+answers:
+  - text: "learnr"
+    correct: true
+  - text: "stats"
+    correct: false
+  - text: "graphics"
+    correct: false
+```

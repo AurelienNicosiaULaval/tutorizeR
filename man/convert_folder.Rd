@@ -2,22 +2,61 @@
 % Please edit documentation in R/convert_folder.R
 \name{convert_folder}
 \alias{convert_folder}
-\title{Convert all .Rmd/.qmd files in a folder}
+\title{Convert all `.Rmd`/`.qmd` files in a folder}
 \usage{
-convert_folder(dir = ".", pattern = "\\\\.(Rmd|qmd)$", recursive = FALSE, ...)
+convert_folder(
+  dir = ".",
+  pattern = "\\\\.(Rmd|qmd)$",
+  recursive = FALSE,
+  output_dir = NULL,
+  format = c("learnr", "quarto-live"),
+  assessment = c("code", "mcq", "both"),
+  overwrite = FALSE,
+  language = c("en", "fr"),
+  seed = NULL,
+  verbose = TRUE,
+  question_bank = NULL,
+  mcq_source = c("inline", "bank", "mixed"),
+  lint_strict = FALSE
+)
 }
 \arguments{
-\item{dir}{Path to the directory containing files.}
+\item{dir}{Folder containing source files.}
 
-\item{pattern}{Regex pattern for files to include. Default matches .Rmd and .qmd.}
+\item{pattern}{Regex pattern used to select files.}
 
-\item{recursive}{Logical, search recursively?}
+\item{recursive}{Logical; recurse into subdirectories?}
 
-\item{...}{Arguments passed to \code{convert_to_tutorial}.}
+\item{output_dir}{Optional output directory.}
+
+\item{format}{Output format (`"learnr"` or `"quarto-live"`).}
+
+\item{assessment}{Assessment mode (`"code"`, `"mcq"`, `"both"`).}
+
+\item{overwrite}{Logical; overwrite existing outputs?}
+
+\item{language}{Message/template language (`"en"` or `"fr"`).}
+
+\item{seed}{Optional integer seed injected in setup chunk.}
+
+\item{verbose}{Logical; print progress and summary?}
+
+\item{question_bank}{Optional path(s) or `tutorize_question_bank` object.}
+
+\item{mcq_source}{MCQ generation source (`"inline"`, `"bank"`, `"mixed"`).}
+
+\item{lint_strict}{Logical; fail conversion when lint reports errors.}
 }
 \value{
-Invisibly, a vector of converted file paths.
+A `tutorize_folder_report` object (invisibly).
 }
 \description{
-Convert all .Rmd/.qmd files in a folder
+Converts every matching source file in `dir`, with resilient per-file
+error handling and a summary report.
+}
+\examples{
+\dontrun{
+report <- convert_folder("labs", recursive = TRUE)
+print(report)
+}
 }

@@ -1,0 +1,36 @@
+template:
+  bootstrap: 5
+
+home:
+  title: tutorizeR
+  description: Convert existing Rmd/qmd teaching materials into interactive tutorials.
+
+reference:
+  - title: Core conversion
+    contents:
+      - tutorize
+      - convert_to_tutorial
+      - convert_folder
+  - title: Validation and checking
+    contents:
+      - validate_input
+      - validate_output
+      - check_tutorial
+  - title: Addins
+    contents:
+      - launch_tutorizeR_addin
+      - launch_tutorizeR_folder_addin
+
+articles:
+  - title: Getting started
+    navbar: Getting started
+    contents:
+      - getting-started
+  - title: Authoring and syntax
+    navbar: Authoring
+    contents:
+      - question-bank
+      - tags-and-annotations
+      - conversion-rmd-vs-qmd
+      - mcq-and-assessment
+      - lint-and-debug

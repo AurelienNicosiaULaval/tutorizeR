@@ -1,0 +1,25 @@
+---
+title: "TP classique"
+author: "Votre nom"
+---
+
+## Objectif
+
+Decrire ici les objectifs du TP.
+
+```{r setup, include=FALSE}
+library(dplyr)
+```
+
+## Exercice 1
+
+```{r prep_data}
+# tutorizeR: hints=Commencez par glimpse()|Filtrez les valeurs manquantes
+iris |> head()
+```
+
+## Exercice 2
+
+```{r visualization}
+plot(iris$Sepal.Length, iris$Sepal.Width)
+```

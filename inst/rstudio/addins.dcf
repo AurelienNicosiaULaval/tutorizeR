@@ -1,9 +1,14 @@
-Name: Convert to Tutorial
-Description: Converts the active Rmd/qmd file into a learnr tutorial.
+Name: Convert active file (tutorizeR)
+Description: Convert the active Rmd/qmd document with format and assessment prompts.
 Binding: launch_tutorizeR_addin
 Interactive: true
 
-Name: Convert Folder to Tutorial
-Description: Converts all Rmd/qmd files in a selected folder into learnr tutorials.
+Name: Convert folder (tutorizeR)
+Description: Convert all Rmd/qmd files in a folder with summary logs.
 Binding: launch_tutorizeR_folder_addin
+Interactive: true
+
+Name: Preview conversion (tutorizeR)
+Description: Preview source/output/diff/lint before writing files.
+Binding: launch_tutorizeR_preview_addin
 Interactive: true

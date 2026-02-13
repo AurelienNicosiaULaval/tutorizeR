@@ -1,0 +1,13 @@
+---
+title: "Complex YAML"
+author: "A Teacher"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+---
+
+```{r chunk_yaml, warning=FALSE}
+plot(1:5)
+```

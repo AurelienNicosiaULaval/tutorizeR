@@ -1,0 +1,5 @@
+---
+title: "Inline chunk"
+---
+
+```{r} 1 + 1 ```

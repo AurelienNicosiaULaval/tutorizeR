@@ -1,0 +1,11 @@
+---
+title: "Setup and options"
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+```
+
+```{r prep, warning=FALSE, message=FALSE, eval=TRUE}
+mtcars |> head()
+```

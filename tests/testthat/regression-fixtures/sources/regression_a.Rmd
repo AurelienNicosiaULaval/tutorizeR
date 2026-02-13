@@ -1,0 +1,14 @@
+---
+title: "Regression A"
+---
+
+## Intro
+
+```{r prep, warning=FALSE}
+head(mtcars)
+```
+
+```{r keep}
+# tutorizeR: skip
+plot(1:5)
+```

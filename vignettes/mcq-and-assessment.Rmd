@@ -1,0 +1,24 @@
+---
+title: "MCQ and assessment modes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MCQ and assessment modes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Assessment modes:
+
+- `code`: generate exercises and solutions.
+- `mcq`: generate MCQ blocks only.
+- `both`: generate code exercises and MCQ blocks.
+
+```{r eval=FALSE}
+tutorize("tp.qmd", assessment = "code")
+tutorize("tp.qmd", assessment = "mcq")
+tutorize("tp.qmd", assessment = "both")
+```

@@ -1,0 +1,70 @@
+---
+title: "Getting started for teachers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started for teachers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+`tutorizeR` converts existing `.Rmd` or `.qmd` files into interactive
+teaching material.
+
+## Minimal reproducible workflow
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+# Convert one file to learnr
+report <- tutorize(
+  input = "lesson.qmd",
+  format = "learnr",
+  assessment = "both",
+  overwrite = TRUE
+)
+
+print(report)
+```
+
+## Batch conversion
+
+```{r eval=FALSE}
+folder_report <- convert_folder(
+  dir = "course_material/",
+  recursive = TRUE,
+  format = "learnr",
+  assessment = "both",
+  overwrite = TRUE
+)
+
+print(folder_report)
+```
+
+## Source annotation tags
+
+Use comments inside R chunks:
+
+- `# tutorizeR: skip`
+- `# tutorizeR: exercise-only`
+- `# tutorizeR: solution-only`
+- `# tutorizeR: mcq`
+- `# tutorizeR: narrative-only`
+- `# tutorizeR: locked`
+- `# tutorizeR: hints=Hint 1|Hint 2`
+
+## Explicit MCQ block schema
+
+```text
+```{tutorizeR-mcq}
+question: "2 + 2 = ?"
+answers:
+  - text: "4"
+    correct: true
+  - text: "5"
+    correct: false
+```
+```

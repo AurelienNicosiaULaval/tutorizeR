@@ -2,11 +2,11 @@
 % Please edit documentation in R/convert_to_tutorial.R
 \name{strip_yaml}
 \alias{strip_yaml}
-\title{Remove leading YAML front-matter (if present)}
+\title{Remove leading YAML front matter lines}
 \usage{
-strip_yaml(x)
+strip_yaml(lines)
 }
 \description{
-Remove leading YAML front-matter (if present)
+Remove leading YAML front matter lines
 }
 \keyword{internal}

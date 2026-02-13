@@ -1,0 +1,39 @@
+---
+title: Regression A
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+# Setup chunk added by tutorizeR
+library(learnr)
+library(gradethis)
+gradethis_setup()
+```
+
+
+## Intro
+
+```{r trz-ex-prep, exercise.lines=3, exercise=TRUE, warning=FALSE}
+# Write your code below
+```
+
+```{r trz-sol-prep, include=FALSE, warning=FALSE}
+head(mtcars)
+```
+
+```{r trz-mcq-prep, echo=FALSE}
+learnr::question(
+  "What does the code in chunk 'prep' do?",
+  learnr::answer("Answer A (edit me)", correct = TRUE),
+  learnr::answer("Answer B (edit me)", correct = FALSE),
+  learnr::answer("Answer C (edit me)", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+
+```{r keep}
+# tutorizeR: skip
+plot(1:5)
+```

@@ -1,0 +1,16 @@
+---
+title: "MCQ block"
+---
+
+```{tutorizeR-mcq}
+question: "2 + 2 = ?"
+answers:
+  - text: "4"
+    correct: true
+  - text: "5"
+    correct: false
+```
+
+```{r chunk_q2}
+2 + 2
+```

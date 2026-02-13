@@ -1,0 +1,10 @@
+citHeader("To cite tutorizeR in publications, please use:")
+
+citEntry(
+  entry = "Manual",
+  title = "tutorizeR: Convert R Markdown or Quarto Content into Interactive Tutorials",
+  author = person(given = "Aurélien", family = "Nicosia", email = "aurelien.nicosia@mat.ulaval.ca"),
+  year = as.integer(format(Sys.Date(), "%Y")),
+  note = "R package version 0.4.2",
+  url = "https://github.com/AurelienNicosiaULaval/tutorizeR"
+)
