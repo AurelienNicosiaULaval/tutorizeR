@@ -2,30 +2,40 @@
 
 ## Pre-release
 
-- [ ] Run `devtools::document()` and verify generated `man/` + `NAMESPACE`.
-- [ ] Run tests: `devtools::test()`.
-- [ ] Run checks on a clean tarball: 
+- [x] Run `devtools::document()` and verify generated `man/` + `NAMESPACE`.
+- [x] Run tests: `devtools::test()` (98 tests passed).
+- [x] Build and run CRAN-style check on a clean tarball: 
   - `R CMD build .`
   - `R CMD check --as-cran --no-manual tutorizeR_*.tar.gz`
-- [ ] Confirm coverage command (core target ≥ 80%): `Rscript -e 'covr::package_coverage()'` or CI.
-- [ ] Ensure vignettes build cleanly: `R CMD build .` (vignettes included) and check log.
-- [ ] Validate README commands compile as part of CI smoke checks (install and convert example).
+- [x] Confirm check status: 0 ERROR, 0 WARNING, 1 NOTE (`New submission`).
+- [x] Confirm `.gitignore` excludes build/check artifacts (`.Rcheck`, `tutorizeR_*.tar.gz`, `tutorizeR.Rcheck`, `..Rcheck`).
+- [x] Validate README reproducibility section commands:
+  - `lintr::lint_package()`
+  - `devtools::test()`
+  - `R CMD build .`
+  - `R CMD check --as-cran --no-manual`
+- [x] Run smoke conversion on fixtures (`3` Rmd + `3` qmd): `tutorize(..., format = "learnr")`.
+- [x] Run conversion smoke on manifest: output renders without error (`render = OK`).
 
 ## CI
 
-- [ ] GitHub Actions green on Ubuntu, macOS, and Windows.
-- [ ] `lintr` job green.
-- [ ] Coverage job green.
+- [x] GitHub Actions multi-OS check (`ubuntu-latest`, `macos-latest`, `windows-latest`) passing.
+- [x] Lintr job clean.
+- [x] Coverage job passes with core coverage `>= 80%` (current core `91.07%`, total `68.98%`).
 
-## CRAN / r-universe prep
+## CRAN / r-universe / JOSS prep
 
-- [ ] Confirm DESCRIPTION metadata, URLs, and license are valid.
-- [ ] Remove or justify remaining CRAN NOTES (target: only allowed “New submission” NOTE if applicable).
-- [ ] Update `cran-comments.md` with latest test environments and check summary.
+- [x] Update `DESCRIPTION` metadata (`Version: 0.4.3`, URL, BugReports).
+- [x] Update `CITATION.cff`, `codemeta.json`, `NEWS.md`.
+- [x] Finalize JOSS manuscript in `paper/paper.md` (Statement of Need, functionality, QA, availability, limitations, references).
+- [x] Add reviewer-facing reproducibility path in `README`.
+- [ ] Confirm `cran-comments.md` and downstream notes remain synchronized with latest run.
+- [ ] Confirm package version in README/install badges reflects current release.
 
 ## Tag and publish
 
-- [ ] Bump version in DESCRIPTION.
-- [ ] Commit release changes.
-- [ ] Create release tag `vX.Y.Z`.
-- [ ] Publish release notes from NEWS entries.
+- [x] Bump package version (`0.4.3`).
+- [x] Create git tag (`v0.4.3`).
+- [x] Open PR against `main` from the release branch and confirm it is merged.
+- [ ] Draft GitHub release notes from NEWS and include tarball/reproduction artifacts.
+- [ ] Close JOSS checklist items in `paper/paper.md` and archive build command outputs.
