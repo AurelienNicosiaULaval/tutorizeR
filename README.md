@@ -97,6 +97,11 @@ cd paper
 Rscript -e "rmarkdown::render('paper.md', output_format = 'pdf_document', output_file = 'paper.pdf')"
 ```
 
+For reviewers/authors, full submission steps are in:
+
+- `docs/joss_submission_guide.md`
+- `docs/joss_release_bundle.md`
+
 ## Main API
 
 - `tutorize()` / `convert_to_tutorial()`
