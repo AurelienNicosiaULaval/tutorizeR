@@ -102,6 +102,12 @@ For reviewers/authors, full submission steps are in:
 - `docs/joss_submission_guide.md`
 - `docs/joss_release_bundle.md`
 
+JOSS 2026 scope checks (important):
+
+- Confirm repository-wide value (not a thin/one-off utility), open development evidence, and at least ~6 months public history.
+- Keep issue/PR traces visible and use a stable release/tag strategy.
+- Include the AI usage disclosure in `paper/paper.md` if AI was used during coding, docs, or writing.
+
 ## Main API
 
 - `tutorize()` / `convert_to_tutorial()`
