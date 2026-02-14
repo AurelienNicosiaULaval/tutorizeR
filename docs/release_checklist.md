@@ -14,7 +14,8 @@
   - `devtools::test()`
   - `R CMD build .`
   - `R CMD check --as-cran --no-manual`
-- [x] Run smoke conversion on fixtures (`3` Rmd + `3` qmd): `tutorize(..., format = "learnr")`.
+- [x] Run smoke conversion on fixtures (`3` Rmd + `3` qmd), including `tutorizeR-mcq-ref` case with local bank:
+  - `tutorize("tests/testthat/fixtures/qmd/with_mcq_ref.qmd", format = "learnr", question_bank = load_question_bank("tests/testthat/fixtures/question-bank"), overwrite = TRUE, assessment = "both", verbose = FALSE)`.
 - [x] Run conversion smoke on manifest: output renders without error (`render = OK`).
 
 ## CI

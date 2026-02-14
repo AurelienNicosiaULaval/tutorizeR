@@ -2,10 +2,10 @@
 
 ## Reproducibility log
 
-- Date (UTC): 2026-02-13
-- Commit: `b9fde3a` (`feat/max-potentiel-enseignant`)
-- Tag: `v0.4.3`
-- Branch: `feature/bring-v0.4-into-main`
+- Date (UTC): 2026-02-14
+- Commit: `d4a9bba` (`chore/joss-criteria-update-rebased`)
+- Tag: `v0.4.3` (candidate for release head)
+- Branch: `chore/joss-criteria-update-rebased`
 
 ## Commands run
 
