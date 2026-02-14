@@ -7,7 +7,7 @@
 
 - 0 errors
 - 0 warnings
-- 0 notes (target)
+- 1 note: New submission
 
 ## Downstream impact
 

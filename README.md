@@ -63,6 +63,51 @@ manifest <- export_lms_manifest("lesson.qmd", profile = "canvas")
 print(manifest)
 ```
 
+## Reproducibility checklist (reviewer/journal-ready)
+
+```bash
+# 1) Install dependencies
+Rscript -e 'remotes::install_github("AurelienNicosiaULaval/tutorizeR")'
+
+# 2) Lint and tests
+Rscript -e "lintr::lint_package()"
+Rscript -e "devtools::test()"
+
+# 3) Build and CRAN-style check from a tarball
+R CMD build .
+R CMD check --as-cran --no-manual tutorizeR_0.4.3.tar.gz
+
+# 4) Manual smoke path (requires learnr in the environment)
+Rscript -e "library(tutorizeR); tutorize('tests/testthat/fixtures/rmd/basic_code.Rmd', format = 'learnr', overwrite = TRUE, output_dir = tempdir(), verbose = FALSE)"
+```
+
+Expected on this repository:
+
+- `devtools::test()` passes (currently 98 tests + new fixtures).
+- `R CMD check --as-cran --no-manual` yields no errors, no warnings; one NOTE for a first submission is acceptable.
+
+## JOSS submission note
+
+For JOSS, you submit the manuscript source (`paper/paper.md`) and bibliography (`paper/paper.bib`).
+You do **not** need to attach a PDF in the repository for submission.
+If you want a local PDF preview, render it with:
+
+```bash
+cd paper
+Rscript -e "rmarkdown::render('paper.md', output_format = 'pdf_document', output_file = 'paper.pdf')"
+```
+
+For reviewers/authors, full submission steps are in:
+
+- `docs/joss_submission_guide.md`
+- `docs/joss_release_bundle.md`
+
+JOSS 2026 scope checks (important):
+
+- Confirm repository-wide value (not a thin/one-off utility), open development evidence, and at least ~6 months public history.
+- Keep issue/PR traces visible and use a stable release/tag strategy.
+- Include the AI usage disclosure in `paper/paper.md` if AI was used during coding, docs, or writing.
+
 ## Main API
 
 - `tutorize()` / `convert_to_tutorial()`
