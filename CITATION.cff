@@ -7,7 +7,7 @@ abstract: >-
   tutorizeR converts R Markdown (.Rmd) and Quarto (.qmd) teaching materials into
   interactive learnr tutorials or quarto-live resources with educational workflows,
   MCQ generation, linting and LMS export helpers.
-version: 0.4.3
+version: 0.4.4
 license: MIT
 repository-code: https://github.com/AurelienNicosiaULaval/tutorizeR
 url: https://github.com/AurelienNicosiaULaval/tutorizeR

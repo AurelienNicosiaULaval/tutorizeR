@@ -1,7 +1,7 @@
 Package: tutorizeR
 Type: Package
 Title: Convert R Markdown or Quarto Content into Interactive Tutorials
-Version: 0.4.3
+Version: 0.4.4
 Authors@R: person(
     given  = "Aurélien",
     family = "Nicosia",

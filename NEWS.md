@@ -1,3 +1,11 @@
+# tutorizeR 0.4.4
+
+## Release finalization
+
+- Finalized JOSS-ready release artifacts and metadata alignment.
+- Refreshed reproducibility and reviewer guidance docs.
+- Synchronized version fields for release publication.
+
 # tutorizeR 0.4.3
 
 ## Release stabilization
