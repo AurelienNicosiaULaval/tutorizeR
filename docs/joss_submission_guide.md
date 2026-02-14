@@ -36,6 +36,28 @@ This is different from a standard journal where:
 - acceptance is mostly text-centric,
 - proofs and production are central.
 
+## 2a) Updated JOSS scope/significance gate to verify before submission
+
+Before submitting, verify explicitly that the repository matches the current JOSS criteria:
+
+- The software has a clear research/community use case beyond a one-off utility.
+- The package is not a "single-function" or thin wrapper; it is a coherent, maintainable tool with documented testing, docs, and clear contribution path.
+- The repository has sustained public history (JOSS asks for evidence of at least ~6 months of open development).
+- The issue tracker and PR history are public and usable without manual approvals/payments.
+- Features are feature-complete and packaged according to community conventions for R.
+- A reviewer can install and reproduce core behaviour from source with documented commands.
+
+From the submission page:
+- JOSS explicitly emphasizes clear research impact and credible scholarly significance.
+- They ask for evidence of public, sustainable development and meaningful software engineering choices.
+- An AI usage disclosure statement is required when AI was used in code/paper/docs creation.
+
+Suggested preflight docs to attach in your JOSS notes:
+
+- `git log --since='6 months ago' --oneline`
+- `.github/ISSUE_TEMPLATE` and `PULL_REQUEST_TEMPLATE` presence.
+- Release/reproducibility proof: `docs/joss_release_bundle.md`.
+
 For JOSS, the **software + reproducibility + review criteria** are central, and the article is a concise companion.
 
 ## 3) Reviewer-critical checks already prepared in this repo

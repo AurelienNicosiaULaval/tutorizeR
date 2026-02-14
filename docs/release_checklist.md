@@ -31,6 +31,12 @@
 - [x] Add reviewer-facing reproducibility path in `README`.
 - [x] Confirm `cran-comments.md` and downstream notes remain synchronized with latest run (`cran-comments.md`, `README` smoke command).
 - [x] Confirm README/release references reflect current release (`0.4.3`).
+- [x] Validate JOSS scope/significance gate:
+  - repository age check (`git log --since='6 months ago' --oneline`) includes sustained public development,
+  - public issue/PR workflows and contribution templates exist (`.github/ISSUE_TEMPLATE`, `.github/PULL_REQUEST_TEMPLATE.md`),
+  - no "thin utility/one-off" framing in manuscript and docs,
+  - `paper/paper.md` includes explicit AI usage disclosure if applicable,
+  - reproducibility bundle present (`docs/joss_release_bundle.md`).
 
 ## Tag and publish
 

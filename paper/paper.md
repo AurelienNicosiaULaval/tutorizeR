@@ -76,6 +76,12 @@ keeps a single source of truth for instructors.
 
 The package includes tests and linting, with automated checks covering core parser/transform/validation/report paths. New/changed features are documented via roxygen and vignettes, and conversion edge cases are regression tested (including non-R chunks, inline code fences, duplicated labels, and Quarto-only fixtures).
 
+## AI usage disclosure
+
+No generative AI tools were used in the production of the software implementation or the `tutorizeR` manuscript.
+
+When using `tutorizeR` by others for educational material conversion, the package does not impose any AI model dependency and remains fully script-driven and reproducible.
+
 ## Limitations
 
 - LMS publication is currently manifest-first export (Canvas/Moodle/generic); no direct LMS API publishing is included yet.
