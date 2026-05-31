@@ -20,3 +20,4 @@
 ^.*\.Rcheck$
 ^\.\.Rcheck$
 ^tutorizeR_[0-9.]+\.tar\.gz$
+^CRAN-SUBMISSION$
