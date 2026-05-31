@@ -4,7 +4,6 @@
 
 [![R-CMD-check](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml/badge.svg)](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![CRAN status](https://img.shields.io/badge/CRAN-not%20submitted-lightgrey.svg)](https://CRAN.R-project.org/package=tutorizeR)
 [![JOSE DOI](https://img.shields.io/badge/JOSE%20DOI-pending-lightgrey.svg)](docs/jose_submission_report.md)
 
 # tutorizeR
@@ -14,6 +13,12 @@
 ![tutorizeR workflow](man/figures/tutorize-workflow.svg)
 
 ## Installation
+
+```r
+install.packages("tutorizeR")
+```
+
+To install the development version from GitHub:
 
 ```r
 # install.packages("remotes")
@@ -86,7 +91,7 @@ rsync -a --exclude='.git' --exclude='*.Rcheck' --exclude='*.tar.gz' ./ "$tmpdir/
 cd "$tmpdir/tutorizeR"
 Rscript -e "devtools::document()"
 R CMD build .
-R CMD check --as-cran --no-manual tutorizeR_0.4.4.tar.gz
+R CMD check --as-cran tutorizeR_0.4.4.tar.gz
 ```
 
 Installed smoke test:
@@ -115,7 +120,6 @@ Formal learning-outcome evaluation: Not verifiable from repository contents.
 Actual classroom deployment: Not verifiable from repository contents.
 Broad instructor adoption: Not verifiable from repository contents.
 Final release DOI: Not verifiable from repository contents.
-Current CRAN publication: Not verifiable from repository contents.
 JOSE submission or acceptance: Not verifiable from repository contents.
 
 ## Secondary target: JOSS
