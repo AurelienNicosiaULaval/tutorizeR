@@ -33,7 +33,7 @@ Main limitations:
 
 - actual classroom adoption is not verifiable from repository contents;
 - public repository history and public review readiness are not verifiable from local contents;
-- GitHub Actions passed on PR #5 for commit `864c489`; checks should still be rerun immediately before upload.
+- GitHub Actions passed on PR #5 during this review; checks should still be rerun immediately before upload.
 
 ## JOSS Readiness Score
 
@@ -82,7 +82,7 @@ On 2026-05-31, the following checks were performed locally:
 - Coverage gate script: PASS, 71.58% total coverage and 93.36% core coverage.
 - Clean temporary source copy built with `R CMD build`: PASS.
 - `R CMD check --as-cran --no-manual`: PASS with 1 NOTE for new submission.
-- GitHub Actions on PR #5 for commit `864c489`: PASS for coverage, lintr, testthat, and R CMD check on Ubuntu, macOS, and Windows.
+- GitHub Actions on PR #5 during this review: PASS for coverage, lintr, testthat, and R CMD check on Ubuntu, macOS, and Windows.
 
 Direct `R CMD build .` from the live Git checkout was attempted but interrupted because R spent too long copying `.git` into the temporary build directory before applying package build exclusions. Building from a clean source copy without `.git`, `.Rcheck`, or local tarballs succeeded.
 

@@ -51,7 +51,7 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 | Automated tests exist. | READY | `tests/testthat/`. |
 | Example module tests exist. | READY | `tests/testthat/test-examples.R`. |
 | Local tests pass. | READY | `testthat::test_local('.')` passed locally with 144 tests on 2026-05-31. |
-| Remote CI passes. | READY | GitHub Actions run `26715564901` passed on PR #5 for commit `864c489`. |
+| Remote CI passes. | READY | GitHub Actions run `26715694988` passed on PR #5 during this review. |
 
 ## Examples
 

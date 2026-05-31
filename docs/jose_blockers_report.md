@@ -35,7 +35,7 @@ Sources consulted:
 | BLOCKER | Claiming improved learning outcomes, grades, or engagement without measured evidence. | Do not claim. |
 | MAJOR | Claiming JOSE submission, review, or acceptance. | Do not claim until it happens and is documented. |
 | MAJOR | Claiming CRAN publication. | Do not claim unless CRAN publication is verified. |
-| MAJOR | Claiming CI is green without checking remote Actions. | Addressed for PR #5 commit `864c489`; rerun on final release commit. |
+| MAJOR | Claiming CI is green without checking remote Actions. | Addressed during this review; rerun on final release commit. |
 
 ## Package Quality Risks
 
@@ -93,7 +93,7 @@ Files addressed in this PR:
 
 ## Final Checklist Before Submission
 
-- [x] Confirm remote GitHub Actions pass on PR #5 commit `864c489`.
+- [x] Confirm remote GitHub Actions pass on PR #5 during this review.
 - [ ] Rerun `Rscript -e "testthat::test_local('.')"` on a clean checkout.
 - [ ] Rerun `Rscript -e "lintr::lint_package()"`.
 - [ ] Rerun source build from a clean source copy or another checkout that does not copy `.git`.

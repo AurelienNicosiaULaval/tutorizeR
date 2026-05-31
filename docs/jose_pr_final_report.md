@@ -48,7 +48,7 @@ PR: https://github.com/AurelienNicosiaULaval/tutorizeR/pull/5
 - Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository.
 - Actual classroom deployment is not verifiable from repository contents.
 - Broad external instructor adoption is not verifiable from repository contents.
-- Remote GitHub Actions passed on PR #5 for commit `864c489`.
+- Remote GitHub Actions passed during this review. Because any later push retriggers CI, reviewers should check the current PR checks before submission.
 - ORCID and final release DOI should be confirmed before submission.
 
 ## Validation Commands Run
@@ -142,18 +142,18 @@ Result: PASS with 1 NOTE for new submission.
 
 ## CI Status
 
-GitHub Actions were checked on PR #5 after pushing commit `864c489`.
+GitHub Actions were checked on PR #5 during this review.
 
-Run: https://github.com/AurelienNicosiaULaval/tutorizeR/actions/runs/26715564901
+Observed passing run: https://github.com/AurelienNicosiaULaval/tutorizeR/actions/runs/26715694988
 
 Results:
 
-- `coverage`: PASS, 2m21s.
-- `lintr`: PASS, 2m24s.
-- `testthat`: PASS, 2m36s.
-- `r-cmd-check (ubuntu-latest, release)`: PASS, 3m3s.
-- `r-cmd-check (macos-latest, release)`: PASS, 3m34s.
-- `r-cmd-check (windows-latest, release)`: PASS, 4m26s.
+- `coverage`: PASS, 1m26s.
+- `lintr`: PASS, 1m10s.
+- `testthat`: PASS, 1m20s.
+- `r-cmd-check (ubuntu-latest, release)`: PASS, 2m4s.
+- `r-cmd-check (macos-latest, release)`: PASS, 2m17s.
+- `r-cmd-check (windows-latest, release)`: PASS, 3m4s.
 
 ## Files Modified
 
