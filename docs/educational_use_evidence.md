@@ -28,7 +28,7 @@ It is plausible that `tutorizeR` may help instructors:
 
 These are workflow plausibility statements, not measured educational outcomes.
 
-Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository.
+Formal learning-outcome evaluation: Not verifiable from repository contents.
 
 ## What Is Not Claimed
 
@@ -49,7 +49,7 @@ Reviewers can inspect:
 
 - `inst/examples/example_course_module/README.md`;
 - `inst/examples/example_course_module/run-example.R`;
-- `vignettes/teaching-workflow-case-study.Rmd`;
+- `vignettes/teaching-workflow-scenario.Rmd`;
 - `tests/testthat/test-examples.R`;
 - `tests/testthat/test-jose-readiness.R`;
 - `paper/paper.md`;
@@ -58,14 +58,12 @@ Reviewers can inspect:
 
 ## Evidence Still Missing Before a Stronger JOSE Submission
 
-Not verifiable from repository contents:
-
-- actual classroom deployment;
-- instructor adoption outside the maintainer;
-- formal student feedback;
-- student outcome data;
-- teaching assistant workflow evidence;
-- long-term use across multiple cohorts.
+- Actual classroom deployment: Not verifiable from repository contents.
+- Instructor adoption outside the maintainer: Not verifiable from repository contents.
+- Formal student feedback: Not verifiable from repository contents.
+- Student outcome data: Not verifiable from repository contents.
+- Teaching assistant workflow evidence: Not verifiable from repository contents.
+- Long-term use across multiple cohorts: Not verifiable from repository contents.
 
 ## Claims that must not be made
 
@@ -76,4 +74,3 @@ Not verifiable from repository contents:
 - Do not claim JOSE readiness solely because R CMD check passes.
 - Do not claim direct LMS publishing, because current support is manifest-oriented.
 - Do not claim current CRAN availability unless verified.
-

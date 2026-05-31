@@ -35,6 +35,9 @@ gradethis_setup()
 
 ## Instructor demonstration
 
+**Hint(s)**
+- Recognize the output of head(activity, 3)
+
 _Locked exercise: enable this block only for demonstration._
 ```{r trz-ex-demo-preview, exercise.lines=3, exercise=TRUE}
 # Write your code below
@@ -46,10 +49,10 @@ head(activity, 3)
 
 ```{r trz-mcq-demo-preview, echo=FALSE}
 learnr::question(
-  "In ggplot2, which aesthetic should be mapped to show quiz score on the vertical axis?",
-  learnr::answer("y", correct = TRUE),
-  learnr::answer("x", correct = FALSE),
-  learnr::answer("color", correct = FALSE),
+  "What does `head(activity, 3)` return in this lesson?",
+  learnr::answer("The first three rows of the activity data.", correct = TRUE),
+  learnr::answer("A grouped summary by program.", correct = FALSE),
+  learnr::answer("A scatterplot of study hours and quiz score.", correct = FALSE),
   allow_retry = TRUE
 )
 ```
@@ -78,10 +81,10 @@ activity |>
 
 ```{r trz-mcq-summarize-program, echo=FALSE}
 learnr::question(
-  "What does the code in chunk 'summarize-program' do?",
-  learnr::answer("Answer A (edit me)", correct = TRUE),
-  learnr::answer("Answer B (edit me)", correct = FALSE),
-  learnr::answer("Answer C (edit me)", correct = FALSE),
+  "After grouping by `program`, what does `mean_hours` represent?",
+  learnr::answer("The average study hours within each academic program.", correct = TRUE),
+  learnr::answer("The total study hours across all students.", correct = FALSE),
+  learnr::answer("The quiz score for the first student in each program.", correct = FALSE),
   allow_retry = TRUE
 )
 ```
@@ -100,7 +103,7 @@ learnr::question(
 
 ```{r trz-mcq-bank-005-001, echo=FALSE}
 learnr::question(
-  "In ggplot2, which aesthetic should be mapped to show quiz score on the vertical axis?",
+  "In `ggplot2`, which aesthetic should be mapped to show quiz score on the vertical axis?",
   learnr::answer("y", correct = TRUE),
   learnr::answer("x", correct = FALSE),
   learnr::answer("color", correct = FALSE),
@@ -132,10 +135,10 @@ ggplot(activity, aes(x = study_hours, y = quiz_score, color = program)) +
 
 ```{r trz-mcq-plot-study-score, echo=FALSE}
 learnr::question(
-  "What does the code in chunk 'plot-study-score' do?",
-  learnr::answer("Answer A (edit me)", correct = TRUE),
-  learnr::answer("Answer B (edit me)", correct = FALSE),
-  learnr::answer("Answer C (edit me)", correct = FALSE),
+  "Which interpretation is appropriate for the scatterplot in this synthetic example?",
+  learnr::answer("Students with more study hours tend to have higher quiz scores in this small dataset, but the plot is not causal evidence.", correct = TRUE),
+  learnr::answer("The plot proves that increasing study hours causes higher quiz scores.", correct = FALSE),
+  learnr::answer("The plot shows that all programs have identical quiz scores.", correct = FALSE),
   allow_retry = TRUE
 )
 ```

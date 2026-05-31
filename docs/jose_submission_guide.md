@@ -63,6 +63,10 @@ Developer checks:
 ```bash
 Rscript -e "testthat::test_local('.')"
 Rscript -e "lintr::lint_package()"
+tmpdir=$(mktemp -d)
+rsync -a --exclude='.git' --exclude='*.Rcheck' --exclude='*.tar.gz' ./ "$tmpdir/tutorizeR/"
+cd "$tmpdir/tutorizeR"
+Rscript -e "devtools::document()"
 R CMD build .
 R CMD check --as-cran --no-manual tutorizeR_0.4.4.tar.gz
 ```
@@ -79,8 +83,9 @@ If optional rendering dependencies are missing, reviewers should still be able t
 
 - Remote GitHub Actions status on the final branch.
 - Final source build and R CMD check from a clean checkout.
-- Current release tag and archive DOI.
-- ORCID metadata in `paper/paper.md`.
+- Current release tag.
+- Final release DOI: Not verifiable from repository contents.
+- ORCID metadata, if the maintainer wants to publish it.
 - Any classroom deployment evidence, if the maintainer wants to claim it.
 
 ## Demonstrated Claims
@@ -97,13 +102,11 @@ The repository demonstrates:
 
 ## Claims Not Demonstrated
 
-Not verifiable from repository contents:
-
-- formal learning-outcome evaluation;
-- improved student grades;
-- improved student engagement;
-- documented classroom deployment;
-- broad external adoption;
-- JOSE acceptance or current JOSE review status;
-- current CRAN publication.
-
+- Formal learning-outcome evaluation: Not verifiable from repository contents.
+- Improved student grades: Not verifiable from repository contents.
+- Improved student engagement: Not verifiable from repository contents.
+- Documented classroom deployment: Not verifiable from repository contents.
+- Broad external adoption: Not verifiable from repository contents.
+- JOSE acceptance or current JOSE review status: Not verifiable from repository contents.
+- Current CRAN publication: Not verifiable from repository contents.
+- Final release DOI: Not verifiable from repository contents.

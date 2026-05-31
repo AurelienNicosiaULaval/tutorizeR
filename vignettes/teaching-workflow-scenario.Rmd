@@ -1,8 +1,8 @@
 ---
-title: "Teaching Workflow Case Study"
+title: "Teaching Workflow Scenario"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Teaching Workflow Case Study}
+  %\VignetteIndexEntry{Teaching Workflow Scenario}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,6 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
+
+This vignette is an illustrative scenario. Actual classroom deployment is Not verifiable from repository contents.
 
 ## Teaching problem
 
@@ -48,7 +50,7 @@ shuffle_answers: false
 ## Running `tutorize()`
 
 ```{r eval=FALSE}
-work_dir <- file.path(tempdir(), "tutorizeR-case-study")
+work_dir <- file.path(tempdir(), "tutorizeR-scenario")
 dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
 
 file.copy(file.path(example_dir, "lesson-source.qmd"), work_dir, overwrite = TRUE)
@@ -98,7 +100,10 @@ The package creates local artifacts. Publishing depends on the teaching environm
 
 ## Limitations and manual checks
 
-This workflow demonstrates feasibility and reproducibility, not measured learning impact. Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository. Classroom deployment is not verifiable from repository contents.
+This workflow demonstrates feasibility and reproducibility, not measured learning impact.
+
+- Formal learning-outcome evaluation: Not verifiable from repository contents.
+- Actual classroom deployment: Not verifiable from repository contents.
 
 ## Reproducibility checklist
 
@@ -108,4 +113,3 @@ library(tutorizeR)
 example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
 source(file.path(example_dir, "run-example.R"))
 ```
-

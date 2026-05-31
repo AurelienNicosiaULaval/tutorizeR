@@ -1,5 +1,34 @@
 # Reproduce the example course module after package installation.
 
+required_packages <- c(
+  "tutorizeR",
+  "dplyr",
+  "ggplot2",
+  "readr",
+  "learnr",
+  "gradethis"
+)
+
+missing_packages <- required_packages[!vapply(
+  required_packages,
+  requireNamespace,
+  quietly = TRUE,
+  FUN.VALUE = logical(1)
+)]
+
+if (length(missing_packages) > 0L) {
+  stop(
+    paste0(
+      "The example course module requires these installed R packages: ",
+      paste(missing_packages, collapse = ", "),
+      ". Install the package dependencies declared in DESCRIPTION before ",
+      "running this script. gradethis is available from ",
+      "https://rstudio.r-universe.dev."
+    ),
+    call. = FALSE
+  )
+}
+
 library(tutorizeR)
 
 example_dir <- system.file(
@@ -28,6 +57,11 @@ file.copy(
   to = file.path(work_dir, "student_activity.csv"),
   overwrite = TRUE
 )
+
+if (!file.exists(file.path(work_dir, "lesson-source.qmd")) ||
+    !file.exists(file.path(work_dir, "student_activity.csv"))) {
+  stop("Could not copy the example source files to the temporary directory.", call. = FALSE)
+}
 
 question_bank <- load_question_bank(file.path(example_dir, "question-bank"))
 

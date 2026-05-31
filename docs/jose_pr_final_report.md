@@ -12,9 +12,12 @@ PR: https://github.com/AurelienNicosiaULaval/tutorizeR/pull/5
 - Added cautious AI usage disclosure.
 - Added explicit educational evidence boundaries.
 - Rebuilt the example module as an installable teaching example with source lesson, question bank, expected outputs, JSON report, and run script.
-- Added a long teaching workflow case-study vignette.
+- Added a teaching workflow scenario vignette.
 - Expanded core vignettes with user goals, minimal examples, realistic examples, limitations, and reproducibility checks.
-- Added CC-BY 4.0 content licensing for educational examples and figures.
+- Added CC-BY 4.0 content licensing for educational examples, expected outputs, and figures.
+- Replaced placeholder MCQs in the JOSE-facing example outputs with realistic question-bank items.
+- Added an installed-example CI job.
+- Removed the placeholder ORCID field, the generic group paper author, and the unverified Zenodo DOI badge.
 - Added example-module tests and README fixture-path checks.
 - Updated GitHub Actions coverage logic to use named coverage values and run on PRs targeting `release/v0.4.4`.
 
@@ -40,16 +43,17 @@ PR: https://github.com/AurelienNicosiaULaval/tutorizeR/pull/5
 
 - `docs/educational_use_evidence.md`
 - `inst/examples/example_course_module/`
-- `vignettes/teaching-workflow-case-study.Rmd`
+- `vignettes/teaching-workflow-scenario.Rmd`
 - Expanded getting started, question-bank, conversion, assessment, and lint/debug vignettes.
 
 ## Remaining Limitations
 
-- Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository.
-- Actual classroom deployment is not verifiable from repository contents.
-- Broad external instructor adoption is not verifiable from repository contents.
-- Remote GitHub Actions passed during this review. Because any later push retriggers CI, reviewers should check the current PR checks before submission.
-- ORCID and final release DOI should be confirmed before submission.
+- Formal learning-outcome evaluation: Not verifiable from repository contents.
+- Actual classroom deployment: Not verifiable from repository contents.
+- Broad external instructor adoption: Not verifiable from repository contents.
+- Remote GitHub Actions must be checked again after the final push from this pass.
+- Final release DOI: Not verifiable from repository contents.
+- ORCID should be added only if the maintainer wants to publish a verified ORCID.
 
 ## Validation Commands Run
 
@@ -62,10 +66,16 @@ Official JOSE pages reviewed:
 Local validation:
 
 ```bash
+Rscript -e "devtools::document()"
+```
+
+Result: PASS. Documentation regenerated and `RoxygenNote` updated to `7.3.3`.
+
+```bash
 Rscript -e "testthat::test_local('.')"
 ```
 
-Result: PASS. 144 tests passed, 0 failures, 0 warnings, 0 skips.
+Result: PASS. The full test suite completed with no failures.
 
 ```bash
 Rscript -e "lintr::lint_package()"
@@ -78,6 +88,20 @@ Rscript -e "yaml::read_yaml('_pkgdown.yml')"
 ```
 
 Result: PASS. `_pkgdown.yml` parsed successfully.
+
+```bash
+Rscript - <<'EOF'
+out_dir <- tempfile('tutorizer-pkgdown-')
+pkgdown::build_site(
+  override = list(destination = out_dir),
+  preview = FALSE,
+  install = FALSE,
+  new_process = FALSE
+)
+EOF
+```
+
+Result: PASS. The site was built in a temporary directory. `pkgdown` reported that the site URL is missing; this was left unset because a published pkgdown URL is Not verifiable from repository contents.
 
 ```bash
 Rscript -e "rmarkdown::render('paper/paper.md', output_format = rmarkdown::md_document(variant = 'gfm'), output_file = tempfile(fileext = '.md'), quiet = TRUE)"
@@ -99,10 +123,12 @@ EOF
 Result: PASS. 13 vignettes rendered successfully.
 
 ```bash
-Rscript -e "source(system.file('examples', 'example_course_module', 'run-example.R', package = 'tutorizeR'))"
+tmp_lib=$(mktemp -d)
+R CMD INSTALL --library="$tmp_lib" .
+TMP_LIB="$tmp_lib" Rscript -e ".libPaths(c(Sys.getenv('TMP_LIB'), .libPaths())); source(system.file('examples', 'example_course_module', 'run-example.R', package = 'tutorizeR'))"
 ```
 
-Result: PASS after `pkgload::load_all('.')` in the local checkout.
+Result: PASS. The installed package example generated `learnr`, `quarto-live`, and JSON report outputs in a temporary directory.
 
 ```bash
 Rscript - <<'EOF'
@@ -120,13 +146,7 @@ if (core_pct < 80) stop(sprintf('Core coverage threshold not met: %.2f%% < 80%%'
 EOF
 ```
 
-Result: PASS. Coverage total: 71.58%. Coverage core: 93.36%.
-
-```bash
-R CMD build .
-```
-
-Result: attempted directly in the live Git checkout, but interrupted after the command spent too long copying `.git` into the temporary build directory before R package exclusions were applied. This is a local checkout issue, not a package source issue.
+Result: PASS in the previous PR pass. Coverage total: 71.58%. Coverage core: 93.36%.
 
 Clean source-copy validation:
 
@@ -140,20 +160,11 @@ R CMD check --as-cran --no-manual tutorizeR_0.4.4.tar.gz
 
 Result: PASS with 1 NOTE for new submission.
 
+The NOTE also records that `gradethis` is suggested from `https://rstudio.r-universe.dev` via `Additional_repositories`.
+
 ## CI Status
 
-GitHub Actions were checked on PR #5 during this review.
-
-Observed passing run: https://github.com/AurelienNicosiaULaval/tutorizeR/actions/runs/26715694988
-
-Results:
-
-- `coverage`: PASS, 1m26s.
-- `lintr`: PASS, 1m10s.
-- `testthat`: PASS, 1m20s.
-- `r-cmd-check (ubuntu-latest, release)`: PASS, 2m4s.
-- `r-cmd-check (macos-latest, release)`: PASS, 2m17s.
-- `r-cmd-check (windows-latest, release)`: PASS, 3m4s.
+GitHub Actions must be checked after the final commit is pushed because this pass adds a new `installed-example` job.
 
 ## Files Modified
 
@@ -163,7 +174,9 @@ Key changed or added files:
 - `paper/paper.md`
 - `paper/paper.bib`
 - `LICENSE-CONTENT.md`
+- `LICENSES.md`
 - `_pkgdown.yml`
+- `.Rbuildignore`
 - `.github/workflows/r.yml`
 - `docs/jose_blockers_report.md`
 - `docs/jose_submission_guide.md`
@@ -174,7 +187,7 @@ Key changed or added files:
 - `inst/examples/example_course_module/`
 - `tests/testthat/test-examples.R`
 - `tests/testthat/test-jose-readiness.R`
-- `vignettes/teaching-workflow-case-study.Rmd`
+- `vignettes/teaching-workflow-scenario.Rmd`
 - `vignettes/getting-started.Rmd`
 - `vignettes/question-bank.Rmd`
 - `vignettes/conversion-rmd-vs-qmd.Rmd`
@@ -185,7 +198,8 @@ Key changed or added files:
 
 - Documented classroom deployment: Not verifiable from repository contents.
 - Formal learning-outcome evaluation: Not verifiable from repository contents.
-- Final release DOI and ORCID metadata should be confirmed.
+- Final release DOI: Not verifiable from repository contents.
+- ORCID metadata should be added only after maintainer confirmation.
 
 Recommendation: Not ready for JOSE submission.
 

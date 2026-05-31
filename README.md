@@ -2,7 +2,6 @@
   <img src="man/figures/logo.png" alt="tutorizeR hex sticker" height="180">
 </p>
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17771142.svg)](https://doi.org/10.5281/zenodo.17771142)
 [![R-CMD-check](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml/badge.svg)](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN status](https://img.shields.io/badge/CRAN-not%20submitted-lightgrey.svg)](https://CRAN.R-project.org/package=tutorizeR)
@@ -82,36 +81,18 @@ Developer checks:
 ```bash
 Rscript -e "testthat::test_local('.')"
 Rscript -e "lintr::lint_package()"
+tmpdir=$(mktemp -d)
+rsync -a --exclude='.git' --exclude='*.Rcheck' --exclude='*.tar.gz' ./ "$tmpdir/tutorizeR/"
+cd "$tmpdir/tutorizeR"
+Rscript -e "devtools::document()"
 R CMD build .
 R CMD check --as-cran --no-manual tutorizeR_0.4.4.tar.gz
 ```
 
 Installed smoke test:
 
-```r
-library(tutorizeR)
-
-example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
-work_dir <- file.path(tempdir(), "tutorizeR-example")
-dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
-
-file.copy(file.path(example_dir, "lesson-source.qmd"), work_dir, overwrite = TRUE)
-file.copy(file.path(example_dir, "student_activity.csv"), work_dir, overwrite = TRUE)
-
-source_file <- file.path(work_dir, "lesson-source.qmd")
-
-report <- tutorize(
-  input = source_file,
-  format = "learnr",
-  assessment = "both",
-  output_dir = work_dir,
-  question_bank = load_question_bank(file.path(example_dir, "question-bank")),
-  mcq_source = "mixed",
-  overwrite = TRUE,
-  verbose = FALSE
-)
-
-print(report)
+```bash
+Rscript -e "source(system.file('examples', 'example_course_module', 'run-example.R', package = 'tutorizeR'))"
 ```
 
 ## JOSE submission note
@@ -130,7 +111,12 @@ Reviewer-facing JOSE materials:
 - `paper/paper.md`
 - `paper/paper.bib`
 
-Not verifiable from repository contents: formal learning-outcome evaluation, classroom deployment, broad instructor adoption, current CRAN publication, and JOSE submission or acceptance.
+Formal learning-outcome evaluation: Not verifiable from repository contents.
+Actual classroom deployment: Not verifiable from repository contents.
+Broad instructor adoption: Not verifiable from repository contents.
+Final release DOI: Not verifiable from repository contents.
+Current CRAN publication: Not verifiable from repository contents.
+JOSE submission or acceptance: Not verifiable from repository contents.
 
 ## Secondary target: JOSS
 
@@ -202,12 +188,12 @@ Rscript inst/scripts/tutorizeR-cli.R --dir=course_material --recursive=true --fo
 - `quarto-live` output requires the Quarto live extension in the teaching project.
 - LMS export is manifest-only in v0.4, with no direct remote LMS publishing API.
 - Question banks are local YAML or JSON files in v0.4.
-- Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository.
+- Formal learning-outcome evaluation: Not verifiable from repository contents.
 
 ## Documentation
 
 - `vignettes/getting-started.Rmd`
-- `vignettes/teaching-workflow-case-study.Rmd`
+- `vignettes/teaching-workflow-scenario.Rmd`
 - `vignettes/quarto-lesson-interactive-tutorial.Rmd`
 - `vignettes/reproducible-data-science-assignments.Rmd`
 - `vignettes/automatic-exercise-generation-feedback.Rmd`
@@ -218,8 +204,8 @@ Rscript inst/scripts/tutorizeR-cli.R --dir=course_material --recursive=true --fo
 - `vignettes/mcq-and-assessment.Rmd`
 - `vignettes/lint-and-debug.Rmd`
 
-## License
+## Licensing
 
 The package code is released under the MIT license. The CRAN-style license metadata is stored in `LICENSE`, and the full MIT license text is available in `LICENSE.md`.
 
-Educational example materials in `inst/examples/` and graphical documentation assets in `man/figures/` are released under CC-BY 4.0 unless otherwise specified. See `LICENSE-CONTENT.md`.
+Educational example materials in `inst/examples/`, generated expected educational outputs, and graphical documentation assets in `man/figures/` are released under CC-BY 4.0 unless otherwise specified. See `LICENSE-CONTENT.md` and `LICENSES.md`.

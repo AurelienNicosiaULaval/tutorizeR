@@ -31,6 +31,7 @@ activity <- read_csv("student_activity.csv", show_col_types = FALSE)
 
 ```{r demo-preview}
 # tutorizeR: locked
+# tutorizeR: hints=Recognize the output of head(activity, 3)
 head(activity, 3)
 ```
 
@@ -88,4 +89,3 @@ ggplot(activity, aes(x = study_hours, y = quiz_score, color = program)) +
 ## Manual interpretation
 
 Students should describe the plot cautiously. The dataset is small and synthetic, so the goal is to practice code and interpretation rather than estimate a population effect.
-

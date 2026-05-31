@@ -71,4 +71,4 @@ Instructors should manually verify:
 - accessibility and clarity of generated prompts;
 - final suitability for the course context.
 
-Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository.
+Formal learning-outcome evaluation: Not verifiable from repository contents.

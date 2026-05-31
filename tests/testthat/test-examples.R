@@ -29,6 +29,45 @@ cleanup_example_packages <- function() {
   }
 }
 
+declared_description_packages <- function() {
+  desc_file <- testthat::test_path("..", "..", "DESCRIPTION")
+  desc <- if (file.exists(desc_file)) {
+    read.dcf(desc_file)[1, ]
+  } else {
+    utils::packageDescription("tutorizeR")
+  }
+  fields <- c("Depends", "Imports", "Suggests", "Enhances")
+  raw <- vapply(fields, function(field) {
+    value <- if (field %in% names(desc)) desc[[field]] else NULL
+    if (is.null(value)) "" else value
+  }, character(1))
+  raw <- paste(raw, collapse = ",")
+  packages <- trimws(unlist(strsplit(raw, ",", fixed = TRUE), use.names = FALSE))
+  packages <- sub("\\s*\\(.*\\)$", "", packages)
+  unique(packages[nzchar(packages)])
+}
+
+extract_example_packages <- function(files) {
+  lines <- unlist(lapply(files, readLines, warn = FALSE), use.names = FALSE)
+  library_matches <- regmatches(lines, gregexpr(
+    "(library|require)\\([[:space:]]*[A-Za-z][A-Za-z0-9.]*",
+    lines,
+    perl = TRUE
+  ))
+  namespace_matches <- regmatches(lines, gregexpr(
+    "\\b[A-Za-z][A-Za-z0-9.]*::",
+    lines,
+    perl = TRUE
+  ))
+
+  packages <- c(
+    sub(".*\\([[:space:]]*", "", unlist(library_matches, use.names = FALSE)),
+    sub("::$", "", unlist(namespace_matches, use.names = FALSE))
+  )
+
+  unique(packages[nzchar(packages)])
+}
+
 test_that("example course module has required installable structure", {
   example_dir <- example_module_dir()
 
@@ -49,8 +88,43 @@ test_that("example question bank loads and validates", {
   report <- validate_question_bank(bank, strict = FALSE)
 
   expect_s3_class(bank, "tutorize_question_bank")
-  expect_equal(length(bank$questions), 1L)
+  expect_gte(length(bank$questions), 4L)
   expect_false(any(report$findings$severity == "error"))
+})
+
+test_that("example module dependencies are declared", {
+  example_dir <- example_module_dir()
+  example_files <- c(
+    file.path(example_dir, "lesson-source.qmd"),
+    file.path(example_dir, "run-example.R"),
+    list.files(
+      file.path(example_dir, "expected"),
+      pattern = "\\.(Rmd|qmd)$",
+      full.names = TRUE
+    )
+  )
+
+  used_packages <- setdiff(extract_example_packages(example_files), "tutorizeR")
+  declared_packages <- declared_description_packages()
+
+  expect_setequal(
+    intersect(used_packages, c("dplyr", "ggplot2", "readr", "learnr", "gradethis")),
+    c("dplyr", "ggplot2", "readr", "learnr", "gradethis")
+  )
+  expect_true(all(used_packages %in% declared_packages))
+})
+
+test_that("example module does not expose placeholder MCQs", {
+  example_dir <- example_module_dir()
+  jose_files <- c(
+    file.path(example_dir, "lesson-source.qmd"),
+    file.path(example_dir, "question-bank", "questions.yml"),
+    list.files(file.path(example_dir, "expected"), full.names = TRUE)
+  )
+  text <- unlist(lapply(jose_files, readLines, warn = FALSE), use.names = FALSE)
+
+  expect_false(any(grepl("Answer A \\(edit me\\)", text)))
+  expect_false(any(grepl("\\bedit me\\b", text, ignore.case = TRUE)))
 })
 
 test_that("example module converts to learnr and writes JSON report", {
@@ -82,6 +156,7 @@ test_that("example module converts to learnr and writes JSON report", {
   expect_true(any(grepl("learnr::tutorial", lines, fixed = TRUE)))
   expect_true(any(grepl("gradethis_setup()", lines, fixed = TRUE)))
   expect_true(any(grepl("trz-mcq-bank", lines, fixed = TRUE)))
+  expect_false(any(grepl("Answer A \\(edit me\\)", lines)))
   expect_equal(report_json$format, "learnr")
 })
 
@@ -109,6 +184,7 @@ test_that("example module converts to quarto-live", {
   expect_true(any(grepl("format: live-html", lines, fixed = TRUE)))
   expect_true(any(grepl("```\\{webr\\}", lines)))
   expect_true(any(grepl("::: \\{\\.callout-note\\}", lines)))
+  expect_false(any(grepl("Answer A \\(edit me\\)", lines)))
 })
 
 test_that("run-example.R works from installed-style example path", {

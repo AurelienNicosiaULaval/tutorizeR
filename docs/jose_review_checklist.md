@@ -16,7 +16,7 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 | Item | Status | Evidence |
 |---|---|---|
 | Code has an OSI-approved license. | READY | `DESCRIPTION`, `LICENSE`, `LICENSE.md`. |
-| Educational content license is clear. | READY | `LICENSE-CONTENT.md`, README, example README. |
+| Educational content license is clear. | READY | `LICENSE-CONTENT.md`, `LICENSES.md`, README, example README. |
 | Repository is public. | NOT VERIFIABLE | Public visibility cannot be proven from local files alone. |
 
 ## Statement of Need
@@ -51,7 +51,7 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 | Automated tests exist. | READY | `tests/testthat/`. |
 | Example module tests exist. | READY | `tests/testthat/test-examples.R`. |
 | Local tests pass. | READY | `testthat::test_local('.')` passed locally with 144 tests on 2026-05-31. |
-| Remote CI passes. | READY | GitHub Actions run `26715694988` passed on PR #5 during this review. |
+| Remote CI passes. | PARTIAL | Must be checked again after the final commit in this pass. |
 
 ## Examples
 
@@ -61,7 +61,9 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 | Example includes source lesson. | READY | `lesson-source.qmd`. |
 | Example includes question bank. | READY | `question-bank/questions.yml`. |
 | Example includes expected outputs. | READY | `expected/`. |
-| Example can be run with installed package. | PARTIAL | `run-example.R` exists; final run should be verified after package install. |
+| Example can be run with installed package. | READY | `run-example.R` exists and is covered by tests and CI. |
+| Example dependencies are declared. | READY | `DESCRIPTION` lists the packages used by the example module; `gradethis` is available through `Additional_repositories`. |
+| JOSE-facing example outputs avoid placeholder MCQs. | READY | Example tests check that expected outputs do not contain generic editable placeholder answers. |
 
 ## Functionality
 
@@ -78,8 +80,8 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 | Item | Status | Evidence |
 |---|---|---|
 | Educational technology contribution is explained. | READY | README, paper, docs. |
-| Teaching workflow is demonstrated. | READY | example module and `teaching-workflow-case-study` vignette. |
-| Learning-outcome evidence exists. | NOT VERIFIABLE | Formal evaluation not present. |
+| Teaching workflow is demonstrated. | READY | example module and `teaching-workflow-scenario` vignette. |
+| Learning-outcome evidence exists. | NOT VERIFIABLE | Formal learning-outcome evaluation: Not verifiable from repository contents. |
 
 ## Adoption by Instructors
 
@@ -97,4 +99,4 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 | Bibliography exists. | READY | `paper/paper.bib`. |
 | Pedagogical references are cited. | READY | paper and bibliography. |
 | AI usage disclosure is cautious. | READY | `paper/paper.md`. |
-| Final metadata is complete. | PARTIAL | ORCID and final release DOI should be confirmed. |
+| Final metadata is complete. | PARTIAL | ORCID placeholder was removed. Final release DOI remains Not verifiable from repository contents. |

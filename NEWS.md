@@ -2,7 +2,7 @@
 
 ## Release finalization
 
-- Finalized JOSS-ready release artifacts and metadata alignment.
+- Finalized JOSE-oriented reviewer artifacts and metadata alignment.
 - Refreshed reproducibility and reviewer guidance docs.
 - Synchronized version fields for release publication.
 - Added JOSE preparation artifacts, educational use-case documentation,

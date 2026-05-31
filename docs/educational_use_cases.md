@@ -18,7 +18,7 @@ Relevant classroom activities include:
 - creating reproducible assignment templates with consistent structure;
 - exporting conversion reports for teaching assistants or course coordination.
 
-Specific course adoption is not verifiable from repository contents.
+Specific course adoption: Not verifiable from repository contents.
 
 ## Instructor Workflows
 
@@ -108,4 +108,3 @@ The example module in `inst/examples/example_course_module/` follows this patter
 The repository demonstrates educational intent, package functionality, examples, tests, and reviewer-facing documentation. It does not contain verifiable classroom outcome data, anonymized student analytics, external adoption records, or formal evaluation results. Therefore, any claim about actual classroom adoption should be written as:
 
 Not verifiable from repository contents.
-

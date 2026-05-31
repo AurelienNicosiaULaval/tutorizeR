@@ -11,7 +11,7 @@ version: 0.4.4
 license: MIT
 repository-code: https://github.com/AurelienNicosiaULaval/tutorizeR
 url: https://github.com/AurelienNicosiaULaval/tutorizeR
-date-released: '2026-02-13'
+date-released: '2026-02-14'
 keywords:
   - learnr
   - quarto
@@ -26,5 +26,4 @@ authors:
     email: aurelien.nicosia@mat.ulaval.ca
     affiliation: >-
       Université Laval
-    orcid: null
     role: author

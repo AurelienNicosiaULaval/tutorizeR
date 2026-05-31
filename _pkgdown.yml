@@ -24,8 +24,8 @@ navbar:
     teaching_examples:
       text: Teaching examples
       menu:
-        - text: Teaching workflow case study
-          href: articles/teaching-workflow-case-study.html
+        - text: Teaching workflow scenario
+          href: articles/teaching-workflow-scenario.html
         - text: Getting started
           href: articles/getting-started.html
         - text: Question bank
@@ -55,17 +55,35 @@ reference:
       - validate_input
       - validate_output
       - check_tutorial
+      - lint_source
+  - title: Question banks and reports
+    contents:
+      - load_question_bank
+      - validate_question_bank
+      - write_tutorize_report
+      - print.tutorize_report
+      - print.tutorize_lint_report
+      - print.tutorize_folder_report
+  - title: Exports
+    contents:
+      - export_lms_manifest
+      - export_tutorial_package
+      - print.tutorize_lms_manifest
   - title: Addins
     contents:
       - launch_tutorizeR_addin
       - launch_tutorizeR_folder_addin
+      - launch_tutorizeR_preview_addin
+  - title: Internationalization
+    contents:
+      - tr
 
 articles:
   - title: Getting started
     navbar: Getting started
     contents:
       - getting-started
-      - teaching-workflow-case-study
+      - teaching-workflow-scenario
       - quarto-lesson-interactive-tutorial
       - reproducible-data-science-assignments
   - title: Authoring and syntax
@@ -76,6 +94,7 @@ articles:
       - conversion-rmd-vs-qmd
       - mcq-and-assessment
       - lint-and-debug
+      - debugging-and-errors
       - automatic-exercise-generation-feedback
   - title: Educational use
     navbar: Educational use

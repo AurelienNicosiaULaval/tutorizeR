@@ -13,6 +13,7 @@ This file lists the repository artifacts to prepare before a possible JOSE submi
 - `LICENSE`
 - `LICENSE.md`
 - `LICENSE-CONTENT.md`
+- `LICENSES.md`
 - `CITATION.cff`
 
 ## Reviewer Documentation
@@ -40,15 +41,19 @@ Run immediately before submission:
 ```bash
 Rscript -e "testthat::test_local('.')"
 Rscript -e "lintr::lint_package()"
+Rscript -e "devtools::document()"
+tmpdir=$(mktemp -d)
+rsync -a --exclude='.git' --exclude='*.Rcheck' --exclude='*.tar.gz' ./ "$tmpdir/tutorizeR/"
+cd "$tmpdir/tutorizeR"
 R CMD build .
 R CMD check --as-cran --no-manual tutorizeR_0.4.4.tar.gz
+Rscript -e "source(system.file('examples', 'example_course_module', 'run-example.R', package = 'tutorizeR'))"
 ```
 
 ## Remaining Before a Real Submission
 
 - Confirm remote GitHub Actions status.
 - Confirm final version number and release tag.
-- Confirm archive DOI.
-- Confirm ORCID metadata.
+- Final release DOI: Not verifiable from repository contents.
+- Confirm ORCID metadata only if the maintainer wants to publish an ORCID.
 - Add classroom-use evidence only if it can be documented in the repository.
-

@@ -2,6 +2,8 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^LICENSE-CONTENT\.md$
+^LICENSES\.md$
+^pkgdown$
 ^\.github$
 ^ROADMAP\.md$
 ^docs$

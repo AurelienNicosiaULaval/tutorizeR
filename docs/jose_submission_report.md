@@ -31,8 +31,8 @@ Strengths:
 
 Main limitations:
 
-- actual classroom adoption is not verifiable from repository contents;
-- public repository history and public review readiness are not verifiable from local contents;
+- actual classroom adoption: Not verifiable from repository contents;
+- public repository history and public review readiness: Not verifiable from repository contents;
 - GitHub Actions passed on PR #5 during this review; checks should still be rerun immediately before upload.
 
 ## JOSS Readiness Score
@@ -49,7 +49,7 @@ Strengths:
 Main limitations:
 
 - JOSS significance outside an educational technology context is less direct than JOSE;
-- external research adoption and public development history are not verifiable from repository contents;
+- external research adoption and public development history: Not verifiable from repository contents;
 - JOSS may be secondary because the project is primarily educational infrastructure.
 
 ## CRAN Readiness Score
@@ -66,7 +66,7 @@ Strengths:
 
 Main limitations:
 
-- current CRAN publication is not verifiable from repository contents;
+- current CRAN publication: Not verifiable from repository contents;
 - a clean temporary source copy produced `R CMD check --as-cran --no-manual` Status: 1 NOTE on 2026-05-31;
 - optional teaching dependencies should remain clearly documented so examples do not imply unavailable hard dependencies.
 
@@ -88,10 +88,10 @@ Direct `R CMD build .` from the live Git checkout was attempted but interrupted 
 
 ## Remaining Blockers
 
-- Not verifiable from repository contents: actual classroom adoption.
-- Not verifiable from repository contents: public GitHub issue and pull request activity.
-- Not verifiable from repository contents: current CRAN publication.
-- Not verifiable from repository contents: current Zenodo release state beyond local README/CFF metadata.
+- Actual classroom adoption: Not verifiable from repository contents.
+- Public GitHub issue and pull request activity: Not verifiable from repository contents.
+- Current CRAN publication: Not verifiable from repository contents.
+- Final release DOI: Not verifiable from repository contents.
 - A fresh full check should be rerun immediately before submission.
 
 ## Recommended Next Actions
@@ -99,7 +99,7 @@ Direct `R CMD build .` from the live Git checkout was attempted but interrupted 
 1. Run tests, linting, coverage, and `R CMD check --as-cran --no-manual` on a clean checkout.
 2. Confirm that GitHub Actions still pass on the final release commit.
 3. Add anonymized, permission-safe teaching evidence if available.
-4. Confirm that all paper metadata is final, especially ORCID and release DOI.
+4. Confirm that all paper metadata is final, including ORCID if the maintainer wants to publish one.
 5. Create a tagged release before submission.
 6. Confirm that `paper/paper.md` truthfully discloses any AI-assisted work if applicable.
 7. Submit to JOSE first, with JOSS as a secondary route only if JOSE scope is not pursued.

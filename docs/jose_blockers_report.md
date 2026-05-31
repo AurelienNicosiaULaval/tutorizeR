@@ -22,6 +22,8 @@ Sources consulted:
 | BLOCKER | Paper needed to explain JOSE eligibility and educational contribution rather than list API details. | Addressed in PR | `paper/paper.md` rewritten as a JOSE-oriented paper. |
 | BLOCKER | Educational evidence boundary was not explicit enough. | Addressed in PR | `docs/educational_use_evidence.md` states what is demonstrated, plausible, not claimed, and missing. |
 | BLOCKER | Example module was not in the expected installable structure. | Addressed in PR | `inst/examples/example_course_module/` now includes source, question bank, expected outputs, report, and run script. |
+| BLOCKER | Example expected outputs included placeholder MCQs. | Addressed in PR | The example question bank now provides realistic comprehension, interpretation, and code/output questions; tests prevent generic editable placeholder answers in JOSE-facing outputs. |
+| MAJOR | Example dependencies were not fully declared. | Addressed in PR | `DESCRIPTION` now declares `dplyr`, `ggplot2`, `readr`, `learnr`, and `gradethis`; CI runs the installed example. |
 | MAJOR | README smoke tests used internal test fixtures. | Addressed in PR | README now uses `system.file("examples", "example_course_module", package = "tutorizeR")`. |
 | MAJOR | Content and figure licensing was not explicit. | Addressed in PR | Added `LICENSE-CONTENT.md` and README/example licensing notes. |
 | MAJOR | AI usage statement needed cautious wording. | Addressed in PR | Paper now states that generative AI supported planning, review, or documentation-support stages. |
@@ -53,7 +55,7 @@ Sources consulted:
 | MAJOR | Dedicated JOSE submission guide. | Addressed in `docs/jose_submission_guide.md`. |
 | MAJOR | Dedicated JOSE review checklist with official categories. | Addressed in `docs/jose_review_checklist.md`. |
 | MAJOR | Educational evidence and non-claims document. | Addressed in `docs/educational_use_evidence.md`. |
-| MAJOR | Teaching workflow case study vignette. | Addressed in `vignettes/teaching-workflow-case-study.Rmd`. |
+| MAJOR | Teaching workflow scenario vignette. | Addressed in `vignettes/teaching-workflow-scenario.Rmd`. |
 | MINOR | Existing vignettes were concise. | Expanded with goals, examples, realistic workflow notes, limits, and reproducibility commands. |
 
 ## Evidence Gaps
@@ -63,6 +65,7 @@ Sources consulted:
 | BLOCKER | Formal learning-outcome evaluation. | Not verifiable from repository contents. |
 | BLOCKER | Documented classroom deployment. | Not verifiable from repository contents. |
 | MAJOR | External instructor adoption. | Not verifiable from repository contents. |
+| MAJOR | Final release DOI. | Not verifiable from repository contents. |
 | MAJOR | Remote CI status after this commit. | Must be verified after push. |
 | MINOR | Long-term maintenance history after release. | Partly visible in Git history, but public activity should be checked on GitHub. |
 
@@ -78,7 +81,7 @@ Files addressed in this PR:
 - `tests/testthat/test-examples.R`
 - `tests/testthat/test-jose-readiness.R`
 - `inst/examples/example_course_module/`
-- `vignettes/teaching-workflow-case-study.Rmd`
+- `vignettes/teaching-workflow-scenario.Rmd`
 - `vignettes/getting-started.Rmd`
 - `vignettes/question-bank.Rmd`
 - `vignettes/conversion-rmd-vs-qmd.Rmd`
@@ -90,15 +93,17 @@ Files addressed in this PR:
 - `docs/educational_use_evidence.md`
 - `docs/jose_pr_final_report.md`
 - `LICENSE-CONTENT.md`
+- `LICENSES.md`
 
 ## Final Checklist Before Submission
 
-- [x] Confirm remote GitHub Actions pass on PR #5 during this review.
+- [ ] Confirm remote GitHub Actions pass on PR #5 after this final pass.
 - [ ] Rerun `Rscript -e "testthat::test_local('.')"` on a clean checkout.
 - [ ] Rerun `Rscript -e "lintr::lint_package()"`.
 - [ ] Rerun source build from a clean source copy or another checkout that does not copy `.git`.
 - [ ] Rerun `R CMD check --as-cran --no-manual`.
 - [ ] Confirm all paper references are cited and BibTeX parses.
 - [ ] Confirm the example module runs after package installation.
+- [ ] Confirm the installed-example CI job passes.
 - [ ] Add documented classroom use only if evidence can be added to the repository.
 - [ ] Do not submit until factual claims have been reviewed by the maintainer.

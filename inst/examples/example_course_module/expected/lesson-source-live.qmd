@@ -34,6 +34,9 @@ activity <- read_csv("student_activity.csv", show_col_types = FALSE)
 
 ## Instructor demonstration
 
+**Hint(s)**
+- Recognize the output of head(activity, 3)
+
 _Locked exercise: enable this block only for demonstration._
 ```{webr}
 # Write your code below
@@ -48,11 +51,11 @@ head(activity, 3)
 
 ::: {.callout-note}
 ## Quiz
-In ggplot2, which aesthetic should be mapped to show quiz score on the vertical axis?
+What does `head(activity, 3)` return in this lesson?
 
-- [ ] y
-- [ ] x
-- [ ] color
+- [ ] The first three rows of the activity data.
+- [ ] A grouped summary by program.
+- [ ] A scatterplot of study hours and quiz score.
 :::
 
 
@@ -82,11 +85,11 @@ activity |>
 
 ::: {.callout-note}
 ## Quiz
-What does the code in chunk 'summarize-program' do?
+After grouping by `program`, what does `mean_hours` represent?
 
-- [ ] Answer A (edit me)
-- [ ] Answer B (edit me)
-- [ ] Answer C (edit me)
+- [ ] The average study hours within each academic program.
+- [ ] The total study hours across all students.
+- [ ] The quiz score for the first student in each program.
 :::
 
 
@@ -102,7 +105,7 @@ Which variable identifies the academic program?
 
 ::: {.callout-note}
 ## Quiz
-In ggplot2, which aesthetic should be mapped to show quiz score on the vertical axis?
+In `ggplot2`, which aesthetic should be mapped to show quiz score on the vertical axis?
 
 - [ ] y
 - [ ] x
@@ -136,11 +139,11 @@ ggplot(activity, aes(x = study_hours, y = quiz_score, color = program)) +
 
 ::: {.callout-note}
 ## Quiz
-What does the code in chunk 'plot-study-score' do?
+Which interpretation is appropriate for the scatterplot in this synthetic example?
 
-- [ ] Answer A (edit me)
-- [ ] Answer B (edit me)
-- [ ] Answer C (edit me)
+- [ ] Students with more study hours tend to have higher quiz scores in this small dataset, but the plot is not causal evidence.
+- [ ] The plot proves that increasing study hours causes higher quiz scores.
+- [ ] The plot shows that all programs have identical quiz scores.
 :::
 
 

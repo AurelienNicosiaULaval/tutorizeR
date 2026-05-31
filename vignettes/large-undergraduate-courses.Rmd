@@ -1,8 +1,8 @@
 ---
-title: "Using tutorizeR in Large Undergraduate Courses"
+title: "Workflow Pattern for Large Undergraduate Courses"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using tutorizeR in Large Undergraduate Courses}
+  %\VignetteIndexEntry{Workflow Pattern for Large Undergraduate Courses}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,9 +11,9 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-Large undergraduate courses need consistent materials, reproducible updates, and clear handoffs between instructors and teaching assistants. `tutorizeR` is designed for this kind of operational teaching workflow.
+This vignette is an illustrative scenario. Actual classroom deployment is Not verifiable from repository contents.
 
-Specific deployment in named courses such as STT-1100 or STT-4230 is not verifiable from repository contents.
+Large undergraduate courses need consistent materials, reproducible updates, and clear handoffs between instructors and teaching assistants. `tutorizeR` is designed for this kind of operational teaching workflow.
 
 ## Course folder workflow
 
@@ -70,4 +70,3 @@ print(lint)
 ## Operational benefits
 
 The main benefit is not that tutorials are generated automatically once. The benefit is that a whole course team can regenerate the same materials after corrections, new datasets, or revised learning objectives.
-

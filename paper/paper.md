@@ -10,13 +10,8 @@ tags:
   - reproducibility
 authors:
   - name: Aurélien Nicosia
-    orcid: null
     affiliation: 1
-    equal-contrib: true
     corresponding: true
-  - name: "tutorizeR contributors"
-    affiliation: 1
-    equal-contrib: false
 affiliations:
   - name: Université Laval
     index: 1
@@ -61,13 +56,19 @@ The example module in `inst/examples/example_course_module/` demonstrates this w
 
 ## Experience of use and current limitations
 
-The repository demonstrates intended use through tests, vignettes, and an installable example. Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository. Classroom deployment, broad adoption, and student outcome improvements are not claimed here. Not verifiable from repository contents.
+The repository demonstrates intended use through tests, vignettes, and an installable example. The following claims are not made because supporting evidence is not present in the repository.
+
+- Formal learning-outcome evaluation: Not verifiable from repository contents.
+- Actual classroom deployment: Not verifiable from repository contents.
+- Broad external adoption: Not verifiable from repository contents.
 
 Current limitations are also part of the educational story. `quarto-live` output requires the relevant Quarto live extension in the teaching project. `learnr` rendering requires optional runtime dependencies. LMS support is currently manifest-oriented rather than direct LMS publication. Generated material should always be reviewed by an instructor before release, especially grading logic and feedback wording.
 
 ## Availability and licensing
 
 The package source is available at `https://github.com/AurelienNicosiaULaval/tutorizeR`. The package code is distributed under the MIT license. Educational examples and graphical documentation assets are released under CC-BY 4.0 unless otherwise specified. The repository includes tests, continuous integration configuration, contribution guidelines, a code of conduct, vignettes, reviewer documentation, and citation metadata.
+
+Final release DOI: Not verifiable from repository contents.
 
 ## AI usage disclosure
 
