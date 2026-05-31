@@ -8,6 +8,9 @@
 - Added JOSE preparation artifacts, educational use-case documentation,
   expanded vignettes, an example course module, publication-readiness tests,
   and pkgdown navigation for educational examples.
+- Recentered the review branch on JOSE software-submission requirements,
+  clarified educational evidence boundaries, added CC-BY content licensing,
+  and replaced internal smoke-test paths with installable example workflows.
 
 # tutorizeR 0.4.3
 

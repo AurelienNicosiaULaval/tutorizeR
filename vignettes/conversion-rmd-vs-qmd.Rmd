@@ -11,22 +11,71 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-`tutorizeR` accepts both `.Rmd` and `.qmd` sources.
+## User goal
 
-## Learnr output
+This vignette helps instructors decide whether to target `learnr` or `quarto-live` when converting existing R Markdown or Quarto material.
+
+## Minimal examples
 
 ```{r eval=FALSE}
+library(tutorizeR)
+
 tutorize("lesson.Rmd", format = "learnr", assessment = "both")
-```
-
-## Quarto live output
-
-```{r eval=FALSE}
 tutorize("lesson.qmd", format = "quarto-live", assessment = "code")
 ```
 
-When targeting `quarto-live`, install the extension in your project root:
+## Choosing an output format
+
+Use `learnr` when the course already supports RStudio or Shiny-based tutorials and when `gradethis` feedback is useful. Use `quarto-live` when browser-based execution is preferred and the teaching project has the Quarto live extension installed.
+
+## Realistic installed example
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+work_dir <- file.path(tempdir(), "tutorizeR-formats")
+dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
+file.copy(file.path(example_dir, "lesson-source.qmd"), work_dir, overwrite = TRUE)
+file.copy(file.path(example_dir, "student_activity.csv"), work_dir, overwrite = TRUE)
+
+qb <- load_question_bank(file.path(example_dir, "question-bank"))
+
+learnr_report <- tutorize(
+  input = file.path(work_dir, "lesson-source.qmd"),
+  output_dir = work_dir,
+  format = "learnr",
+  assessment = "both",
+  question_bank = qb,
+  overwrite = TRUE,
+  verbose = FALSE
+)
+
+live_report <- tutorize(
+  input = file.path(work_dir, "lesson-source.qmd"),
+  output_dir = work_dir,
+  format = "quarto-live",
+  assessment = "both",
+  question_bank = qb,
+  overwrite = TRUE,
+  verbose = FALSE
+)
+```
+
+## Limits
+
+When targeting `quarto-live`, install the extension in the teaching project:
 
 ```{r eval=FALSE}
 system("quarto add r-wasm/quarto-live")
 ```
+
+Generated output should be reviewed in the environment where students will use it, because package availability and browser execution settings can differ.
+
+## Reproducibility checklist
+
+```{r eval=FALSE}
+file.exists(learnr_report$output_file)
+file.exists(live_report$output_file)
+```
+

@@ -105,9 +105,11 @@ test_that("example course module is packaged with expected teaching artifacts", 
   }
 
   expect_true(dir.exists(example_dir))
-  expect_true(file.exists(file.path(example_dir, "source_lesson.qmd")))
-  expect_true(file.exists(file.path(example_dir, "transformed_tutorial.Rmd")))
-  expect_true(file.exists(file.path(example_dir, "generated_exercises.Rmd")))
-  expect_true(file.exists(file.path(example_dir, "grading_examples.R")))
+  expect_true(file.exists(file.path(example_dir, "lesson-source.qmd")))
+  expect_true(file.exists(file.path(example_dir, "question-bank", "questions.yml")))
+  expect_true(file.exists(file.path(example_dir, "expected", "lesson-source-tutorial.Rmd")))
+  expect_true(file.exists(file.path(example_dir, "expected", "lesson-source-live.qmd")))
+  expect_true(file.exists(file.path(example_dir, "expected", "conversion-report.json")))
+  expect_true(file.exists(file.path(example_dir, "run-example.R")))
   expect_true(file.exists(file.path(example_dir, "student_activity.csv")))
 })

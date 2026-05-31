@@ -32,7 +32,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(tutorizeR)
 
 report <- tutorize(
-  input = "source_lesson.qmd",
+  input = "lesson-source.qmd",
   format = "learnr",
   assessment = "code",
   overwrite = TRUE

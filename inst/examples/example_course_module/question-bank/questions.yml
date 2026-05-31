@@ -1,0 +1,16 @@
+- id: visualization-aesthetic
+  question: "In ggplot2, which aesthetic should be mapped to show quiz score on the vertical axis?"
+  answers:
+    - text: "y"
+      correct: true
+    - text: "x"
+      correct: false
+    - text: "color"
+      correct: false
+  tags:
+    - visualization
+    - ggplot2
+  difficulty: introductory
+  language: en
+  explanation: "The y aesthetic controls the vertical position in a two-dimensional plot."
+

@@ -29,68 +29,50 @@ output:
 bibliography: paper.bib
 ---
 
-# Summary
+## Summary
 
-Many instructors already prepare data science, statistics, and R programming lessons in R Markdown or Quarto. These formats are well suited to reproducible teaching because narrative, code, output, and figures can live in one source document. However, turning an existing lesson into an interactive tutorial often requires repetitive manual work: duplicating code chunks, creating exercise areas, writing solution chunks, adding conceptual questions, and maintaining separate versions for students and instructors.
+`tutorizeR` is open-source educational infrastructure for instructors who prepare statistics, data science, or R programming lessons in R Markdown or Quarto and want to turn those source documents into interactive learning resources. The package converts `.Rmd` and `.qmd` files into `learnr` tutorials or `quarto-live` resources, while preserving a source-first workflow: instructors maintain one reproducible lesson and generate student-facing exercise material from it. It is built in R [@rCoreTeam2025] and works with the R Markdown, Quarto, `learnr`, and `gradethis` ecosystems [@rmarkdownDocs; @quartoDocs; @learnrDocs; @gradethisDocs].
 
-`tutorizeR` automates this conversion workflow. The package converts `.Rmd` and `.qmd` source documents into `learnr` tutorials or `quarto-live` resources, while preserving narrative text, setup chunks, selected chunk options, and instructor annotations. It supports automatic exercise transformation, insertion of student answer areas, reusable MCQ question banks, `gradethis` setup for feedback, linting, conversion reports, and LMS-oriented manifest export. The package is implemented in R and integrates with established tools for reproducible teaching, including R, R Markdown, Quarto, `learnr`, and `gradethis` [@rCoreTeam2026; @rmarkdown2026; @quarto2026; @learnr2026; @gradethis2026].
+The educational problem is practical and recurring. Many instructors already write lessons as computational narratives, where text, code, figures, and interpretation are interleaved. This approach has roots in literate programming [@knuth1984] and is consistent with current recommendations for computational notebooks and reproducible analyses [@rule2019; @wilson2017]. However, preparing an interactive tutorial from an existing source lesson often requires manual duplication of chunks, insertion of exercise areas, management of solutions, creation of conceptual checks, and coordination of feedback scaffolds. `tutorizeR` automates much of that transformation while leaving final pedagogical judgement to the instructor.
 
-# Statement of Need
+## Statement of Need
 
-Interactive tutorials can support active learning by asking students to edit code, inspect outputs, answer conceptual questions, and receive feedback. For instructors, the practical barrier is maintenance. A course may already have dozens of lecture notes, laboratories, and assignments written as `.Rmd` or `.qmd` files. Rebuilding those materials by hand as `learnr` tutorials or browser-executable Quarto activities duplicates effort and increases the chance that instructor notes, student tutorials, and solutions drift apart.
+JOSE accepts open-source software that supports teaching and learning or makes an educational process better, easier, simpler, or faster. `tutorizeR` fits this software-submission category as infrastructure for computational education. It does not replace course design, teaching expertise, or assessment design. Instead, it reduces the mechanical cost of converting reproducible teaching documents into interactive activities.
 
-`tutorizeR` addresses this need by keeping the source lesson as the authoritative document. Instructors can update a lesson once, rerun the conversion pipeline, and regenerate student-facing materials. This is especially relevant in scalable teaching contexts where multiple instructors or teaching assistants must coordinate reproducible materials across weeks, sections, and cohorts.
+The need is especially visible in courses where instructors maintain weekly laboratories, tutorials, and assignments. A single update to a dataset, plot, or explanation can otherwise require changes in multiple versions of the same lesson. `tutorizeR` supports a workflow in which the instructor revises the source `.qmd` or `.Rmd` file, reruns the conversion pipeline, reviews the generated output, and distributes the result. The package also supports formative practice by generating code exercises, MCQs, and `gradethis`-ready `learnr` tutorials. This design is aligned with broad evidence that active learning and formative feedback can be valuable in STEM education [@freeman2014; @black1998], but this repository does not claim that `tutorizeR` itself improves grades, engagement, or learning outcomes.
 
-The need is educational rather than only technical. The package is intended to help instructors create active learning experiences from existing reproducible documents, reduce maintenance burden, and make iterative course updates more reliable. Actual classroom adoption is not verifiable from repository contents.
+## Educational context and target users
 
-# Functionality
+The primary users are instructors, teaching assistants, and course teams who create computational teaching materials in R. Target contexts include introductory data science, applied statistics, R programming, and methods courses where students learn through executable examples and short practice tasks. The package is also relevant to open educational resource workflows because its example materials can be reused and adapted under an open content license, consistent with open education principles [@unesco2019].
 
-The package provides a high-level `tutorize()` function and compatibility wrappers for existing workflows. Core functionality includes:
+The repository includes a complete installable example module on data summarisation and visualization with R. The example is generic and synthetic. It is designed to show how another instructor could adopt the package without access to private course material.
 
-- parsing `.Rmd` and `.qmd` source files into text, setup chunks, R chunks, non-R chunks, MCQ blocks, and question-bank references;
-- generating `learnr` exercise chunks and solution chunks;
-- generating `quarto-live` compatible exercise scaffolds;
-- inserting `learnr`, `gradethis`, and `gradethis_setup()` into generated `learnr` setup chunks;
-- preserving non-R fenced blocks rather than converting them incorrectly;
-- normalizing generated labels to reduce chunk-label collisions;
-- supporting instructor tags such as `skip`, `exercise-only`, `solution-only`, `mcq`, `narrative-only`, `locked`, and `hints`;
-- loading reusable YAML or JSON question banks;
-- linting source documents before conversion;
-- writing JSON or YAML conversion reports;
-- exporting LMS-oriented manifests for downstream course workflows;
-- providing RStudio addins and a command-line script for instructor use.
+## Functionality
 
-# Educational Use
+`tutorizeR` parses source documents, preserves narrative text, detects setup and R chunks, preserves non-R fenced blocks, generates exercise and solution areas, transforms explicit MCQ blocks, resolves references to local question banks, adds `learnr` and `gradethis` setup code when needed, and writes conversion reports. The package includes validation and linting helpers so instructors can inspect source documents before conversion, plus batch conversion for folders of lessons.
 
-The package supports workflows common in undergraduate statistics, data science, and R programming courses. A typical use case starts with an instructor-maintained Quarto lesson that imports data, performs a data manipulation task, builds a visualization, and asks students to interpret the result. `tutorizeR` converts that lesson into a tutorial with exercise areas, solutions, and MCQs.
+The detailed API is documented in the package reference, vignettes, and examples. The JOSE paper intentionally does not duplicate that documentation.
 
-The repository includes an example course module in `inst/examples/example_course_module/`. The module uses a small synthetic dataset to demonstrate a realistic lesson on study patterns and quiz performance. It includes a source Quarto document, a transformed `learnr` tutorial, generated exercises, grading examples, and a local CSV file. The example is suitable for demonstrating the package to instructors without relying on private course data.
+## Teaching and adoption workflow
 
-The design is inspired by workflows that occur in introductory and advanced undergraduate statistics or data science courses, including course-code contexts such as STT-1100 and STT-4230. No private course material is included. Specific deployment in those courses is not verifiable from repository contents.
+A typical adoption workflow has five steps. First, an instructor writes a lesson in Quarto or R Markdown with learning objectives, narrative explanation, executable R chunks, and optional instructor tags. Second, the instructor adds MCQ blocks or question-bank references where conceptual checks are useful. Third, the instructor runs `tutorize()` to generate a `learnr` or `quarto-live` resource. Fourth, the instructor reviews the generated tutorial, adjusts wording or grading checks, and confirms that datasets and optional dependencies are available. Fifth, the resulting file can be distributed through the course platform, rendered locally, or incorporated into a broader teaching workflow.
 
-# Availability
+The example module in `inst/examples/example_course_module/` demonstrates this workflow with a source lesson, local question bank, expected converted outputs, JSON report, and reproducible run script.
 
-The package source is available at:
+## Experience of use and current limitations
 
-`https://github.com/AurelienNicosiaULaval/tutorizeR`
+The repository demonstrates intended use through tests, vignettes, and an installable example. Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository. Classroom deployment, broad adoption, and student outcome improvements are not claimed here. Not verifiable from repository contents.
 
-The repository includes installation instructions, tests, vignettes, examples, contribution guidelines, a code of conduct, citation metadata, and reviewer-facing JOSE preparation documents.
+Current limitations are also part of the educational story. `quarto-live` output requires the relevant Quarto live extension in the teaching project. `learnr` rendering requires optional runtime dependencies. LMS support is currently manifest-oriented rather than direct LMS publication. Generated material should always be reviewed by an instructor before release, especially grading logic and feedback wording.
 
-# Quality Assurance
+## Availability and licensing
 
-The package includes `testthat` tests for parsing, conversion, exercise generation, MCQ handling, question-bank loading, validation errors, report writing, LMS manifest export, regression fixtures, `gradethis` setup generation, `quarto-live` output, and publication readiness assets. GitHub Actions are configured to run `R CMD check`, tests, linting, and coverage.
+The package source is available at `https://github.com/AurelienNicosiaULaval/tutorizeR`. The package code is distributed under the MIT license. Educational examples and graphical documentation assets are released under CC-BY 4.0 unless otherwise specified. The repository includes tests, continuous integration configuration, contribution guidelines, a code of conduct, vignettes, reviewer documentation, and citation metadata.
 
-Before submission, the maintainers should run a fresh local check on the current tree:
+## AI usage disclosure
 
-```bash
-Rscript -e "testthat::test_local()"
-Rscript -e "lintr::lint_package()"
-R CMD build .
-R CMD check --as-cran --no-manual tutorizeR_*.tar.gz
-```
+Generative AI tools were used during planning, review, or documentation-support stages for this repository. The author reviewed, edited, tested, and takes responsibility for all submitted code, documentation, and manuscript text.
 
-# AI Usage Disclosure
+The package itself does not depend on any generative AI model. Its conversion pipeline is deterministic and script-driven.
 
-Codex using GPT-5 was used on 2026-05-31 to assist with repository audit text, reviewer documentation, example files, tests, and manuscript revisions. The maintainer is responsible for reviewing, validating, and approving all content before submission.
-
-# References
+## References

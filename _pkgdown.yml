@@ -7,27 +7,42 @@ home:
 
 navbar:
   structure:
-    left: [intro, articles, reference, educational_examples, jose_submission]
+    left: [intro, articles, reference, jose_readiness, teaching_examples, educational_adoption]
     right: [search, github]
   components:
-    educational_examples:
-      text: Educational Examples
+    jose_readiness:
+      text: JOSE readiness
       menu:
-        - text: Example course module
-          href: articles/large-undergraduate-courses.html
-        - text: Reproducible assignments
-          href: articles/reproducible-data-science-assignments.html
-        - text: Automatic feedback
-          href: articles/automatic-exercise-generation-feedback.html
-    jose_submission:
-      text: JOSE Submission
-      menu:
+        - text: JOSE submission guide
+          href: ../docs/jose_submission_guide.md
+        - text: JOSE review checklist
+          href: ../docs/jose_review_checklist.md
         - text: JOSE audit
           href: ../docs/jose_audit.md
-        - text: JOSE checklist
-          href: ../docs/jose_checklist.md
-        - text: JOSE report
-          href: ../docs/jose_submission_report.md
+        - text: JOSE blockers report
+          href: ../docs/jose_blockers_report.md
+    teaching_examples:
+      text: Teaching examples
+      menu:
+        - text: Teaching workflow case study
+          href: articles/teaching-workflow-case-study.html
+        - text: Getting started
+          href: articles/getting-started.html
+        - text: Question bank
+          href: articles/question-bank.html
+        - text: Lint and debug
+          href: articles/lint-and-debug.html
+        - text: Example course module
+          href: ../inst/examples/example_course_module/README.md
+    educational_adoption:
+      text: Educational adoption
+      menu:
+        - text: Educational use evidence
+          href: ../docs/educational_use_evidence.md
+        - text: Educational use cases
+          href: ../docs/educational_use_cases.md
+        - text: Large undergraduate courses
+          href: articles/large-undergraduate-courses.html
 
 reference:
   - title: Core conversion
@@ -50,6 +65,7 @@ articles:
     navbar: Getting started
     contents:
       - getting-started
+      - teaching-workflow-case-study
       - quarto-lesson-interactive-tutorial
       - reproducible-data-science-assignments
   - title: Authoring and syntax

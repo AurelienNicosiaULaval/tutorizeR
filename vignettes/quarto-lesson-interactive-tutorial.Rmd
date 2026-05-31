@@ -51,7 +51,7 @@ A source `.qmd` lesson can contain narrative text, setup code, examples, and MCQ
 library(tutorizeR)
 
 report <- tutorize(
-  input = "source_lesson.qmd",
+  input = "lesson-source.qmd",
   output_dir = "generated",
   format = "learnr",
   assessment = "both",
@@ -69,7 +69,7 @@ For browser-executable Quarto output, target `quarto-live`:
 library(tutorizeR)
 
 report <- tutorize(
-  input = "source_lesson.qmd",
+  input = "lesson-source.qmd",
   output_dir = "generated",
   format = "quarto-live",
   assessment = "code",

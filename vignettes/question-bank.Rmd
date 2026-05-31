@@ -1,8 +1,8 @@
 ---
-title: "Reusable question bank"
+title: "Reusable Question Banks"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Reusable question bank}
+  %\VignetteIndexEntry{Reusable Question Banks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,32 +11,84 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-Use local YAML/JSON files to maintain reusable MCQ content.
+## User goal
+
+Question banks help instructors reuse conceptual checks across lessons. This is useful when multiple tutorials should assess the same core ideas without rewriting each MCQ by hand.
+
+## Minimal bank
+
+```yaml
+questions:
+  - id: visualization-aesthetic
+    question: "Which aesthetic maps a variable to the vertical axis?"
+    answers:
+      - text: "y"
+        correct: true
+      - text: "x"
+        correct: false
+    tags: [visualization]
+    difficulty: introductory
+    language: en
+```
 
 ## Load and validate
 
 ```{r eval=FALSE}
-qb <- load_question_bank("inst/question-bank")
-print(validate_question_bank(qb, strict = FALSE))
+library(tutorizeR)
+
+qb <- load_question_bank("question-bank")
+report <- validate_question_bank(qb, strict = FALSE)
+
+print(report)
 ```
 
-## Reference bank questions in source files
+## Reference bank questions in a lesson
 
 The YAML content inside a `tutorizeR-mcq-ref` block can reference existing bank items:
 
 ```yaml
-ids: [sample-mean]
+ids: [visualization-aesthetic]
 strategy: ordered
 shuffle_answers: false
 ```
 
-## Convert with bank-enabled MCQ mode
+## Realistic installed example
 
 ```{r eval=FALSE}
-rep <- tutorize(
-  input = "lesson.qmd",
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+qb <- load_question_bank(file.path(example_dir, "question-bank"))
+
+work_dir <- file.path(tempdir(), "tutorizeR-qb-example")
+dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
+file.copy(file.path(example_dir, "lesson-source.qmd"), work_dir, overwrite = TRUE)
+file.copy(file.path(example_dir, "student_activity.csv"), work_dir, overwrite = TRUE)
+
+report <- tutorize(
+  input = file.path(work_dir, "lesson-source.qmd"),
+  output_dir = work_dir,
   assessment = "both",
   question_bank = qb,
-  mcq_source = "mixed"
+  mcq_source = "mixed",
+  overwrite = TRUE,
+  verbose = FALSE
 )
+
+print(report)
 ```
+
+## Limits
+
+Question banks improve reuse, but they do not guarantee good assessment design. Instructors should check that each MCQ is aligned with the learning objective, has plausible distractors, and uses language appropriate for the course.
+
+## Reproducibility checklist
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+qb <- load_question_bank(file.path(example_dir, "question-bank"))
+validate_question_bank(qb, strict = TRUE)
+```
+

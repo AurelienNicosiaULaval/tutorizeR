@@ -17,7 +17,7 @@ Data science assignments are easier to maintain when the instructor can keep one
 
 ```text
 assignment-week03/
-  source_lesson.qmd
+  lesson-source.qmd
   data/
     student_activity.csv
   generated/
@@ -30,7 +30,7 @@ assignment-week03/
 ```{r eval=FALSE}
 library(tutorizeR)
 
-source_file <- "assignment-week03/source_lesson.qmd"
+source_file <- "assignment-week03/lesson-source.qmd"
 
 report <- tutorize(
   input = source_file,
@@ -59,7 +59,7 @@ For teaching workflows, a fixed seed makes generated setup chunks reproducible. 
 library(tutorizeR)
 
 manifest <- export_lms_manifest(
-  input = "assignment-week03/source_lesson.qmd",
+  input = "assignment-week03/lesson-source.qmd",
   output_file = "assignment-week03/generated/lms-manifest.json",
   profile = "canvas",
   include_solutions = FALSE

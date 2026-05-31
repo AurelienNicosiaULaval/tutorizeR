@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^LICENSE-CONTENT\.md$
 ^\.github$
 ^ROADMAP\.md$
 ^docs$

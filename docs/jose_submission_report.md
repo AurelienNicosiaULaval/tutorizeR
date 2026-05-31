@@ -25,7 +25,7 @@ Strengths:
 
 - educational technology scope is clear;
 - `paper/paper.md` and `paper/paper.bib` are present;
-- educational use cases and five JOSE-oriented vignettes are present;
+- educational use cases and JOSE-oriented vignettes are present;
 - example course module demonstrates instructor adoption workflow;
 - governance, contribution, issue, and PR templates are present.
 
@@ -76,12 +76,14 @@ On 2026-05-31, the following checks were performed locally:
 
 - Full `testthat` suite: PASS.
 - `lintr::lint_package()`: PASS, no lints found.
-- Six JOSE-oriented vignettes rendered to a temporary output directory: PASS.
+- Thirteen vignettes rendered to a temporary output directory: PASS.
 - `_pkgdown.yml` parsed with `yaml::read_yaml()`: PASS.
+- Paper rendered with bibliography resolution: PASS.
+- Coverage gate script: PASS, 71.58% total coverage and 93.36% core coverage.
 - Clean temporary source copy built with `R CMD build`: PASS.
 - `R CMD check --as-cran --no-manual`: PASS with 1 NOTE for new submission.
 
-Direct `R CMD build .` from the working repository failed before packaging because R attempted to copy `.git/fsmonitor--daemon.ipc`, a Git fsmonitor socket, before applying package build exclusions. Building from a clean source copy without `.git`, `.Rcheck`, or local tarballs succeeded.
+Direct `R CMD build .` from the live Git checkout was attempted but interrupted because R spent too long copying `.git` into the temporary build directory before applying package build exclusions. Building from a clean source copy without `.git`, `.Rcheck`, or local tarballs succeeded.
 
 ## Remaining Blockers
 
@@ -100,6 +102,8 @@ Direct `R CMD build .` from the working repository failed before packaging becau
 5. Create a tagged release before submission.
 6. Confirm that `paper/paper.md` truthfully discloses any AI-assisted work if applicable.
 7. Submit to JOSE first, with JOSS as a secondary route only if JOSE scope is not pursued.
+
+Recommendation: Not ready for JOSE submission until remote CI is verified and the maintainer decides whether to add documented classroom-use evidence.
 
 ## Estimated Probability of Acceptance
 

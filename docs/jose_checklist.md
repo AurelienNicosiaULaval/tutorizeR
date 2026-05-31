@@ -21,7 +21,7 @@ Status labels:
 | Continuous integration | READY | `.github/workflows/r.yml` | R CMD check, tests, lint, and coverage jobs configured. |
 | Coverage reporting | READY | `.github/workflows/r.yml` | `covr::package_coverage()` configured with core threshold. |
 | Documentation | READY | `README.md`, `man/`, vignettes, docs | Reviewer-facing docs added. |
-| Vignettes | READY | `vignettes/` | Includes five JOSE-oriented educational vignettes. |
+| Vignettes | READY | `vignettes/` | Includes JOSE-oriented educational vignettes, including a teaching workflow case study. |
 | Reproducibility | READY | examples, tests, workflow, local dataset | Source-first conversion workflow documented. |
 | Educational adoption evidence | PARTIAL | package examples and use cases | Actual classroom adoption is not verifiable from repository contents. |
 | JOSE paper | READY | `paper/paper.md` | Title and required sections present. |

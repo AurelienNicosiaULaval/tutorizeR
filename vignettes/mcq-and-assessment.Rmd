@@ -1,8 +1,8 @@
 ---
-title: "MCQ and assessment modes"
+title: "MCQ and Assessment Modes"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{MCQ and assessment modes}
+  %\VignetteIndexEntry{MCQ and Assessment Modes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,14 +11,73 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-Assessment modes:
+## User goal
 
-- `code`: generate exercises and solutions.
-- `mcq`: generate MCQ blocks only.
-- `both`: generate code exercises and MCQ blocks.
+Assessment modes let instructors decide whether a lesson should generate coding practice, conceptual questions, or both.
+
+## Minimal examples
 
 ```{r eval=FALSE}
-tutorize("tp.qmd", assessment = "code")
-tutorize("tp.qmd", assessment = "mcq")
-tutorize("tp.qmd", assessment = "both")
+library(tutorizeR)
+
+tutorize("lesson.qmd", assessment = "code")
+tutorize("lesson.qmd", assessment = "mcq")
+tutorize("lesson.qmd", assessment = "both")
 ```
+
+## Modes
+
+- `code`: generate exercise and solution scaffolds.
+- `mcq`: generate MCQ blocks only.
+- `both`: generate code exercises, solutions, and MCQs.
+
+## Realistic source pattern
+
+```yaml
+question: "Which variable identifies the academic program?"
+answers:
+  - text: "program"
+    correct: true
+  - text: "quiz_score"
+    correct: false
+```
+
+In a source lesson, this YAML would be placed inside a `tutorizeR-mcq` fenced block.
+
+## Realistic installed example
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+work_dir <- file.path(tempdir(), "tutorizeR-assessment")
+dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
+file.copy(file.path(example_dir, "lesson-source.qmd"), work_dir, overwrite = TRUE)
+file.copy(file.path(example_dir, "student_activity.csv"), work_dir, overwrite = TRUE)
+
+qb <- load_question_bank(file.path(example_dir, "question-bank"))
+
+report <- tutorize(
+  input = file.path(work_dir, "lesson-source.qmd"),
+  output_dir = work_dir,
+  assessment = "both",
+  question_bank = qb,
+  mcq_source = "mixed",
+  overwrite = TRUE,
+  verbose = FALSE
+)
+
+print(report$mcq)
+```
+
+## Limits
+
+Generated MCQs are scaffolds. Instructors should verify that questions are aligned with learning objectives and that distractors are plausible. The package does not measure whether an MCQ improves learning.
+
+## Reproducibility checklist
+
+```{r eval=FALSE}
+lines <- readLines(report$output_file)
+any(grepl("learnr::question", lines, fixed = TRUE))
+```
+

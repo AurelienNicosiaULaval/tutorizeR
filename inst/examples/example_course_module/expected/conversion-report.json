@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "input_file": "lesson-source.qmd",
+  "output_file": "expected/lesson-source-tutorial.Rmd",
+  "format": "learnr",
+  "assessment": "both",
+  "stats": {
+    "exercises": 3,
+    "solutions": 4,
+    "mcq": 5,
+    "mcq_explicit": 1,
+    "mcq_from_bank": 2,
+    "skipped": 0,
+    "setup_chunks": 1,
+    "preserved_chunks": 0,
+    "sections": 8,
+    "chunks_total": 7,
+    "estimated_minutes": 23.5
+  },
+  "sections": 8,
+  "chunks_total": 7,
+  "mcq_explicit": 1,
+  "mcq_from_bank": 2,
+  "estimated_minutes": 23.5,
+  "render_ok": true,
+  "render_message": "",
+  "warnings": [],
+  "lint_summary": {
+    "errors": 0,
+    "warnings": 0,
+    "infos": 0
+  },
+  "messages": [],
+  "generated_at": "example"
+}

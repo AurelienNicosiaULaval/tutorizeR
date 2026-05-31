@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [main, release/v0.4.4]
 
 permissions:
   contents: read
@@ -98,17 +98,17 @@ jobs:
         run: |
           cov <- covr::package_coverage()
           print(cov)
-          by <- as.data.frame(covr::coverage_to_list(cov))
-          by$file <- rownames(by)
+          cov_list <- covr::coverage_to_list(cov)
+          file_coverage <- cov_list$filecoverage
 
           core_files <- c("R/parser.R", "R/transform.R", "R/validation.R", "R/report.R")
-          missing <- setdiff(core_files, by$file)
+          missing <- setdiff(core_files, names(file_coverage))
           if (length(missing) > 0L) {
             stop(sprintf("Missing core files in coverage table: %s", paste(missing, collapse = ", ")))
           }
 
-          core_pct <- mean(by$filecoverage[match(core_files, by$file)])
-          total_pct <- covr::percent_coverage(cov)
+          core_pct <- mean(unname(file_coverage[core_files]))
+          total_pct <- as.numeric(cov_list$totalcoverage)
           cat(sprintf("Coverage total: %.2f%%\n", total_pct))
           cat(sprintf("Coverage core:  %.2f%%\n", core_pct))
 
