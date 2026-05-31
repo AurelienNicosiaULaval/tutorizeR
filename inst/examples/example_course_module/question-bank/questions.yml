@@ -1,0 +1,65 @@
+- id: preview-output
+  question: "What does `head(activity, 3)` return in this lesson?"
+  answers:
+    - text: "The first three rows of the activity data."
+      correct: true
+    - text: "A grouped summary by program."
+      correct: false
+    - text: "A scatterplot of study hours and quiz score."
+      correct: false
+  tags:
+    - data-import
+    - "Recognize the output of head(activity, 3)"
+  difficulty: introductory
+  language: en
+  explanation: "`head(activity, 3)` previews the first three rows, which helps students inspect the data structure before analysis."
+
+- id: grouped-summary
+  question: "After grouping by `program`, what does `mean_hours` represent?"
+  answers:
+    - text: "The average study hours within each academic program."
+      correct: true
+    - text: "The total study hours across all students."
+      correct: false
+    - text: "The quiz score for the first student in each program."
+      correct: false
+  tags:
+    - summarisation
+    - dplyr
+    - "Compute mean study hours and mean quiz score"
+  difficulty: introductory
+  language: en
+  explanation: "The `summarise()` call computes an average separately within each `program` group."
+
+- id: visualization-aesthetic
+  question: "In `ggplot2`, which aesthetic should be mapped to show quiz score on the vertical axis?"
+  answers:
+    - text: "y"
+      correct: true
+    - text: "x"
+      correct: false
+    - text: "color"
+      correct: false
+  tags:
+    - visualization
+    - ggplot2
+  difficulty: introductory
+  language: en
+  explanation: "The y aesthetic controls the vertical position in a two-dimensional plot."
+
+- id: plot-interpretation
+  question: "Which interpretation is appropriate for the scatterplot in this synthetic example?"
+  answers:
+    - text: "Students with more study hours tend to have higher quiz scores in this small dataset, but the plot is not causal evidence."
+      correct: true
+    - text: "The plot proves that increasing study hours causes higher quiz scores."
+      correct: false
+    - text: "The plot shows that all programs have identical quiz scores."
+      correct: false
+  tags:
+    - visualization
+    - interpretation
+    - "Map study_hours to x and quiz_score to y"
+  difficulty: introductory
+  language: en
+  explanation: "The plot supports a cautious descriptive statement only; the data are synthetic and not designed for causal inference."

@@ -1,0 +1,57 @@
+---
+title: "Documentation Website"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Documentation Website}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Purpose
+
+The repository includes a pkgdown configuration so that the README, function reference pages, and vignettes can be rendered as a documentation website. The site configuration is stored in `_pkgdown.yml`.
+
+The generated site is written to `pkgdown/`. This keeps generated website files separate from the repository's source documentation in `docs/`.
+
+## Build Locally
+
+```{r eval=FALSE}
+library(pkgdown)
+
+build_site()
+```
+
+For a documentation-only check, build the articles and reference index locally before pushing changes.
+
+```{r eval=FALSE}
+library(pkgdown)
+
+build_articles()
+build_reference()
+```
+
+## Article Groups
+
+The pkgdown site organizes vignettes into four groups:
+
+- Start here: first conversion workflow and common teaching scenarios.
+- Authoring and assessment: tags, MCQs, question banks, and output formats.
+- Course operations: batch conversion, linting, debugging, and educational use cases.
+- Project documentation: site maintenance and reviewer-facing readiness notes.
+
+## Maintenance Checklist
+
+Before publishing documentation changes, run:
+
+```bash
+Rscript -e "devtools::document()"
+Rscript -e "testthat::test_local('.')"
+Rscript -e "lintr::lint_package()"
+Rscript -e "pkgdown::build_site()"
+```
+
+If a user-facing function, argument, or workflow changes, update at least one vignette and the relevant reference documentation.

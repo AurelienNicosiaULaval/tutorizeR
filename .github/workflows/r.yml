@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [main, release/v0.4.4]
 
 permissions:
   contents: read
@@ -27,6 +27,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
+          extra-repositories: https://rstudio.r-universe.dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -35,6 +36,27 @@ jobs:
 
       - name: R CMD check
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning")
+        shell: Rscript {0}
+
+  testthat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+          extra-repositories: https://rstudio.r-universe.dev
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          needs: tests
+          extra-packages: any::testthat
+
+      - name: Run tests
+        run: testthat::test_local(reporter = "summary")
         shell: Rscript {0}
 
   lintr:
@@ -47,6 +69,7 @@ jobs:
         with:
           r-version: 'release'
           use-public-rspm: true
+          extra-repositories: https://rstudio.r-universe.dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -69,6 +92,7 @@ jobs:
         with:
           r-version: 'release'
           use-public-rspm: true
+          extra-repositories: https://rstudio.r-universe.dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -78,21 +102,50 @@ jobs:
         run: |
           cov <- covr::package_coverage()
           print(cov)
-          by <- as.data.frame(covr::coverage_to_list(cov))
-          by$file <- rownames(by)
+          cov_list <- covr::coverage_to_list(cov)
+          file_coverage <- cov_list$filecoverage
 
           core_files <- c("R/parser.R", "R/transform.R", "R/validation.R", "R/report.R")
-          missing <- setdiff(core_files, by$file)
+          missing <- setdiff(core_files, names(file_coverage))
           if (length(missing) > 0L) {
             stop(sprintf("Missing core files in coverage table: %s", paste(missing, collapse = ", ")))
           }
 
-          core_pct <- mean(by$filecoverage[match(core_files, by$file)])
-          total_pct <- covr::percent_coverage(cov)
+          core_pct <- mean(unname(file_coverage[core_files]))
+          total_pct <- as.numeric(cov_list$totalcoverage)
           cat(sprintf("Coverage total: %.2f%%\n", total_pct))
           cat(sprintf("Coverage core:  %.2f%%\n", core_pct))
 
           if (core_pct < 80) {
             stop(sprintf("Core coverage threshold not met: %.2f%% < 80%%", core_pct))
           }
+        shell: Rscript {0}
+
+  installed-example:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+          use-public-rspm: true
+          extra-repositories: https://rstudio.r-universe.dev
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          needs: check
+
+      - name: Install package
+        run: R CMD INSTALL .
+
+      - name: Run installed example module
+        run: |
+          source(system.file(
+            "examples",
+            "example_course_module",
+            "run-example.R",
+            package = "tutorizeR"
+          ))
         shell: Rscript {0}

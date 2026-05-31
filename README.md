@@ -2,184 +2,235 @@
   <img src="man/figures/logo.png" alt="tutorizeR hex sticker" height="180">
 </p>
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17771142.svg)](https://doi.org/10.5281/zenodo.17771142)
 [![R-CMD-check](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml/badge.svg)](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 # tutorizeR
 
-`tutorizeR` helps teachers convert `.Rmd` and `.qmd` material into interactive
-`learnr` or `quarto-live` resources with linting, reusable MCQ banks, and
-export/report tooling.
+`tutorizeR` is an R package for converting existing R Markdown (`.Rmd`) and Quarto (`.qmd`) teaching material into interactive tutorial documents for `learnr` and `quarto-live`.
+
+The package is designed for instructors who want to keep one source document while generating student-facing exercises, solution scaffolds, multiple-choice questions, and conversion reports. The core workflow is source-first: revise the lesson source, rerun the conversion, review the generated tutorial, and distribute the result through the course infrastructure already in use.
+
+![tutorizeR workflow](man/figures/tutorize-workflow.svg)
+
+## Scope
+
+`tutorizeR` supports the following teaching workflows:
+
+- Convert `.Rmd` and `.qmd` lessons to `learnr` tutorials.
+- Convert `.qmd` lessons to `quarto-live`-oriented resources.
+- Generate exercise and solution blocks from existing R chunks.
+- Add conceptual checks through inline MCQ blocks or reusable YAML/JSON question banks.
+- Lint source lessons before conversion.
+- Write JSON or YAML conversion reports for review and reproducibility.
+- Process a folder of lessons with a consistent conversion policy.
+- Export LMS-oriented manifests for downstream integration.
+
+The package does not replace instructor review. Generated tutorials should be inspected before they are used with students, especially when assessment, feedback, or grading logic is involved.
+
+The repository currently demonstrates package functionality through tests, vignettes, documentation, and an installable example module. It does not currently contain formal classroom outcome data or measured learning-gain evidence.
 
 ## Installation
 
-```r
-# install.packages("remotes")
-remotes::install_github("AurelienNicosiaULaval/tutorizeR")
-```
-
-To use `r-universe`:
+Choose the installation source that matches your use case.
 
 ```r
-install.packages(
-  "tutorizeR",
-  repos = c(
-    "https://aureliennicosiaulaval.r-universe.dev",
-    "https://cloud.r-project.org"
-  )
-)
+# CRAN, once the package is available there
+install.packages("tutorizeR")
 ```
 
-## End-to-end workflow
+```r
+# Tagged GitHub release
+install.packages("remotes")
+remotes::install_github("AurelienNicosiaULaval/tutorizeR@v0.4.4")
+```
+
+```r
+# Current development branch used for review work
+install.packages("remotes")
+remotes::install_github("AurelienNicosiaULaval/tutorizeR@review/jose-readiness")
+```
+
+## Quick Start
+
+The installed example module contains a Quarto lesson, a small local dataset, a question bank, and expected outputs. The following example copies the lesson to a temporary directory and converts it to a `learnr` tutorial.
 
 ```r
 library(tutorizeR)
 
-# 1) Load reusable question bank
-qb <- load_question_bank("inst/question-bank")
+example_dir <- system.file(
+  "examples",
+  "example_course_module",
+  package = "tutorizeR"
+)
 
-# 2) Lint source before conversion
-lint <- lint_source("lesson.qmd", question_bank = qb, strict = FALSE)
-print(lint)
+work_dir <- file.path(tempdir(), "tutorizeR-example")
+dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
 
-# 3) Convert with mixed MCQ strategy (inline + bank)
-rep <- tutorize(
-  input = "lesson.qmd",
+file.copy(
+  from = file.path(example_dir, "lesson-source.qmd"),
+  to = work_dir,
+  overwrite = TRUE
+)
+file.copy(
+  from = file.path(example_dir, "student_activity.csv"),
+  to = work_dir,
+  overwrite = TRUE
+)
+
+question_bank <- load_question_bank(file.path(example_dir, "question-bank"))
+
+report <- tutorize(
+  input = file.path(work_dir, "lesson-source.qmd"),
+  output_dir = work_dir,
   format = "learnr",
   assessment = "both",
-  question_bank = qb,
+  question_bank = question_bank,
+  mcq_source = "mixed",
+  overwrite = TRUE,
+  verbose = FALSE
+)
+
+print(report)
+```
+
+The returned report records the input file, output file, output format, assessment mode, generated exercises, generated MCQs, lint summary, warnings, and render status when applicable.
+
+## Main Functions
+
+| Task | Functions |
+| --- | --- |
+| Convert one lesson | `tutorize()`, `convert_to_tutorial()` |
+| Convert a folder | `convert_folder()` |
+| Work with question banks | `load_question_bank()`, `validate_question_bank()` |
+| Check lesson structure | `lint_source()`, `validate_input()`, `validate_output()` |
+| Save conversion metadata | `write_tutorize_report()` |
+| Export course integration artifacts | `export_lms_manifest()`, `export_tutorial_package()` |
+| Use RStudio addins | `launch_tutorizeR_addin()`, `launch_tutorizeR_folder_addin()`, `launch_tutorizeR_preview_addin()` |
+
+## Authoring Syntax
+
+Instructor comments inside R chunks control conversion.
+
+```r
+# tutorizeR: hints=Group by program before summarising|Use .groups = "drop"
+activity |>
+  dplyr::group_by(program) |>
+  dplyr::summarise(
+    mean_hours = mean(study_hours),
+    mean_score = mean(quiz_score),
+    .groups = "drop"
+  )
+```
+
+Supported tags include:
+
+- `skip`
+- `exercise-only`
+- `solution-only`
+- `mcq`
+- `narrative-only`
+- `locked`
+- `hints=Hint 1|Hint 2`
+
+Inline MCQs use YAML inside a `tutorizeR-mcq` fenced block.
+
+```yaml
+question: "Which variable identifies the academic program?"
+answers:
+  - text: "program"
+    correct: true
+  - text: "quiz_score"
+    correct: false
+```
+
+Reusable question-bank references use YAML inside a `tutorizeR-mcq-ref` fenced block.
+
+```yaml
+ids: [visualization-aesthetic]
+strategy: ordered
+shuffle_answers: false
+```
+
+## Batch Conversion
+
+```r
+library(tutorizeR)
+
+question_bank <- load_question_bank("course/question-bank")
+
+folder_report <- convert_folder(
+  dir = "course/lessons",
+  recursive = TRUE,
+  output_dir = "course/tutorials",
+  format = "learnr",
+  assessment = "both",
+  question_bank = question_bank,
   mcq_source = "mixed",
   lint_strict = TRUE,
   overwrite = TRUE
 )
 
-print(rep)
-
-# 4) Export conversion report JSON for CI tracing
-write_tutorize_report(rep, "lesson-report.json", format = "json")
-
-# 5) Export LMS manifest
-manifest <- export_lms_manifest("lesson.qmd", profile = "canvas")
-print(manifest)
+print(folder_report)
 ```
-
-## Reproducibility checklist (reviewer/journal-ready)
-
-```bash
-# 1) Install dependencies
-Rscript -e 'remotes::install_github("AurelienNicosiaULaval/tutorizeR")'
-
-# 2) Lint and tests
-Rscript -e "lintr::lint_package()"
-Rscript -e "devtools::test()"
-
-# 3) Build and CRAN-style check from a tarball
-R CMD build .
-R CMD check --as-cran --no-manual tutorizeR_0.4.3.tar.gz
-
-# 4) Manual smoke path (requires learnr in the environment)
-Rscript -e "library(tutorizeR); tutorize('tests/testthat/fixtures/rmd/basic_code.Rmd', format = 'learnr', overwrite = TRUE, output_dir = tempdir(), verbose = FALSE)"
-```
-
-Expected on this repository:
-
-- `devtools::test()` passes (currently 98 tests + new fixtures).
-- `R CMD check --as-cran --no-manual` yields no errors, no warnings; one NOTE for a first submission is acceptable.
-
-## JOSS submission note
-
-For JOSS, you submit the manuscript source (`paper/paper.md`) and bibliography (`paper/paper.bib`).
-You do **not** need to attach a PDF in the repository for submission.
-If you want a local PDF preview, render it with:
-
-```bash
-cd paper
-Rscript -e "rmarkdown::render('paper.md', output_format = 'pdf_document', output_file = 'paper.pdf')"
-```
-
-For reviewers/authors, full submission steps are in:
-
-- `docs/joss_submission_guide.md`
-- `docs/joss_release_bundle.md`
-
-JOSS 2026 scope checks (important):
-
-- Confirm repository-wide value (not a thin/one-off utility), open development evidence, and at least ~6 months public history.
-- Keep issue/PR traces visible and use a stable release/tag strategy.
-- Include the AI usage disclosure in `paper/paper.md` if AI was used during coding, docs, or writing.
-
-## Main API
-
-- `tutorize()` / `convert_to_tutorial()`
-- `convert_folder()`
-- `load_question_bank()` / `validate_question_bank()`
-- `lint_source()`
-- `write_tutorize_report()`
-- `export_lms_manifest()`
-- `export_tutorial_package()`
-- `check_tutorial()`
-
-## Teacher tags
-
-Inside R chunks:
-
-- `# tutorizeR: skip`
-- `# tutorizeR: exercise-only`
-- `# tutorizeR: solution-only`
-- `# tutorizeR: mcq`
-- `# tutorizeR: narrative-only`
-- `# tutorizeR: locked`
-- `# tutorizeR: hints=Hint 1|Hint 2`
-
-## MCQ block schemas
-
-Explicit question block:
-
-```text
-```{tutorizeR-mcq}
-question: "2 + 2 = ?"
-answers:
-  - text: "4"
-    correct: true
-  - text: "5"
-    correct: false
-```
-```
-
-Question-bank reference block:
-
-```text
-```{tutorizeR-mcq-ref}
-ids: [mean-basic, sum-basic]
-strategy: ordered
-shuffle_answers: false
-```
-```
-
-## Addins
-
-- Convert active file
-- Convert folder
-- Preview conversion (Source / Output / Diff / Lint / Logs)
-
-## CLI mode
-
-```bash
-Rscript inst/scripts/tutorizeR-cli.R --input=lesson.qmd --format=learnr --assessment=both --overwrite=true
-Rscript inst/scripts/tutorizeR-cli.R --dir=course_material --recursive=true --format=learnr
-```
-
-## Known limitations
-
-- `learnr` render checks require `learnr` and `gradethis` installed.
-- LMS export is manifest-only in v0.4 (no direct remote publishing API).
-- Question bank is local file based (YAML/JSON) in v0.4.
 
 ## Documentation
 
-- `vignettes/getting-started.Rmd`
-- `vignettes/question-bank.Rmd`
-- `vignettes/tags-and-annotations.Rmd`
-- `vignettes/conversion-rmd-vs-qmd.Rmd`
-- `vignettes/mcq-and-assessment.Rmd`
-- `vignettes/lint-and-debug.Rmd`
+The package includes vignettes that are also used as pkgdown articles:
+
+- [Getting started](vignettes/getting-started.Rmd)
+- [Teaching workflow scenario](vignettes/teaching-workflow-scenario.Rmd)
+- [Converting a Quarto lesson into an interactive tutorial](vignettes/quarto-lesson-interactive-tutorial.Rmd)
+- [Building reproducible data science assignments](vignettes/reproducible-data-science-assignments.Rmd)
+- [Reusable question banks](vignettes/question-bank.Rmd)
+- [Tags and annotation syntax](vignettes/tags-and-annotations.Rmd)
+- [MCQ and assessment modes](vignettes/mcq-and-assessment.Rmd)
+- [Lint and debug workflow](vignettes/lint-and-debug.Rmd)
+- [Debugging and common errors](vignettes/debugging-and-errors.Rmd)
+- [Educational use cases](vignettes/educational-use-cases.Rmd)
+- [Documentation website](vignettes/documentation-website.Rmd)
+- [JOSE submission readiness](vignettes/jose-submission-readiness.Rmd)
+
+The pkgdown site configuration is stored in `_pkgdown.yml`. The generated site is built into `pkgdown/` so it does not overwrite the repository's source documentation in `docs/`.
+
+```r
+pkgdown::build_site()
+```
+
+## Quality Control
+
+Recommended local checks for maintainers:
+
+```bash
+Rscript -e "testthat::test_local('.')"
+Rscript -e "lintr::lint_package()"
+Rscript -e "urlchecker::url_check()"
+Rscript -e "devtools::document()"
+R CMD build .
+R CMD check --as-cran tutorizeR_0.4.4.tar.gz
+```
+
+Installed example smoke test:
+
+```bash
+Rscript -e "source(system.file('examples', 'example_course_module', 'run-example.R', package = 'tutorizeR'))"
+```
+
+## Known Limitations
+
+- `learnr` render checks require `learnr` to be installed.
+- Generated `learnr` tutorials activate `gradethis` setup only when `gradethis` is installed.
+- `quarto-live` output requires the Quarto live extension in the teaching project.
+- LMS export is manifest-only in version 0.4 and does not publish directly to a remote LMS API.
+- Question banks are local YAML or JSON files in version 0.4.
+- Formal learning-outcome evaluation is not included in the repository.
+
+## Review and Publication Materials
+
+Reviewer-facing JOSE and JOSS preparation materials are maintained in the source repository under `docs/` and `paper/`. These files are intentionally kept separate from the CRAN package contents. Claims about classroom deployment, broad adoption, or learning outcomes should be added only when supported by verifiable repository evidence.
+
+## Licensing
+
+The package code is released under the MIT license. The CRAN-style license metadata is stored in `LICENSE`, and the full MIT license text is available in `LICENSE.md`.
+
+Educational example materials in `inst/examples/`, generated expected educational outputs, and graphical documentation assets in `man/figures/` are released under CC-BY 4.0 unless otherwise specified. See `LICENSE-CONTENT.md` and `LICENSES.md` in the source repository.

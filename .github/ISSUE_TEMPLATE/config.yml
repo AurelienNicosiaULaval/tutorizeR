@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and discussion
+    url: https://github.com/AurelienNicosiaULaval/tutorizeR/discussions
+    about: Use discussions for open-ended teaching workflow questions.

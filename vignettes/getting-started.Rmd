@@ -1,8 +1,8 @@
 ---
-title: "Getting started for teachers"
+title: "Getting Started with tutorizeR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting started for teachers}
+  %\VignetteIndexEntry{Getting Started with tutorizeR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,15 +11,15 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-`tutorizeR` converts existing `.Rmd` or `.qmd` files into interactive
-teaching material.
+## User goal
 
-## Minimal reproducible workflow
+This vignette helps an instructor convert one existing `.qmd` or `.Rmd` lesson into an interactive tutorial. The pedagogical goal is to keep one source document while generating student-facing practice material.
+
+## Minimal example
 
 ```{r eval=FALSE}
 library(tutorizeR)
 
-# Convert one file to learnr
 report <- tutorize(
   input = "lesson.qmd",
   format = "learnr",
@@ -30,9 +30,41 @@ report <- tutorize(
 print(report)
 ```
 
+The report records the input file, output file, format, assessment mode, generated exercises, MCQs, warnings, lint results, and render status.
+
+## Realistic installed example
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+work_dir <- file.path(tempdir(), "tutorizeR-example")
+dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
+
+file.copy(file.path(example_dir, "lesson-source.qmd"), work_dir, overwrite = TRUE)
+file.copy(file.path(example_dir, "student_activity.csv"), work_dir, overwrite = TRUE)
+
+question_bank <- load_question_bank(file.path(example_dir, "question-bank"))
+
+report <- tutorize(
+  input = file.path(work_dir, "lesson-source.qmd"),
+  output_dir = work_dir,
+  format = "learnr",
+  assessment = "both",
+  question_bank = question_bank,
+  mcq_source = "mixed",
+  overwrite = TRUE,
+  verbose = FALSE
+)
+
+print(report)
+```
+
 ## Batch conversion
 
 ```{r eval=FALSE}
+library(tutorizeR)
+
 folder_report <- convert_folder(
   dir = "course_material/",
   recursive = TRUE,
@@ -56,15 +88,15 @@ Use comments inside R chunks:
 - `# tutorizeR: locked`
 - `# tutorizeR: hints=Hint 1|Hint 2`
 
-## Explicit MCQ block schema
+## Limits
 
-```text
-```{tutorizeR-mcq}
-question: "2 + 2 = ?"
-answers:
-  - text: "4"
-    correct: true
-  - text: "5"
-    correct: false
-```
+Generated tutorials should be reviewed before release. The package can scaffold exercises, solutions, MCQs, and reports, but it does not decide whether a prompt is pedagogically appropriate for a course. Formal learning-outcome evaluation: Not verifiable from repository contents.
+
+## Reproducibility checklist
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+source(file.path(example_dir, "run-example.R"))
 ```

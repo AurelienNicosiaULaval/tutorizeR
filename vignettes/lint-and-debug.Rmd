@@ -1,8 +1,8 @@
 ---
-title: "Lint and debug workflow"
+title: "Lint and Debug Workflow"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Lint and debug workflow}
+  %\VignetteIndexEntry{Lint and Debug Workflow}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,11 +11,15 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-Run lint checks before conversion and export machine-readable reports.
+## User goal
 
-## Source linting
+Linting helps instructors detect common authoring problems before conversion. This is useful in teaching teams where several people maintain source lessons.
+
+## Minimal example
 
 ```{r eval=FALSE}
+library(tutorizeR)
+
 lint <- lint_source("lesson.qmd", strict = FALSE)
 print(lint)
 ```
@@ -23,15 +27,49 @@ print(lint)
 ## Strict conversion
 
 ```{r eval=FALSE}
-rep <- tutorize(
+library(tutorizeR)
+
+report <- tutorize(
   input = "lesson.qmd",
   assessment = "both",
-  lint_strict = TRUE
+  lint_strict = TRUE,
+  overwrite = TRUE
 )
 ```
 
-## JSON report for CI
+## Realistic installed example
 
 ```{r eval=FALSE}
-write_tutorize_report(rep, "report.json", format = "json")
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+source_file <- file.path(example_dir, "lesson-source.qmd")
+question_bank <- load_question_bank(file.path(example_dir, "question-bank"))
+
+lint <- lint_source(
+  input = source_file,
+  question_bank = question_bank,
+  strict = FALSE
+)
+
+print(lint)
 ```
+
+## Conversion reports
+
+```{r eval=FALSE}
+write_tutorize_report(report, "conversion-report.json", format = "json")
+```
+
+Reports are useful in continuous integration and course release workflows because they record the generated output path, number of exercises, MCQs, warnings, and lint summary.
+
+## Limits
+
+Linting can detect structural issues, but it cannot judge whether a lesson is pedagogically effective. Generated reports should support instructor review, not replace it.
+
+## Reproducibility checklist
+
+```{r eval=FALSE}
+stopifnot(inherits(lint, "tutorize_lint_report"))
+```
+

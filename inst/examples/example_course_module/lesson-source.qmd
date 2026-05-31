@@ -1,0 +1,91 @@
+---
+title: "Introduction to Data Visualization and Summarisation with R"
+author: "Example instructor"
+format: html
+---
+
+## Learning objectives
+
+By the end of this lesson, students should be able to:
+
+- import a small CSV file;
+- compute grouped summaries with `dplyr`;
+- create a scatterplot with `ggplot2`;
+- interpret an exploratory pattern without overclaiming.
+
+## Context
+
+The synthetic dataset records weekly study activity for a small group of students. The lesson is intentionally compact so that instructors can inspect the complete conversion workflow.
+
+## Setup
+
+```{r setup}
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+activity <- read_csv("student_activity.csv", show_col_types = FALSE)
+```
+
+## Instructor demonstration
+
+```{r demo-preview}
+# tutorizeR: locked
+# tutorizeR: hints=Recognize the output of head(activity, 3)
+head(activity, 3)
+```
+
+## Data manipulation exercise
+
+```{r summarize-program}
+# tutorizeR: hints=Group by program before summarising|Compute mean study hours and mean quiz score|Use .groups = "drop"
+activity |>
+  group_by(program) |>
+  summarise(
+    mean_hours = mean(study_hours),
+    mean_score = mean(quiz_score),
+    .groups = "drop"
+  )
+```
+
+```{tutorizeR-mcq}
+question: "Which variable identifies the academic program?"
+answers:
+  - text: "program"
+    correct: true
+  - text: "week"
+    correct: false
+  - text: "quiz_score"
+    correct: false
+allow_retry: true
+```
+
+```{tutorizeR-mcq-ref}
+ids: [visualization-aesthetic]
+strategy: ordered
+shuffle_answers: false
+```
+
+## Visualization exercise
+
+```{r plot-study-score}
+# tutorizeR: hints=Map study_hours to x and quiz_score to y|Use color for program|Use geom_point()
+ggplot(activity, aes(x = study_hours, y = quiz_score, color = program)) +
+  geom_point(size = 2) +
+  labs(
+    x = "Study hours",
+    y = "Quiz score",
+    color = "Program"
+  )
+```
+
+## Instructor solution note
+
+```{r interpretation-note}
+# tutorizeR: solution-only
+"In this small synthetic dataset, higher study time is associated with higher quiz score. This is not causal evidence."
+```
+
+## Manual interpretation
+
+Students should describe the plot cautiously. The dataset is small and synthetic, so the goal is to practice code and interpretation rather than estimate a population effect.

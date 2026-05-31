@@ -1,9 +1,16 @@
+destination: pkgdown
+
 template:
   bootstrap: 5
 
 home:
   title: tutorizeR
-  description: Convert existing Rmd/qmd teaching materials into interactive tutorials.
+  description: Convert existing R Markdown and Quarto teaching material into interactive tutorial documents.
+
+navbar:
+  structure:
+    left: [intro, articles, reference, news]
+    right: [search, github]
 
 reference:
   - title: Core conversion
@@ -16,21 +23,54 @@ reference:
       - validate_input
       - validate_output
       - check_tutorial
+      - lint_source
+  - title: Question banks and reports
+    contents:
+      - load_question_bank
+      - validate_question_bank
+      - write_tutorize_report
+      - print.tutorize_report
+      - print.tutorize_lint_report
+      - print.tutorize_folder_report
+  - title: Exports
+    contents:
+      - export_lms_manifest
+      - export_tutorial_package
+      - print.tutorize_lms_manifest
   - title: Addins
     contents:
       - launch_tutorizeR_addin
       - launch_tutorizeR_folder_addin
+      - launch_tutorizeR_preview_addin
+  - title: Internationalization
+    contents:
+      - tr
 
 articles:
-  - title: Getting started
-    navbar: Getting started
+  - title: Start here
+    navbar: Start here
     contents:
       - getting-started
-  - title: Authoring and syntax
+      - teaching-workflow-scenario
+      - quarto-lesson-interactive-tutorial
+      - reproducible-data-science-assignments
+  - title: Authoring and assessment
     navbar: Authoring
     contents:
-      - question-bank
       - tags-and-annotations
-      - conversion-rmd-vs-qmd
+      - question-bank
       - mcq-and-assessment
+      - automatic-exercise-generation-feedback
+      - conversion-rmd-vs-qmd
+  - title: Course operations
+    navbar: Course operations
+    contents:
+      - large-undergraduate-courses
       - lint-and-debug
+      - debugging-and-errors
+      - educational-use-cases
+  - title: Project documentation
+    navbar: Project documentation
+    contents:
+      - documentation-website
+      - jose-submission-readiness

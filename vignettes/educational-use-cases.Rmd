@@ -1,0 +1,102 @@
+---
+title: "Educational Use Cases"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Educational Use Cases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Purpose
+
+`tutorizeR` is intended for instructors who maintain statistical, data science, or R programming lessons in R Markdown or Quarto. The package supports a source-first workflow: the instructor edits one source document, then generates an interactive tutorial, solution scaffolds, conceptual questions, and conversion reports from that source.
+
+This vignette describes plausible educational use cases. Actual classroom deployment and measured learning outcomes are not verifiable from repository contents.
+
+## Pre-class Tutorial
+
+An instructor can convert a lecture note into a pre-class activity. Students read the narrative, run short examples, answer MCQs, and complete a few code exercises before the in-person session.
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+report <- tutorize(
+  input = "lessons/week03-data-visualization.qmd",
+  output_dir = "tutorials/preclass",
+  format = "learnr",
+  assessment = "both",
+  overwrite = TRUE
+)
+
+print(report)
+```
+
+## Laboratory Handout
+
+A laboratory handout can be maintained as a regular `.qmd` file and converted into an interactive tutorial before release. Teacher tags can mark which chunks become exercises, which chunks remain locked, and which hints should be shown to students.
+
+```r
+# tutorizeR: hints=Start with group_by()|Then compute a summary statistic
+activity |>
+  dplyr::group_by(program) |>
+  dplyr::summarise(
+    mean_hours = mean(study_hours),
+    .groups = "drop"
+  )
+```
+
+## Reusable Concept Checks
+
+Question banks are useful when the same concepts appear across several modules. The instructor can store MCQs in YAML or JSON and reference them from different lessons.
+
+```yaml
+ids: [visualization-aesthetic, grouped-summary]
+strategy: ordered
+shuffle_answers: false
+```
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+question_bank <- load_question_bank("question-bank")
+
+report <- tutorize(
+  input = "lessons/week04-summarisation.qmd",
+  format = "learnr",
+  assessment = "both",
+  question_bank = question_bank,
+  mcq_source = "mixed",
+  overwrite = TRUE
+)
+```
+
+## Course Team Review
+
+For courses with teaching assistants or multiple instructors, conversion reports can be saved and reviewed before distributing materials.
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+report <- tutorize(
+  input = "lessons/week05-models.qmd",
+  output_dir = "generated",
+  format = "learnr",
+  assessment = "both",
+  lint_strict = TRUE,
+  overwrite = TRUE
+)
+
+write_tutorize_report(
+  report = report,
+  file = "generated/week05-conversion-report.json",
+  format = "json"
+)
+```
+
+## Evidence Boundary
+
+The repository provides source code, tests, vignettes, reviewer documentation, and an installable example module. It does not currently provide anonymized classroom analytics, controlled learning studies, or external adoption records. Any future claim about classroom deployment or learning impact should be tied to verifiable evidence.

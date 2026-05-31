@@ -1,0 +1,162 @@
+---
+title: Introduction to Data Visualization and Summarisation with R
+author: Example instructor
+format: live-html
+engine: knitr
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+
+## Learning objectives
+
+By the end of this lesson, students should be able to:
+
+- import a small CSV file;
+- compute grouped summaries with `dplyr`;
+- create a scatterplot with `ggplot2`;
+- interpret an exploratory pattern without overclaiming.
+
+## Context
+
+The synthetic dataset records weekly study activity for a small group of students. The lesson is intentionally compact so that instructors can inspect the complete conversion workflow.
+
+## Setup
+
+```{r setup}
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+activity <- read_csv("student_activity.csv", show_col_types = FALSE)
+```
+
+
+## Instructor demonstration
+
+**Hint(s)**
+- Recognize the output of head(activity, 3)
+
+_Locked exercise: enable this block only for demonstration._
+```{webr}
+# Write your code below
+```
+
+::: {.callout-tip collapse='true'}
+## Solution
+```r
+head(activity, 3)
+```
+:::
+
+::: {.callout-note}
+## Quiz
+What does `head(activity, 3)` return in this lesson?
+
+- [ ] The first three rows of the activity data.
+- [ ] A grouped summary by program.
+- [ ] A scatterplot of study hours and quiz score.
+:::
+
+
+## Data manipulation exercise
+
+**Hint(s)**
+- Group by program before summarising
+- Compute mean study hours and mean quiz score
+- Use .groups = "drop"
+
+```{webr}
+# Write your code below
+```
+
+::: {.callout-tip collapse='true'}
+## Solution
+```r
+activity |>
+  group_by(program) |>
+  summarise(
+    mean_hours = mean(study_hours),
+    mean_score = mean(quiz_score),
+    .groups = "drop"
+  )
+```
+:::
+
+::: {.callout-note}
+## Quiz
+After grouping by `program`, what does `mean_hours` represent?
+
+- [ ] The average study hours within each academic program.
+- [ ] The total study hours across all students.
+- [ ] The quiz score for the first student in each program.
+:::
+
+
+::: {.callout-note}
+## Quiz
+Which variable identifies the academic program?
+
+- [ ] program
+- [ ] week
+- [ ] quiz_score
+:::
+
+
+::: {.callout-note}
+## Quiz
+In `ggplot2`, which aesthetic should be mapped to show quiz score on the vertical axis?
+
+- [ ] y
+- [ ] x
+- [ ] color
+:::
+
+
+## Visualization exercise
+
+**Hint(s)**
+- Map study_hours to x and quiz_score to y
+- Use color for program
+- Use geom_point()
+
+```{webr}
+# Write your code below
+```
+
+::: {.callout-tip collapse='true'}
+## Solution
+```r
+ggplot(activity, aes(x = study_hours, y = quiz_score, color = program)) +
+  geom_point(size = 2) +
+  labs(
+    x = "Study hours",
+    y = "Quiz score",
+    color = "Program"
+  )
+```
+:::
+
+::: {.callout-note}
+## Quiz
+Which interpretation is appropriate for the scatterplot in this synthetic example?
+
+- [ ] Students with more study hours tend to have higher quiz scores in this small dataset, but the plot is not causal evidence.
+- [ ] The plot proves that increasing study hours causes higher quiz scores.
+- [ ] The plot shows that all programs have identical quiz scores.
+:::
+
+
+## Instructor solution note
+
+::: {.callout-tip collapse='true'}
+## Solution
+```r
+"In this small synthetic dataset, higher study time is associated with higher quiz score. This is not causal evidence."
+```
+:::
+
+
+## Manual interpretation
+
+Students should describe the plot cautiously. The dataset is small and synthetic, so the goal is to practice code and interpretation rather than estimate a population effect.

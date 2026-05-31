@@ -1,6 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^LICENSE-CONTENT\.md$
+^LICENSES\.md$
+^pkgdown$
 ^\.github$
 ^ROADMAP\.md$
 ^docs$
@@ -14,3 +17,7 @@
 ^codemeta\.json$
 ^paper$
 ^SECURITY.md$
+^.*\.Rcheck$
+^\.\.Rcheck$
+^tutorizeR_[0-9.]+\.tar\.gz$
+^CRAN-SUBMISSION$

@@ -1,0 +1,54 @@
+---
+title: "JOSE Submission Readiness"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{JOSE Submission Readiness}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This vignette points reviewers to the repository artifacts prepared for a future Journal of Open Source Education submission.
+
+## Main artifacts
+
+- `paper/paper.md`
+- `paper/paper.bib`
+- `docs/jose_blockers_report.md`
+- `docs/educational_use_evidence.md`
+- `docs/jose_review_checklist.md`
+- `docs/jose_submission_guide.md`
+- `inst/examples/example_course_module/`
+
+## Local verification
+
+```{r eval=FALSE}
+testthat::test_local()
+lintr::lint_package()
+
+tmpdir <- tempfile("tutorizeR-source-")
+dir.create(tmpdir)
+system2("rsync", c(
+  "-a",
+  "--exclude=.git",
+  "--exclude=*.Rcheck",
+  "--exclude=*.tar.gz",
+  "./",
+  file.path(tmpdir, "tutorizeR/")
+))
+old <- setwd(file.path(tmpdir, "tutorizeR"))
+on.exit(setwd(old), add = TRUE)
+system("R CMD build .")
+system("R CMD check --as-cran --no-manual tutorizeR_0.4.4.tar.gz")
+```
+
+## Evidence boundaries
+
+Educational use cases are documented in the repository.
+
+- Actual classroom deployment: Not verifiable from repository contents.
+- Broad external adoption: Not verifiable from repository contents.
+- Public GitHub history: Not verifiable from repository contents.

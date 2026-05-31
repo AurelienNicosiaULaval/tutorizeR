@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-labelledby="title desc">
+  <title id="title">tutorizeR conversion workflow</title>
+  <desc id="desc">A diagram showing source teaching documents converted into interactive tutorials, reports, and teaching exports.</desc>
+  <rect width="960" height="320" fill="#f7f8fa"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#1f2933">
+    <text x="48" y="54" font-size="28" font-weight="700">Source-first teaching workflow</text>
+    <text x="48" y="84" font-size="15" fill="#52606d">One reproducible lesson source can generate interactive learning artifacts.</text>
+  </g>
+  <g stroke="#243b53" stroke-width="2" fill="#ffffff">
+    <rect x="48" y="130" width="190" height="110" rx="8"/>
+    <rect x="286" y="130" width="190" height="110" rx="8"/>
+    <rect x="524" y="130" width="190" height="110" rx="8"/>
+    <rect x="762" y="130" width="150" height="110" rx="8"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#102a43">
+    <text x="74" y="166" font-size="19" font-weight="700">Rmd or qmd</text>
+    <text x="74" y="194" font-size="14">Narrative, code,</text>
+    <text x="74" y="214" font-size="14">MCQ blocks, tags</text>
+    <text x="312" y="166" font-size="19" font-weight="700">tutorizeR</text>
+    <text x="312" y="194" font-size="14">Parse, lint, convert,</text>
+    <text x="312" y="214" font-size="14">label, report</text>
+    <text x="550" y="166" font-size="19" font-weight="700">Tutorials</text>
+    <text x="550" y="194" font-size="14">learnr or quarto-live</text>
+    <text x="550" y="214" font-size="14">with exercises</text>
+    <text x="788" y="166" font-size="19" font-weight="700">Teaching</text>
+    <text x="788" y="194" font-size="14">Feedback, LMS</text>
+    <text x="788" y="214" font-size="14">and reuse</text>
+  </g>
+  <g stroke="#627d98" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M238 185 H286"/>
+    <path d="M476 185 H524"/>
+    <path d="M714 185 H762"/>
+    <path d="M274 176 L286 185 L274 194"/>
+    <path d="M512 176 L524 185 L512 194"/>
+    <path d="M750 176 L762 185 L750 194"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#52606d">
+    <text x="48" y="280">Review artifacts: conversion report, tests, examples, vignettes, JOSE paper</text>
+  </g>
+</svg>

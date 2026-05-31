@@ -7,8 +7,10 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 # Setup chunk added by tutorizeR
 library(learnr)
-library(gradethis)
-gradethis_setup()
+if (requireNamespace("gradethis", quietly = TRUE)) {
+  library(gradethis)
+  gradethis_setup()
+}
 ```
 
 

@@ -1,0 +1,158 @@
+---
+title: Introduction to Data Visualization and Summarisation with R
+author: Example instructor
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+
+## Learning objectives
+
+By the end of this lesson, students should be able to:
+
+- import a small CSV file;
+- compute grouped summaries with `dplyr`;
+- create a scatterplot with `ggplot2`;
+- interpret an exploratory pattern without overclaiming.
+
+## Context
+
+The synthetic dataset records weekly study activity for a small group of students. The lesson is intentionally compact so that instructors can inspect the complete conversion workflow.
+
+## Setup
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+activity <- read_csv("student_activity.csv", show_col_types = FALSE)
+library(learnr)
+if (requireNamespace("gradethis", quietly = TRUE)) {
+  library(gradethis)
+  gradethis_setup()
+}
+```
+
+
+## Instructor demonstration
+
+**Hint(s)**
+- Recognize the output of head(activity, 3)
+
+_Locked exercise: enable this block only for demonstration._
+```{r trz-ex-demo-preview, exercise.lines=3, exercise=TRUE}
+# Write your code below
+```
+
+```{r trz-sol-demo-preview, include=FALSE}
+head(activity, 3)
+```
+
+```{r trz-mcq-demo-preview, echo=FALSE}
+learnr::question(
+  "What does `head(activity, 3)` return in this lesson?",
+  learnr::answer("The first three rows of the activity data.", correct = TRUE),
+  learnr::answer("A grouped summary by program.", correct = FALSE),
+  learnr::answer("A scatterplot of study hours and quiz score.", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+
+## Data manipulation exercise
+
+**Hint(s)**
+- Group by program before summarising
+- Compute mean study hours and mean quiz score
+- Use .groups = "drop"
+
+```{r trz-ex-summarize-program, exercise.lines=7, exercise=TRUE}
+# Write your code below
+```
+
+```{r trz-sol-summarize-program, include=FALSE}
+activity |>
+  group_by(program) |>
+  summarise(
+    mean_hours = mean(study_hours),
+    mean_score = mean(quiz_score),
+    .groups = "drop"
+  )
+```
+
+```{r trz-mcq-summarize-program, echo=FALSE}
+learnr::question(
+  "After grouping by `program`, what does `mean_hours` represent?",
+  learnr::answer("The average study hours within each academic program.", correct = TRUE),
+  learnr::answer("The total study hours across all students.", correct = FALSE),
+  learnr::answer("The quiz score for the first student in each program.", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+
+```{r trz-mcq-explicit-004, echo=FALSE}
+learnr::question(
+  "Which variable identifies the academic program?",
+  learnr::answer("program", correct = TRUE),
+  learnr::answer("week", correct = FALSE),
+  learnr::answer("quiz_score", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+
+```{r trz-mcq-bank-005-001, echo=FALSE}
+learnr::question(
+  "In `ggplot2`, which aesthetic should be mapped to show quiz score on the vertical axis?",
+  learnr::answer("y", correct = TRUE),
+  learnr::answer("x", correct = FALSE),
+  learnr::answer("color", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+
+## Visualization exercise
+
+**Hint(s)**
+- Map study_hours to x and quiz_score to y
+- Use color for program
+- Use geom_point()
+
+```{r trz-ex-plot-study-score, exercise.lines=7, exercise=TRUE}
+# Write your code below
+```
+
+```{r trz-sol-plot-study-score, include=FALSE}
+ggplot(activity, aes(x = study_hours, y = quiz_score, color = program)) +
+  geom_point(size = 2) +
+  labs(
+    x = "Study hours",
+    y = "Quiz score",
+    color = "Program"
+  )
+```
+
+```{r trz-mcq-plot-study-score, echo=FALSE}
+learnr::question(
+  "Which interpretation is appropriate for the scatterplot in this synthetic example?",
+  learnr::answer("Students with more study hours tend to have higher quiz scores in this small dataset, but the plot is not causal evidence.", correct = TRUE),
+  learnr::answer("The plot proves that increasing study hours causes higher quiz scores.", correct = FALSE),
+  learnr::answer("The plot shows that all programs have identical quiz scores.", correct = FALSE),
+  allow_retry = TRUE
+)
+```
+
+
+## Instructor solution note
+
+```{r trz-sol-interpretation-note, include=FALSE}
+"In this small synthetic dataset, higher study time is associated with higher quiz score. This is not causal evidence."
+```
+
+
+## Manual interpretation
+
+Students should describe the plot cautiously. The dataset is small and synthetic, so the goal is to practice code and interpretation rather than estimate a population effect.

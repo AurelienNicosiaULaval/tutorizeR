@@ -1,0 +1,115 @@
+---
+title: "Teaching Workflow Scenario"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Teaching Workflow Scenario}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This vignette is an illustrative scenario. Actual classroom deployment is not verifiable from repository contents.
+
+## Teaching problem
+
+An instructor has a Quarto lesson on introductory data summarisation and visualization. The lesson contains narrative explanation, R chunks, a small dataset, and interpretation prompts. The instructor wants a student-facing tutorial with exercises, solution material, MCQs, and a conversion report without maintaining a separate tutorial by hand.
+
+## Source-first workflow
+
+The instructor keeps `lesson-source.qmd` as the source of truth. Generated `learnr` or `quarto-live` files are outputs that can be regenerated after edits.
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+```
+
+## Annotating a `.qmd` lesson
+
+Instructor comments inside R chunks control conversion:
+
+```r
+# tutorizeR: hints=Group by program before summarising|Use .groups = "drop"
+```
+
+The comments stay close to the source code, which helps course teams review the pedagogical intent of each chunk.
+
+## Adding MCQs and question-bank references
+
+Inline MCQs are useful for lesson-specific checks. Question-bank references are useful when a concept should be reused across modules.
+
+```yaml
+ids: [visualization-aesthetic]
+strategy: ordered
+shuffle_answers: false
+```
+
+## Running `tutorize()`
+
+```{r eval=FALSE}
+work_dir <- file.path(tempdir(), "tutorizeR-scenario")
+dir.create(work_dir, recursive = TRUE, showWarnings = FALSE)
+
+file.copy(file.path(example_dir, "lesson-source.qmd"), work_dir, overwrite = TRUE)
+file.copy(file.path(example_dir, "student_activity.csv"), work_dir, overwrite = TRUE)
+
+qb <- load_question_bank(file.path(example_dir, "question-bank"))
+
+report <- tutorize(
+  input = file.path(work_dir, "lesson-source.qmd"),
+  output_dir = work_dir,
+  format = "learnr",
+  assessment = "both",
+  question_bank = qb,
+  mcq_source = "mixed",
+  overwrite = TRUE,
+  verbose = FALSE
+)
+```
+
+## Interpreting the conversion report
+
+```{r eval=FALSE}
+print(report)
+
+write_tutorize_report(
+  report = report,
+  file = file.path(work_dir, "conversion-report.json"),
+  format = "json"
+)
+```
+
+The report helps an instructor check how many exercises, solutions, and MCQs were generated. It also records warnings and lint summaries.
+
+## Reviewing the generated tutorial
+
+The instructor should open the generated file and verify:
+
+- the generated exercise prompts are clear;
+- solutions are appropriate for release policy;
+- MCQs are aligned with the intended concept;
+- datasets are available where the tutorial will be rendered;
+- optional packages are available to students.
+
+## Publishing or sharing
+
+The package creates local artifacts. Publishing depends on the teaching environment. Instructors may render `learnr` tutorials, distribute Quarto output, or use generated reports in course release workflows. Direct LMS publication is not implemented in the current version.
+
+## Limitations and manual checks
+
+This workflow demonstrates feasibility and reproducibility, not measured learning impact.
+
+- Formal learning-outcome evaluation: Not verifiable from repository contents.
+- Actual classroom deployment: Not verifiable from repository contents.
+
+## Reproducibility checklist
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+example_dir <- system.file("examples", "example_course_module", package = "tutorizeR")
+source(file.path(example_dir, "run-example.R"))
+```
