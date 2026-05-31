@@ -15,7 +15,7 @@ Rationale:
 
 - strong package structure, tests, documentation, governance files, and manuscript assets;
 - clear educational infrastructure purpose;
-- remaining uncertainty around external adoption evidence, public repository history, and CRAN status.
+- remaining uncertainty around external adoption evidence, public repository history, and CRAN publication status.
 
 ## JOSE Readiness Score
 
@@ -33,7 +33,7 @@ Main limitations:
 
 - actual classroom adoption is not verifiable from repository contents;
 - public repository history and public review readiness are not verifiable from local contents;
-- the final submission should rerun test, lint, coverage, and R CMD check records immediately before upload.
+- GitHub Actions passed on PR #5 for commit `864c489`; checks should still be rerun immediately before upload.
 
 ## JOSS Readiness Score
 
@@ -82,6 +82,7 @@ On 2026-05-31, the following checks were performed locally:
 - Coverage gate script: PASS, 71.58% total coverage and 93.36% core coverage.
 - Clean temporary source copy built with `R CMD build`: PASS.
 - `R CMD check --as-cran --no-manual`: PASS with 1 NOTE for new submission.
+- GitHub Actions on PR #5 for commit `864c489`: PASS for coverage, lintr, testthat, and R CMD check on Ubuntu, macOS, and Windows.
 
 Direct `R CMD build .` from the live Git checkout was attempted but interrupted because R spent too long copying `.git` into the temporary build directory before applying package build exclusions. Building from a clean source copy without `.git`, `.Rcheck`, or local tarballs succeeded.
 
@@ -96,7 +97,7 @@ Direct `R CMD build .` from the live Git checkout was attempted but interrupted 
 ## Recommended Next Actions
 
 1. Run tests, linting, coverage, and `R CMD check --as-cran --no-manual` on a clean checkout.
-2. Confirm that GitHub Actions pass on the remote repository.
+2. Confirm that GitHub Actions still pass on the final release commit.
 3. Add anonymized, permission-safe teaching evidence if available.
 4. Confirm that all paper metadata is final, especially ORCID and release DOI.
 5. Create a tagged release before submission.

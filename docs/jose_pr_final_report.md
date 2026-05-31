@@ -48,7 +48,7 @@ PR: https://github.com/AurelienNicosiaULaval/tutorizeR/pull/5
 - Formal learning-outcome evaluation has not yet been conducted, unless evidence is added to the repository.
 - Actual classroom deployment is not verifiable from repository contents.
 - Broad external instructor adoption is not verifiable from repository contents.
-- Remote GitHub Actions status must be checked after pushing this update.
+- Remote GitHub Actions passed on PR #5 for commit `864c489`.
 - ORCID and final release DOI should be confirmed before submission.
 
 ## Validation Commands Run
@@ -142,9 +142,18 @@ Result: PASS with 1 NOTE for new submission.
 
 ## CI Status
 
-Not verifiable from repository contents.
+GitHub Actions were checked on PR #5 after pushing commit `864c489`.
 
-Remote GitHub Actions must be checked after this update is pushed.
+Run: https://github.com/AurelienNicosiaULaval/tutorizeR/actions/runs/26715564901
+
+Results:
+
+- `coverage`: PASS, 2m21s.
+- `lintr`: PASS, 2m24s.
+- `testthat`: PASS, 2m36s.
+- `r-cmd-check (ubuntu-latest, release)`: PASS, 3m3s.
+- `r-cmd-check (macos-latest, release)`: PASS, 3m34s.
+- `r-cmd-check (windows-latest, release)`: PASS, 4m26s.
 
 ## Files Modified
 
@@ -176,9 +185,8 @@ Key changed or added files:
 
 - Documented classroom deployment: Not verifiable from repository contents.
 - Formal learning-outcome evaluation: Not verifiable from repository contents.
-- Remote CI status after final push: Not verifiable from repository contents.
 - Final release DOI and ORCID metadata should be confirmed.
 
 Recommendation: Not ready for JOSE submission.
 
-The repository is substantially more JOSE-ready, but a real submission should wait until remote CI is verified and the maintainer decides whether to add documented classroom-use evidence.
+The repository is substantially more JOSE-ready, but a real submission should wait until the maintainer confirms final release metadata and decides whether to add documented classroom-use evidence.

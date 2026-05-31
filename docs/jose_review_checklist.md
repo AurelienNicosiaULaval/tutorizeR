@@ -50,8 +50,8 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 |---|---|---|
 | Automated tests exist. | READY | `tests/testthat/`. |
 | Example module tests exist. | READY | `tests/testthat/test-examples.R`. |
-| Local tests pass. | PARTIAL | Must be rerun on final checkout before submission. |
-| Remote CI passes. | NOT VERIFIABLE | Requires checking GitHub Actions after push. |
+| Local tests pass. | READY | `testthat::test_local('.')` passed locally with 144 tests on 2026-05-31. |
+| Remote CI passes. | READY | GitHub Actions run `26715564901` passed on PR #5 for commit `864c489`. |
 
 ## Examples
 
@@ -98,4 +98,3 @@ Official JOSE checklist source: https://openjournals.readthedocs.io/en/jose/revi
 | Pedagogical references are cited. | READY | paper and bibliography. |
 | AI usage disclosure is cautious. | READY | `paper/paper.md`. |
 | Final metadata is complete. | PARTIAL | ORCID and final release DOI should be confirmed. |
-
