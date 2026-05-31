@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-This vignette is an illustrative scenario. Actual classroom deployment is Not verifiable from repository contents.
+This vignette is an illustrative scenario. Actual classroom deployment is not verifiable from repository contents.
 
 ## Teaching problem
 

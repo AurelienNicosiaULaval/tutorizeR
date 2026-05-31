@@ -1,8 +1,8 @@
 ---
-title: "Conversion for Rmd and qmd"
+title: "Conversion for R Markdown and Quarto"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Conversion for Rmd and qmd}
+  %\VignetteIndexEntry{Conversion for R Markdown and Quarto}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -78,4 +78,3 @@ Generated output should be reviewed in the environment where students will use i
 file.exists(learnr_report$output_file)
 file.exists(live_report$output_file)
 ```
-

@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-This vignette is an illustrative scenario. Actual classroom deployment is Not verifiable from repository contents.
+This vignette is an illustrative scenario. Actual classroom deployment is not verifiable from repository contents.
 
 Large undergraduate courses need consistent materials, reproducible updates, and clear handoffs between instructors and teaching assistants. `tutorizeR` is designed for this kind of operational teaching workflow.
 

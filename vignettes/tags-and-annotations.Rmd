@@ -26,6 +26,11 @@ This vignette documents supported teacher tags.
 ## Example
 
 ```{r eval=FALSE}
-# tutorizeR: mcq, hints=Inspect the data|Use summary()
-summary(mtcars)
+# tutorizeR: mcq, hints=Inspect the grouping variable|Summarise by program
+activity |>
+  dplyr::group_by(program) |>
+  dplyr::summarise(
+    mean_hours = mean(study_hours),
+    .groups = "drop"
+  )
 ```

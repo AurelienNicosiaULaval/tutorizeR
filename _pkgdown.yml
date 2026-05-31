@@ -1,48 +1,16 @@
+destination: pkgdown
+
 template:
   bootstrap: 5
 
 home:
   title: tutorizeR
-  description: Convert existing R Markdown and Quarto teaching materials into interactive tutorials.
+  description: Convert existing R Markdown and Quarto teaching material into interactive tutorial documents.
 
 navbar:
   structure:
-    left: [intro, articles, reference, jose_readiness, teaching_examples, educational_adoption]
+    left: [intro, articles, reference, news]
     right: [search, github]
-  components:
-    jose_readiness:
-      text: JOSE readiness
-      menu:
-        - text: JOSE submission guide
-          href: ../docs/jose_submission_guide.md
-        - text: JOSE review checklist
-          href: ../docs/jose_review_checklist.md
-        - text: JOSE audit
-          href: ../docs/jose_audit.md
-        - text: JOSE blockers report
-          href: ../docs/jose_blockers_report.md
-    teaching_examples:
-      text: Teaching examples
-      menu:
-        - text: Teaching workflow scenario
-          href: articles/teaching-workflow-scenario.html
-        - text: Getting started
-          href: articles/getting-started.html
-        - text: Question bank
-          href: articles/question-bank.html
-        - text: Lint and debug
-          href: articles/lint-and-debug.html
-        - text: Example course module
-          href: ../inst/examples/example_course_module/README.md
-    educational_adoption:
-      text: Educational adoption
-      menu:
-        - text: Educational use evidence
-          href: ../docs/educational_use_evidence.md
-        - text: Educational use cases
-          href: ../docs/educational_use_cases.md
-        - text: Large undergraduate courses
-          href: articles/large-undergraduate-courses.html
 
 reference:
   - title: Core conversion
@@ -79,28 +47,30 @@ reference:
       - tr
 
 articles:
-  - title: Getting started
-    navbar: Getting started
+  - title: Start here
+    navbar: Start here
     contents:
       - getting-started
       - teaching-workflow-scenario
       - quarto-lesson-interactive-tutorial
       - reproducible-data-science-assignments
-  - title: Authoring and syntax
+  - title: Authoring and assessment
     navbar: Authoring
     contents:
-      - question-bank
       - tags-and-annotations
-      - conversion-rmd-vs-qmd
+      - question-bank
       - mcq-and-assessment
-      - lint-and-debug
-      - debugging-and-errors
       - automatic-exercise-generation-feedback
-  - title: Educational use
-    navbar: Educational use
+      - conversion-rmd-vs-qmd
+  - title: Course operations
+    navbar: Course operations
     contents:
       - large-undergraduate-courses
-  - title: Reviewer materials
-    navbar: JOSE
+      - lint-and-debug
+      - debugging-and-errors
+      - educational-use-cases
+  - title: Project documentation
+    navbar: Project documentation
     contents:
+      - documentation-website
       - jose-submission-readiness

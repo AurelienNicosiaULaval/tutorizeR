@@ -11,6 +11,8 @@
 - Recentered the review branch on JOSE software-submission requirements,
   clarified educational evidence boundaries, added CC-BY content licensing,
   and replaced internal smoke-test paths with installable example workflows.
+- Reworked the README as a package-facing overview and added pkgdown-oriented
+  documentation articles for educational use cases and website maintenance.
 
 # tutorizeR 0.4.3
 
