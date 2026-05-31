@@ -1,5 +1,5 @@
 ---
-title: 'tutorizeR: Convert teaching materials in R Markdown and Quarto into interactive, assessable tutorials'
+title: 'tutorizeR: Converting Reproducible Data Science Lessons into Interactive Learning Experiences'
 short-title: tutorizeR
 tags:
   - R
@@ -7,7 +7,7 @@ tags:
   - learnr
   - quarto
   - gradethis
-  - lms
+  - reproducibility
 authors:
   - name: Aurélien Nicosia
     orcid: null
@@ -20,7 +20,7 @@ authors:
 affiliations:
   - name: Université Laval
     index: 1
-date: 2026-02-13
+date: 2026-05-31
 output:
   md_document:
     variant: gfm
@@ -29,71 +29,68 @@ output:
 bibliography: paper.bib
 ---
 
-## Summary
+# Summary
 
-Many teachers build course content with `.Rmd` or `.qmd` documents and need to quickly deliver interactive learning experiences to students. `tutorizeR` converts these source materials into `learnr` tutorials and `quarto-live` resources while preserving narrative text, setup chunks, and key execution options. It integrates with the broader R-based ecosystem for education and reproducible publishing, including `R` itself, `learnr`, `gradethis`, and `Quarto` for teaching and delivery workflows (@rCoreTeam2025; @learnr2025; @gradethis2025; @quarto2025).
+Many instructors already prepare data science, statistics, and R programming lessons in R Markdown or Quarto. These formats are well suited to reproducible teaching because narrative, code, output, and figures can live in one source document. However, turning an existing lesson into an interactive tutorial often requires repetitive manual work: duplicating code chunks, creating exercise areas, writing solution chunks, adding conceptual questions, and maintaining separate versions for students and instructors.
 
-The package adds structured pedagogical primitives: automatic exercise/solution chunk generation, MCQ extraction (inline or reference bank-driven), linting checks for teaching-oriented issues, conversion report export (JSON/YAML), and LMS-ready manifest export for generic Canvas/Moodle workflows.
+`tutorizeR` automates this conversion workflow. The package converts `.Rmd` and `.qmd` source documents into `learnr` tutorials or `quarto-live` resources, while preserving narrative text, setup chunks, selected chunk options, and instructor annotations. It supports automatic exercise transformation, insertion of student answer areas, reusable MCQ question banks, `gradethis` setup for feedback, linting, conversion reports, and LMS-oriented manifest export. The package is implemented in R and integrates with established tools for reproducible teaching, including R, R Markdown, Quarto, `learnr`, and `gradethis` [@rCoreTeam2026; @rmarkdown2026; @quarto2026; @learnr2026; @gradethis2026].
 
-## Statement of need
+# Statement of Need
 
-Existing workflows for turning `.Rmd`/`.qmd` teaching documents into interactive materials are often manual: instructors duplicate code chunks, handcraft MCQ syntax, and maintain separate scripts for grading scaffolds. This is especially costly for large course folders with mixed formats and heterogeneous chunk options.
+Interactive tutorials can support active learning by asking students to edit code, inspect outputs, answer conceptual questions, and receive feedback. For instructors, the practical barrier is maintenance. A course may already have dozens of lecture notes, laboratories, and assignments written as `.Rmd` or `.qmd` files. Rebuilding those materials by hand as `learnr` tutorials or browser-executable Quarto activities duplicates effort and increases the chance that instructor notes, student tutorials, and solutions drift apart.
 
-`tutorizeR` addresses this by offering a stable conversion pipeline with: 
+`tutorizeR` addresses this need by keeping the source lesson as the authoritative document. Instructors can update a lesson once, rerun the conversion pipeline, and regenerate student-facing materials. This is especially relevant in scalable teaching contexts where multiple instructors or teaching assistants must coordinate reproducible materials across weeks, sections, and cohorts.
 
-- conversion of both `.Rmd` and `.qmd` inputs,
-- deterministic label management to avoid render collisions,
-- optional strict linting before rendering,
-- reusable question-bank integration (YAML/JSON),
-- and reporting artifacts suitable for CI.
+The need is educational rather than only technical. The package is intended to help instructors create active learning experiences from existing reproducible documents, reduce maintenance burden, and make iterative course updates more reliable. Actual classroom adoption is not verifiable from repository contents.
 
-## Functionality
+# Functionality
 
-The package exposes a canonical `tutorize()` API and keeps backward-compatible wrappers (`convert_to_tutorial()`, `convert_folder()`). Additional authoring tools include:
+The package provides a high-level `tutorize()` function and compatibility wrappers for existing workflows. Core functionality includes:
 
-- `lint_source()` for pedagogy-focused validations,
-- `load_question_bank()` / `validate_question_bank()` for external banked MCQs,
-- `write_tutorize_report()` for machine-readable conversion summaries,
-- `export_lms_manifest()` and `export_tutorial_package()` for downstream sharing.
+- parsing `.Rmd` and `.qmd` source files into text, setup chunks, R chunks, non-R chunks, MCQ blocks, and question-bank references;
+- generating `learnr` exercise chunks and solution chunks;
+- generating `quarto-live` compatible exercise scaffolds;
+- inserting `learnr`, `gradethis`, and `gradethis_setup()` into generated `learnr` setup chunks;
+- preserving non-R fenced blocks rather than converting them incorrectly;
+- normalizing generated labels to reduce chunk-label collisions;
+- supporting instructor tags such as `skip`, `exercise-only`, `solution-only`, `mcq`, `narrative-only`, `locked`, and `hints`;
+- loading reusable YAML or JSON question banks;
+- linting source documents before conversion;
+- writing JSON or YAML conversion reports;
+- exporting LMS-oriented manifests for downstream course workflows;
+- providing RStudio addins and a command-line script for instructor use.
 
-For workflow robustness, `tutorizeR` provides both interactive UI paths (RStudio addins) and non-interactive CLI execution.
+# Educational Use
 
-## State of the art and alternatives
+The package supports workflows common in undergraduate statistics, data science, and R programming courses. A typical use case starts with an instructor-maintained Quarto lesson that imports data, performs a data manipulation task, builds a visualization, and asks students to interpret the result. `tutorizeR` converts that lesson into a tutorial with exercise areas, solutions, and MCQs.
 
-Prior approaches generally require one of three manual paths:
+The repository includes an example course module in `inst/examples/example_course_module/`. The module uses a small synthetic dataset to demonstrate a realistic lesson on study patterns and quiz performance. It includes a source Quarto document, a transformed `learnr` tutorial, generated exercises, grading examples, and a local CSV file. The example is suitable for demonstrating the package to instructors without relying on private course data.
 
-- direct authoring of `learnr` tutorials from scratch in the RStudio environment;
-- copy-and-paste conversion from teaching notebooks or Quarto documents into a dedicated tutorial repository;
-- ad-hoc scripts for grading heuristics and QCM/MCQ insertion.
+The design is inspired by workflows that occur in introductory and advanced undergraduate statistics or data science courses, including course-code contexts such as STT-1100 and STT-4230. No private course material is included. Specific deployment in those courses is not verifiable from repository contents.
 
-`tutorizeR` unifies these steps by preserving a source-first workflow:
-source content remains in `.Rmd`/`.qmd` format, while conversion to interactive
-activities is performed automatically with deterministic labels, optional linting,
-and explicit reporting artefacts. This reduces duplicated maintenance work and
-keeps a single source of truth for instructors.
+# Availability
 
-## Quality assurance
+The package source is available at:
 
-The package includes tests and linting, with automated checks covering core parser/transform/validation/report paths. New/changed features are documented via roxygen and vignettes, and conversion edge cases are regression tested (including non-R chunks, inline code fences, duplicated labels, and Quarto-only fixtures).
+`https://github.com/AurelienNicosiaULaval/tutorizeR`
 
-## AI usage disclosure
+The repository includes installation instructions, tests, vignettes, examples, contribution guidelines, a code of conduct, citation metadata, and reviewer-facing JOSE preparation documents.
 
-No generative AI tools were used in the production of the software implementation or the `tutorizeR` manuscript.
+# Quality Assurance
 
-When using `tutorizeR` by others for educational material conversion, the package does not impose any AI model dependency and remains fully script-driven and reproducible.
+The package includes `testthat` tests for parsing, conversion, exercise generation, MCQ handling, question-bank loading, validation errors, report writing, LMS manifest export, regression fixtures, `gradethis` setup generation, `quarto-live` output, and publication readiness assets. GitHub Actions are configured to run `R CMD check`, tests, linting, and coverage.
 
-## Limitations
+Before submission, the maintainers should run a fresh local check on the current tree:
 
-- LMS publication is currently manifest-first export (Canvas/Moodle/generic); no direct LMS API publishing is included yet.
-- Learnr rendering is optional and requires optional dependencies (`learnr`, `gradethis`) at render-time.
-- Question-bank integration is file-based (local YAML/JSON) in the current release.
-- The output currently targets single-file conversion pipelines and folder conversion with documented defaults.
+```bash
+Rscript -e "testthat::test_local()"
+Rscript -e "lintr::lint_package()"
+R CMD build .
+R CMD check --as-cran --no-manual tutorizeR_*.tar.gz
+```
 
-## Availability and contribution
+# AI Usage Disclosure
 
-The package source is available on GitHub at:
-`https://github.com/AurelienNicosiaULaval/tutorizeR`.
+Codex using GPT-5 was used on 2026-05-31 to assist with repository audit text, reviewer documentation, example files, tests, and manuscript revisions. The maintainer is responsible for reviewing, validating, and approving all content before submission.
 
-Contributions and bug reports are welcome via GitHub Issues/PRs with the repository’s contribution guide and code of conduct.
-
-## References
+# References

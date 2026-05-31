@@ -1,0 +1,59 @@
+---
+title: "Automatic Exercise Generation and Feedback"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Automatic Exercise Generation and Feedback}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+`tutorizeR` turns ordinary R chunks into student exercise areas and hidden or collapsible solution material. For `learnr`, the setup chunk includes `learnr`, `gradethis`, and `gradethis_setup()` so that instructors can add answer checks after conversion.
+
+## Annotated source chunk
+
+    ```r
+    # tutorizeR: hints=Use group_by() before summarise()|Remember .groups = "drop"
+    activity |>
+      group_by(program) |>
+      summarise(
+        mean_hours = mean(study_hours),
+        mean_score = mean(quiz_score),
+        .groups = "drop"
+      )
+    ```
+
+## Conversion
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+report <- tutorize(
+  input = "source_lesson.qmd",
+  format = "learnr",
+  assessment = "code",
+  overwrite = TRUE
+)
+
+print(report)
+```
+
+## Adding a gradethis check
+
+After conversion, instructors can add `gradethis` checks to generated exercise chunks using the normal `learnr` conventions:
+
+    ```r
+    grade_this({
+      pass_if(~ identical(names(.result), c("program", "mean_hours", "mean_score")))
+      fail("Check the grouping variable and summary column names.")
+    })
+    ```
+
+This pattern keeps the initial conversion automated while leaving final grading logic under instructor control.
+
+## Feedback design
+
+Feedback should focus on the learning objective rather than only the final answer. For example, an exercise about grouped summaries should check that students identify the grouping variable, compute the intended summaries, and produce a tidy table.

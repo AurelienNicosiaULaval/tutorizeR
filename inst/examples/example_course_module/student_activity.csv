@@ -1,0 +1,14 @@
+student_id,program,week,study_hours,practice_tasks,quiz_score
+S001,Statistics,1,4.5,6,78
+S002,Statistics,1,6.0,8,84
+S003,Data Science,1,5.5,7,82
+S004,Data Science,1,7.0,9,89
+S005,Mathematics,1,3.5,5,72
+S006,Mathematics,1,5.0,6,77
+S007,Statistics,2,5.5,7,83
+S008,Statistics,2,6.5,8,87
+S009,Data Science,2,7.5,10,92
+S010,Data Science,2,6.0,8,86
+S011,Mathematics,2,4.0,5,74
+S012,Mathematics,2,5.5,7,80
+

@@ -1,0 +1,73 @@
+---
+title: "Using tutorizeR in Large Undergraduate Courses"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using tutorizeR in Large Undergraduate Courses}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Large undergraduate courses need consistent materials, reproducible updates, and clear handoffs between instructors and teaching assistants. `tutorizeR` is designed for this kind of operational teaching workflow.
+
+Specific deployment in named courses such as STT-1100 or STT-4230 is not verifiable from repository contents.
+
+## Course folder workflow
+
+```text
+course/
+  lessons/
+    week01-introduction.qmd
+    week02-data-import.qmd
+    week03-visualization.qmd
+  question-bank/
+    core-concepts.yml
+  tutorials/
+  reports/
+```
+
+## Batch conversion
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+qb <- load_question_bank("course/question-bank")
+
+folder_report <- convert_folder(
+  dir = "course/lessons",
+  recursive = TRUE,
+  output_dir = "course/tutorials",
+  format = "learnr",
+  assessment = "both",
+  question_bank = qb,
+  mcq_source = "mixed",
+  lint_strict = TRUE,
+  overwrite = TRUE
+)
+
+print(folder_report)
+```
+
+## Teaching assistant review
+
+Teaching assistants can review generated outputs and reports before release:
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+lint <- lint_source(
+  input = "course/lessons/week03-visualization.qmd",
+  question_bank = qb,
+  strict = FALSE
+)
+
+print(lint)
+```
+
+## Operational benefits
+
+The main benefit is not that tutorials are generated automatically once. The benefit is that a whole course team can regenerate the same materials after corrections, new datasets, or revised learning objectives.
+

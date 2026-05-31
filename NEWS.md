@@ -5,6 +5,9 @@
 - Finalized JOSS-ready release artifacts and metadata alignment.
 - Refreshed reproducibility and reviewer guidance docs.
 - Synchronized version fields for release publication.
+- Added JOSE preparation artifacts, educational use-case documentation,
+  expanded vignettes, an example course module, publication-readiness tests,
+  and pkgdown navigation for educational examples.
 
 # tutorizeR 0.4.3
 

@@ -1,8 +1,8 @@
 ---
-title: "Getting started for teachers"
+title: "Getting Started with tutorizeR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting started for teachers}
+  %\VignetteIndexEntry{Getting Started with tutorizeR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,15 +11,13 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-`tutorizeR` converts existing `.Rmd` or `.qmd` files into interactive
-teaching material.
+`tutorizeR` converts existing `.Rmd` or `.qmd` files into interactive teaching material. The usual workflow is to keep the instructor's source document as the single source of truth, then generate a student-facing tutorial for a specific teaching context.
 
-## Minimal reproducible workflow
+## Minimal workflow
 
 ```{r eval=FALSE}
 library(tutorizeR)
 
-# Convert one file to learnr
 report <- tutorize(
   input = "lesson.qmd",
   format = "learnr",
@@ -30,9 +28,13 @@ report <- tutorize(
 print(report)
 ```
 
+The returned report records the input file, output file, format, assessment mode, generated exercises, MCQs, warnings, lint results, and render status.
+
 ## Batch conversion
 
 ```{r eval=FALSE}
+library(tutorizeR)
+
 folder_report <- convert_folder(
   dir = "course_material/",
   recursive = TRUE,
@@ -42,6 +44,15 @@ folder_report <- convert_folder(
 )
 
 print(folder_report)
+```
+
+## Pre-conversion linting
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+lint <- lint_source("lesson.qmd", strict = FALSE)
+print(lint)
 ```
 
 ## Source annotation tags
@@ -58,8 +69,9 @@ Use comments inside R chunks:
 
 ## Explicit MCQ block schema
 
-```text
-```{tutorizeR-mcq}
+The YAML content inside a `tutorizeR-mcq` block has this structure:
+
+```yaml
 question: "2 + 2 = ?"
 answers:
   - text: "4"
@@ -67,4 +79,11 @@ answers:
   - text: "5"
     correct: false
 ```
+
+## Reviewer smoke test
+
+The package includes a complete example module in `inst/examples/example_course_module/`. After installation, an instructor can locate it with:
+
+```{r eval=FALSE}
+system.file("examples", "example_course_module", package = "tutorizeR")
 ```

@@ -1,0 +1,82 @@
+---
+title: "Converting a Quarto Lesson into an Interactive Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Converting a Quarto Lesson into an Interactive Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Many instructors prepare lessons in Quarto because it supports narrative, executable code, figures, tables, and reproducible publishing. `tutorizeR` keeps that authoring workflow intact while producing an interactive tutorial for students.
+
+## Source lesson
+
+A source `.qmd` lesson can contain narrative text, setup code, examples, and MCQ blocks:
+
+    ---
+    title: "Weekly study patterns"
+    ---
+
+    ## Learning goal
+
+    Students will summarize study time and relate it to quiz performance.
+
+    ```r
+    library(tidyverse)
+    activity <- readr::read_csv("student_activity.csv")
+    ```
+
+    ```r
+    activity |>
+      group_by(program) |>
+      summarise(mean_hours = mean(study_hours), .groups = "drop")
+    ```
+
+    ```yaml
+    question: "Which summary is most appropriate for comparing programs?"
+    answers:
+      - text: "Mean study hours by program"
+        correct: true
+      - text: "The first row of the data"
+        correct: false
+    ```
+
+## Conversion
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+report <- tutorize(
+  input = "source_lesson.qmd",
+  output_dir = "generated",
+  format = "learnr",
+  assessment = "both",
+  overwrite = TRUE
+)
+
+print(report)
+```
+
+## Quarto live output
+
+For browser-executable Quarto output, target `quarto-live`:
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+report <- tutorize(
+  input = "source_lesson.qmd",
+  output_dir = "generated",
+  format = "quarto-live",
+  assessment = "code",
+  overwrite = TRUE
+)
+
+print(report)
+```
+
+The `quarto-live` workflow requires the Quarto live extension in the teaching project. That dependency is intentionally not vendored by `tutorizeR`.

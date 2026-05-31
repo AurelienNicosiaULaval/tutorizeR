@@ -1,0 +1,39 @@
+---
+title: "JOSE Submission Readiness"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{JOSE Submission Readiness}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This vignette points reviewers to the repository artifacts prepared for a future Journal of Open Source Education submission.
+
+## Main artifacts
+
+- `paper/paper.md`
+- `paper/paper.bib`
+- `docs/jose_audit.md`
+- `docs/educational_use_cases.md`
+- `docs/jose_checklist.md`
+- `docs/jose_submission_report.md`
+- `inst/examples/example_course_module/`
+
+## Local verification
+
+```{r eval=FALSE}
+testthat::test_local()
+lintr::lint_package()
+
+system("R CMD build .")
+system("R CMD check --as-cran --no-manual tutorizeR_*.tar.gz")
+```
+
+## Evidence boundaries
+
+Educational use cases are documented in the repository. Actual classroom adoption, external adoption, and public GitHub history are not verifiable from local repository contents.
+

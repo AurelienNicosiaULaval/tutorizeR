@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420" role="img" aria-labelledby="title desc">
+  <title id="title">Example tutorizeR conversion report screenshot</title>
+  <desc id="desc">A static screenshot-style illustration of a tutorizeR conversion report with status, exercises, MCQs, warnings, and output file.</desc>
+  <rect width="880" height="420" fill="#f7f8fa"/>
+  <rect x="56" y="50" width="768" height="320" rx="8" fill="#ffffff" stroke="#bcccdc"/>
+  <rect x="56" y="50" width="768" height="50" rx="8" fill="#102a43"/>
+  <text x="82" y="82" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#ffffff" font-weight="700">tutorizeR conversion report</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#1f2933">
+    <text x="82" y="136">Input</text>
+    <text x="250" y="136" fill="#52606d">lessons/week03-data-visualization.qmd</text>
+    <text x="82" y="174">Output</text>
+    <text x="250" y="174" fill="#52606d">tutorials/week03-data-visualization-tutorial.Rmd</text>
+    <text x="82" y="212">Format</text>
+    <text x="250" y="212" fill="#52606d">learnr</text>
+    <text x="82" y="250">Generated</text>
+    <text x="250" y="250" fill="#52606d">4 exercises, 4 solutions, 3 MCQs</text>
+    <text x="82" y="288">Lint</text>
+    <text x="250" y="288" fill="#2f855a">0 errors, 1 warning</text>
+    <text x="82" y="326">Render</text>
+    <text x="250" y="326" fill="#2f855a">ready for local review</text>
+  </g>
+  <g fill="#d9e2ec">
+    <rect x="610" y="128" width="160" height="24" rx="4"/>
+    <rect x="610" y="170" width="110" height="24" rx="4"/>
+    <rect x="610" y="212" width="135" height="24" rx="4"/>
+    <rect x="610" y="254" width="88" height="24" rx="4"/>
+    <rect x="610" y="296" width="142" height="24" rx="4"/>
+  </g>
+</svg>

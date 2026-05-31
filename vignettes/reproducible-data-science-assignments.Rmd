@@ -1,0 +1,72 @@
+---
+title: "Building Reproducible Data Science Assignments"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Building Reproducible Data Science Assignments}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Data science assignments are easier to maintain when the instructor can keep one source document and regenerate student-facing materials after revisions. `tutorizeR` supports that workflow by converting annotated source documents into tutorials with exercises and solutions.
+
+## Suggested assignment structure
+
+```text
+assignment-week03/
+  source_lesson.qmd
+  data/
+    student_activity.csv
+  generated/
+    week03-tutorial.Rmd
+    conversion-report.json
+```
+
+## Reproducible conversion script
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+source_file <- "assignment-week03/source_lesson.qmd"
+
+report <- tutorize(
+  input = source_file,
+  output_dir = "assignment-week03/generated",
+  format = "learnr",
+  assessment = "both",
+  seed = 20260531,
+  overwrite = TRUE,
+  lint_strict = TRUE
+)
+
+write_tutorize_report(
+  report = report,
+  file = "assignment-week03/generated/conversion-report.json",
+  format = "json"
+)
+```
+
+## Why the seed matters
+
+For teaching workflows, a fixed seed makes generated setup chunks reproducible. This is useful when students, teaching assistants, and instructors need to see the same randomized example or simulated dataset.
+
+## LMS manifest
+
+```{r eval=FALSE}
+library(tutorizeR)
+
+manifest <- export_lms_manifest(
+  input = "assignment-week03/source_lesson.qmd",
+  output_file = "assignment-week03/generated/lms-manifest.json",
+  profile = "canvas",
+  include_solutions = FALSE
+)
+
+print(manifest)
+```
+
+The manifest is a local metadata artifact. Direct LMS publication is not part of the current package functionality.
+

@@ -22,12 +22,12 @@ print(validate_question_bank(qb, strict = FALSE))
 
 ## Reference bank questions in source files
 
-```text
-```{tutorizeR-mcq-ref}
+The YAML content inside a `tutorizeR-mcq-ref` block can reference existing bank items:
+
+```yaml
 ids: [sample-mean]
 strategy: ordered
 shuffle_answers: false
-```
 ```
 
 ## Convert with bank-enabled MCQ mode

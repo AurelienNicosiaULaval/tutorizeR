@@ -4,12 +4,17 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17771142.svg)](https://doi.org/10.5281/zenodo.17771142)
 [![R-CMD-check](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml/badge.svg)](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![CRAN status](https://img.shields.io/badge/CRAN-not%20submitted-lightgrey.svg)](https://CRAN.R-project.org/package=tutorizeR)
+[![JOSE DOI](https://img.shields.io/badge/JOSE%20DOI-pending-lightgrey.svg)](docs/jose_submission_report.md)
 
 # tutorizeR
 
 `tutorizeR` helps teachers convert `.Rmd` and `.qmd` material into interactive
 `learnr` or `quarto-live` resources with linting, reusable MCQ banks, and
 export/report tooling.
+
+![tutorizeR workflow](man/figures/tutorize-workflow.svg)
 
 ## Installation
 
@@ -75,7 +80,7 @@ Rscript -e "devtools::test()"
 
 # 3) Build and CRAN-style check from a tarball
 R CMD build .
-R CMD check --as-cran --no-manual tutorizeR_0.4.3.tar.gz
+R CMD check --as-cran --no-manual tutorizeR_0.4.4.tar.gz
 
 # 4) Manual smoke path (requires learnr in the environment)
 Rscript -e "library(tutorizeR); tutorize('tests/testthat/fixtures/rmd/basic_code.Rmd', format = 'learnr', overwrite = TRUE, output_dir = tempdir(), verbose = FALSE)"
@@ -178,8 +183,23 @@ Rscript inst/scripts/tutorizeR-cli.R --dir=course_material --recursive=true --fo
 ## Documentation
 
 - `vignettes/getting-started.Rmd`
+- `vignettes/quarto-lesson-interactive-tutorial.Rmd`
+- `vignettes/reproducible-data-science-assignments.Rmd`
+- `vignettes/automatic-exercise-generation-feedback.Rmd`
+- `vignettes/large-undergraduate-courses.Rmd`
 - `vignettes/question-bank.Rmd`
 - `vignettes/tags-and-annotations.Rmd`
 - `vignettes/conversion-rmd-vs-qmd.Rmd`
 - `vignettes/mcq-and-assessment.Rmd`
 - `vignettes/lint-and-debug.Rmd`
+
+## JOSE preparation
+
+Reviewer-facing preparation files are available in:
+
+- `docs/jose_audit.md`
+- `docs/educational_use_cases.md`
+- `docs/jose_checklist.md`
+- `docs/jose_submission_report.md`
+- `paper/paper.md`
+- `inst/examples/example_course_module/`
