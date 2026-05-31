@@ -118,9 +118,8 @@ test_that("quarto-live output contains required include and format", {
   expect_true(any(grepl("```\\{webr\\}", lines)))
 })
 
-test_that("learnr smoke render succeeds when dependencies are available", {
+test_that("learnr smoke render succeeds when learnr is available", {
   skip_if_not_installed("learnr")
-  skip_if_not_installed("gradethis")
 
   rep <- tutorize(
     input = fixture("rmd", "basic_code.Rmd"),

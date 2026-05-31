@@ -28,6 +28,7 @@ test_that("learnr conversion injects gradethis setup and exercise scaffolds", {
 
   lines <- readLines(report$output_file, warn = FALSE)
   expect_true(any(grepl("library\\(learnr\\)", lines)))
+  expect_true(any(grepl("requireNamespace\\(\"gradethis\"", lines)))
   expect_true(any(grepl("library\\(gradethis\\)", lines)))
   expect_true(any(grepl("gradethis_setup\\(\\)", lines)))
   expect_true(any(grepl("exercise=TRUE", lines, fixed = TRUE)))

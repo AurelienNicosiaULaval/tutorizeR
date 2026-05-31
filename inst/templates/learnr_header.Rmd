@@ -6,6 +6,8 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(gradethis)
-gradethis_setup()
+if (requireNamespace("gradethis", quietly = TRUE)) {
+  library(gradethis)
+  gradethis_setup()
+}
 ```

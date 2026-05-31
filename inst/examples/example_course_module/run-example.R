@@ -5,8 +5,7 @@ required_packages <- c(
   "dplyr",
   "ggplot2",
   "readr",
-  "learnr",
-  "gradethis"
+  "learnr"
 )
 
 missing_packages <- required_packages[!vapply(
@@ -22,8 +21,7 @@ if (length(missing_packages) > 0L) {
       "The example course module requires these installed R packages: ",
       paste(missing_packages, collapse = ", "),
       ". Install the package dependencies declared in DESCRIPTION before ",
-      "running this script. gradethis is available from ",
-      "https://rstudio.r-universe.dev."
+      "running this script."
     ),
     call. = FALSE
   )

@@ -58,7 +58,7 @@ The package automates:
 - generation of solution chunks;
 - conversion of explicit MCQ blocks;
 - insertion of question-bank MCQs;
-- insertion of `learnr` and `gradethis` setup code;
+- insertion of `learnr` setup code and optional `gradethis` setup code;
 - generation of conversion reports.
 
 ## What instructors still need to review
@@ -67,7 +67,7 @@ Instructors should manually verify:
 
 - grading checks and feedback language;
 - dataset availability in the deployment environment;
-- optional package availability, especially `learnr`, `gradethis`, `dplyr`, `ggplot2`, and `readr`;
+- optional package availability, especially `learnr`, `dplyr`, `ggplot2`, `readr`, and `gradethis` for teacher-authored feedback checks;
 - accessibility and clarity of generated prompts;
 - final suitability for the course context.
 

@@ -4,7 +4,6 @@
 
 [![R-CMD-check](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml/badge.svg)](https://github.com/AurelienNicosiaULaval/tutorizeR/actions/workflows/r.yml)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![JOSE DOI](https://img.shields.io/badge/JOSE%20DOI-pending-lightgrey.svg)](docs/jose_submission_report.md)
 
 # tutorizeR
 
@@ -188,7 +187,8 @@ Rscript inst/scripts/tutorizeR-cli.R --dir=course_material --recursive=true --fo
 
 ## Known limitations
 
-- `learnr` render checks require `learnr` and `gradethis` installed.
+- `learnr` render checks require `learnr` installed.
+- Optional `gradethis` setup is activated in generated `learnr` tutorials when `gradethis` is installed.
 - `quarto-live` output requires the Quarto live extension in the teaching project.
 - LMS export is manifest-only in v0.4, with no direct remote LMS publishing API.
 - Question banks are local YAML or JSON files in v0.4.

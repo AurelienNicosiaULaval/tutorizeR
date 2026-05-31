@@ -28,8 +28,10 @@ library(readr)
 
 activity <- read_csv("student_activity.csv", show_col_types = FALSE)
 library(learnr)
-library(gradethis)
-gradethis_setup()
+if (requireNamespace("gradethis", quietly = TRUE)) {
+  library(gradethis)
+  gradethis_setup()
+}
 ```
 
 

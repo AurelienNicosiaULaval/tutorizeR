@@ -108,10 +108,12 @@ test_that("example module dependencies are declared", {
   declared_packages <- declared_description_packages()
 
   expect_setequal(
-    intersect(used_packages, c("dplyr", "ggplot2", "readr", "learnr", "gradethis")),
-    c("dplyr", "ggplot2", "readr", "learnr", "gradethis")
+    intersect(used_packages, c("dplyr", "ggplot2", "readr", "learnr")),
+    c("dplyr", "ggplot2", "readr", "learnr")
   )
-  expect_true(all(used_packages %in% declared_packages))
+  expect_true("gradethis" %in% used_packages)
+  expect_false("gradethis" %in% declared_packages)
+  expect_true(all(setdiff(used_packages, "gradethis") %in% declared_packages))
 })
 
 test_that("example module does not expose placeholder MCQs", {
@@ -154,6 +156,7 @@ test_that("example module converts to learnr and writes JSON report", {
   expect_true(file.exists(report$output_file))
   expect_true(file.exists(report_file))
   expect_true(any(grepl("learnr::tutorial", lines, fixed = TRUE)))
+  expect_true(any(grepl("requireNamespace(\"gradethis\"", lines, fixed = TRUE)))
   expect_true(any(grepl("gradethis_setup()", lines, fixed = TRUE)))
   expect_true(any(grepl("trz-mcq-bank", lines, fixed = TRUE)))
   expect_false(any(grepl("Answer A \\(edit me\\)", lines)))

@@ -703,7 +703,7 @@ transform_setup_chunk <- function(block, format, language, seed, registry) {
     }
 
     body <- block$body_lines
-    required <- c("library(learnr)", "library(gradethis)", "gradethis_setup()")
+    required <- learnr_setup_lines()
 
     for (line in required) {
       if (!any(trimws(body) == line)) {
@@ -738,11 +738,20 @@ build_default_setup_chunk <- function(language, seed = NULL) {
   c(
     "```{r setup, include=FALSE}",
     tr("labels.setup_added", language = language),
-    "library(learnr)",
-    "library(gradethis)",
-    "gradethis_setup()",
+    learnr_setup_lines(),
     seed_line,
     "```"
+  )
+}
+
+# Build setup lines required for generated learnr tutorials.
+learnr_setup_lines <- function() {
+  c(
+    "library(learnr)",
+    "if (requireNamespace(\"gradethis\", quietly = TRUE)) {",
+    "  library(gradethis)",
+    "  gradethis_setup()",
+    "}"
   )
 }
 

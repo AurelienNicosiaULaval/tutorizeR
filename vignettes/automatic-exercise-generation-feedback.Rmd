@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-`tutorizeR` turns ordinary R chunks into student exercise areas and hidden or collapsible solution material. For `learnr`, the setup chunk includes `learnr`, `gradethis`, and `gradethis_setup()` so that instructors can add answer checks after conversion.
+`tutorizeR` turns ordinary R chunks into student exercise areas and hidden or collapsible solution material. For `learnr`, the setup chunk includes `learnr` and activates `gradethis_setup()` when `gradethis` is installed, so that instructors can add answer checks after conversion.
 
 ## Annotated source chunk
 

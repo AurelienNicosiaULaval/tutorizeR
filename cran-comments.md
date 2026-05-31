@@ -8,9 +8,7 @@
 - 0 errors
 - 0 warnings
 - 2 notes on local `R CMD check --as-cran`:
-  - New submission. The same incoming-feasibility note records that
-    `gradethis` is listed in `Suggests` and is available through
-    `Additional_repositories: https://rstudio.r-universe.dev`.
+  - New submission.
   - HTML manual validation was skipped because the local `tidy` executable is
     not recent enough. This is a local toolchain note.
 
@@ -23,6 +21,6 @@
 - This is a new submission.
 - `convert_to_tutorial()` remains available for backward compatibility.
 - New canonical API is `tutorize()`.
-- `gradethis` is suggested because generated `learnr` tutorial scaffolds
-  include `gradethis` setup code for teacher-authored feedback checks. It is
-  not required to load the package.
+- Generated `learnr` tutorial scaffolds activate `gradethis` setup only when
+  `gradethis` is installed. `gradethis` is not required to load, test, or run
+  the package.
