@@ -11,6 +11,14 @@
 `learnr` or `quarto-live` resources with linting, reusable MCQ banks, and
 export/report tooling.
 
+## Part of the research ecosystem
+
+This repository is part of Aurélien Nicosia's open research and teaching ecosystem in computational statistics, scientific R software, reproducible data science and statistical education.
+
+* Research Lab: [https://aureliennicosiaulaval.github.io/web_site/research-lab.html](https://aureliennicosiaulaval.github.io/web_site/research-lab.html)
+* GitHub profile: [https://github.com/AurelienNicosiaULaval](https://github.com/AurelienNicosiaULaval)
+* Related projects: [`learnrTrackR`](https://github.com/AurelienNicosiaULaval/learnrTrackR), [`site_ressources_SSD`](https://github.com/AurelienNicosiaULaval/site_ressources_SSD), [`donnees-bleues`](https://github.com/AurelienNicosiaULaval/donnees-bleues)
+
 ## Installation
 
 ```r
